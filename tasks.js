@@ -1,3 +1,4 @@
+
 function findAnogram(firstWord, secondWord){
     isLetterInBothWords = false;
     firstWordLetters = firstWord.split('');
@@ -356,4 +357,6 @@ console.log(transposeMatrix([[1,1,1],[2,2,2],[3,3,3]]))
 
   // ============ TASK 18==========================
 
+
   // ============ TASK 19==========================
+
