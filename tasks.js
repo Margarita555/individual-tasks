@@ -1,3 +1,4 @@
+// ============ TASK 1 ==========================
 function findAnogram(firstWord, secondWord) {
   isLetterInBothWords = false;
   firstWordLetters = firstWord.split("");
@@ -25,8 +26,19 @@ function findAnogram(firstWord, secondWord) {
 }
 console.log(findAnogram("kaban", "banka"));
 // ============ TASK 3 ==========================
+function calculateLength(num){
+  let amount = 0;
 
-function calculateLength(num) {
+  while (num > 0) {
+    amount += 1;
+    num = Math.floor(num / 10);
+  }
+
+  return amount;
+}
+console.log(calculateLength(12345));
+
+function calculateLengthByRecursion(num) {
   let numbersAmount = 0;
 
   function calc(currentNum) {
@@ -40,7 +52,7 @@ function calculateLength(num) {
   calc(num);
   return numbersAmount;
 }
-console.log(calculateLength(1234));
+// console.log(calculateLengthByRecursion(1234));
 // ============ TASK 4 ==========================
 function isPalindrom(str) {
   let reversedString = str.split("").reverse().join("");
@@ -366,7 +378,52 @@ function calcSumByMinMaxRecursion(arr, min, max, callback) {
 //     };
 // })()
 // ============ TASK 14==========================
+   function countAverageValue(arr, callback){
+     let sum = 0;
+     let len = 0;
+     
+     for (let i = 0; i < arr.length; i += 1){
+       if(callback && callback(arr[i])){
+       sum+= arr[i];
+       len += 1;
+       console.log(arr[i])
+     }else if(!callback){
+    
+       sum+= arr[i];
+       len = arr.length;
+      }
+     }
+     return Math.floor(sum/len)
+   }
+  //  console.log(countAverageValue([1,2,3,4,5]));
+  //  console.log(countAverageValue([1,2,3,4,5], (elem)=> elem % 2 === 0));
+  //  console.log(countAverageValue([1,2,3,4,5], (elem)=> elem % 2 !== 0));
+  function countDimensionalArrayAverageValue(arr, callback){
+    let sum = 0;
+    let len = 0;
+    
 
+    for (let i = 0; i < arr.length; i++){
+      for(let j = 0; j < arr[i].length; j++){
+      if(callback && callback(arr[i][j])){
+      sum += arr[i][j];
+      len += 1;
+      
+    }else if(!callback){
+      
+         sum += arr[i][j];
+         console.log(arr[i])
+      
+      len += 1;
+      }
+     }
+    }
+    console.log(sum)
+    return Math.floor(sum/len)
+  }
+//   console.log(countDimensionalArrayAverageValue([[1,2],[3,4]])); 
+//  console.log(countDimensionalArrayAverageValue([[1,2],[3,4]], (elem)=> elem % 2 === 0));
+//  console.log(countDimensionalArrayAverageValue([[1,2],[3,4]], (elem)=> elem % 2 !== 0));
 // ============ TASK 15==========================
 function transposeMatrix(matrix) {
   let newMatrix = [];
@@ -380,13 +437,38 @@ function transposeMatrix(matrix) {
   }
   return newMatrix;
 }
-console.log(
-  transposeMatrix([
-    [1, 1, 1],
-    [2, 2, 2],
-    [3, 3, 3],
-  ])
-);
+// console.log(
+//   transposeMatrix([
+//     [1, 1, 1],
+//     [2, 2, 2],
+//     [3, 3, 3],
+//   ])
+// );
+
+function addMatrixes(matrix1, matrix2){
+ // return [...matrix1.flat(), ...matrix2.flat()] 
+  let newMatrix = [];
+  for (let i = 0; i < matrix1.length; i++) {
+    for (let j = 0; j < matrix1.length; j++) {
+      newMatrix.push(matrix1[i][j])
+    }
+  }
+  for (let i = 0; i < matrix2.length; i++) {
+    for (let j = 0; j < matrix2.length; j++) {
+      newMatrix.push(matrix2[i][j])
+    }
+  }
+  return newMatrix;
+}
+console.log(addMatrixes([
+      [1, 1, 1],
+      [2, 2, 2],
+      [3, 3, 3],
+    ], [
+    [4, 4, 4],
+    [5, 5, 5],
+    [6, 6, 6],
+  ]))
 // ============ TASK 16==========================
 function deleteString(matrix) {
   for (let i = 0; i < matrix.length; i++) {
@@ -398,14 +480,14 @@ function deleteString(matrix) {
   }
   return matrix;
 }
-console.log(
-  deleteString([
-    [1, 1, 1],
-    [2, 0, 2],
-    [3, 3, 3],
-    [4, 4, 0],
-  ])
-);
+// console.log(
+//   deleteString([
+//     [1, 1, 1],
+//     [2, 0, 2],
+//     [3, 3, 3],
+//     [4, 4, 0],
+//   ])
+// );
 function deleteColumn(matrix) {
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix.length; j++) {
@@ -418,17 +500,189 @@ function deleteColumn(matrix) {
   }
   return matrix;
 }
-console.log(
-  deleteColumn([
-    [1, 1, 1],
-    [2, 0, 2],
-    [3, 3, 3],
-    [4, 4, 0],
-  ])
-);
+// console.log(
+//   deleteColumn([
+//     [1, 1, 1],
+//     [2, 0, 2],
+//     [3, 3, 3],
+//     [4, 4, 0],
+//   ])
+// );
 
 // ============ TASK 17==========================
 
-// ============ TASK 18==========================
+function countSum(matrix, callback){
+  let sum = 0;
+  
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
 
-// ============ TASK 19==========================
+      if (callback(j,i)) {
+       sum += matrix[i][j];
+      }
+  
+    };
+  };
+  return sum;
+}
+// console.log(countSum([
+//       [1, 0, 1],
+//       [2, 2, 0],
+//       [0, 3, 0],
+//     ],(j,i)=> j>i));
+
+
+
+// console.log(
+//   countSum([
+//     [1, 0, 1],
+//     [2, 2, 0],
+//     [0, 3, 0],
+//   ],(j,i)=> j<i)
+// );
+
+// console.log(
+//   countSum([
+//     [1, 0, 1],
+//     [2, 2, 0],
+//     [0, 3, 0],
+//   ],(j,i) => j=== i)
+// );
+function countZeroElements(matrix, callback){
+  let count = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      
+      if (callback(j,i) && matrix[i][j] === 0) {
+        // console.log(callback(j,i));
+       count += 1;
+      }
+    };
+  };
+  return count;
+}
+
+console.log(countZeroElements([
+      [1, 0, 1],
+      [2, 2, 0],
+      [0, 3, 0],
+    ],(j,i)=> j>i));
+
+
+
+console.log(
+  countZeroElements([
+    [1, 0, 1],
+    [2, 2, 0],
+    [0, 3, 0],
+  ],(j,i)=> j<i)
+);
+
+console.log(
+  countZeroElements([
+    [1, 0, 1],
+    [2, 2, 0],
+    [0, 3, 0],
+  ],(j,i) => j=== i)
+);
+
+function countElementsAverageValue(matrix, callback){
+  let sum = 0;
+  let count = 0;
+  
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+
+      if (callback(j,i)) {
+       sum += matrix[i][j];
+       count += 1;
+      }
+  
+    };
+  };
+  return Math.floor(sum/count);
+}
+
+console.log(countElementsAverageValue([
+      [4, 5, 5],
+      [3, 4, 5],
+      [6, 6, 8],
+    ],(j,i)=> j>i));
+
+
+console.log(
+  countElementsAverageValue([
+    [4, 5, 5],
+      [3, 4, 5],
+      [6, 6, 8],
+  ],(j,i)=> j<i)
+);
+
+console.log(
+  countElementsAverageValue([
+    [4, 5, 5],
+      [3, 4, 5],
+      [6, 6, 8],
+  ],(j,i) => j=== i)
+);
+
+// ============ TASK 18==========================
+let fibonacci = {
+  min: 0,
+  current: 1,
+  // followed: null,
+  max: 10,
+  
+  [Symbol.iterator](){
+    return{
+      previous: this.min,
+      current: this.current,
+      // followed: this.current + this.previous,
+      max: this.max,
+      next(){
+        // if(this.previous = 0){
+        //   this.
+        // }
+        if(this.current < this.max){
+
+        this.previous = this.current;
+        this.current = this.previous + this.current;
+        // this.followed = this.previous + this.current;
+        console.log(this.previous, this.current)
+        return {
+          value: this.current + this.previous ,
+          done: false,
+        }
+        } else {
+          return{
+            value: undefined,
+            done: true,
+          };
+        }
+      }
+    }
+  }
+}
+// console.log(obj[Symbol.iterator]().next())
+
+
+Object.prototype.customIterator = function(){
+  if(this[Symbol.iterator === undefined]){
+    throw new Error('Object is not iterable')
+  }
+  let result = [];
+  let iterator = this[Symbol.iterator]();
+  let next = iterator.next();
+  for(;!next.done;){
+    result.push(next.value);
+    next = iterator.next();
+  }
+    return result;
+}
+for(let item of fibonacci){
+  console.log(item)
+}
+// function fibonachiIterator(){
+  
+// }
+
