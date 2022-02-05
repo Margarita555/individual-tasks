@@ -643,61 +643,58 @@ console.log(
 let fibonacci = {
   min: 0,
   current: 1,
-  max: 15,
 
   [Symbol.iterator]() {
     return {
       previous: this.min,
       current: this.current,
       followed: this.current + this.min,
-      max: this.max,
       next() {
-        if (this.current < this.max) {
-          const result = {
-            value: this.previous,
-            done: false,
-          };
-          this.previous = this.current;
-          this.current = this.followed;
-          this.followed = this.previous + this.current;
-          return result;
-        } else {
-          return {
-            value: undefined,
-            done: true,
-          };
-        }
+        const result = {
+          value: this.previous,
+          done: false,
+        };
+        this.previous = this.current;
+        this.current = this.followed;
+        this.followed = this.previous + this.current;
+        return result;
       },
     };
   },
 };
-
-Object.prototype.customIterator = function () {
-  if (this[Symbol.iterator === undefined]) {
-    throw new Error("Object is not iterable");
-  }
-  let result = [];
-  let iterator = this[Symbol.iterator]();
-  let next = iterator.next();
-  for (; !next.done; ) {
-    result.push(next.value);
-    next = iterator.next();
-  }
-  return result;
-};
-
 for (let item of fibonacci) {
+  if (item > 30) {
+    break;
+  }
   console.log(item);
 }
 
-// function fibonachiIterator(){
+let fibonacciGenerator = {
+  previous: 0,
+  current: 1,
 
-// }
+  [Symbol.iterator]: function* () {
+    while (true) {
+      let temporaryCurrent = this.current;
+      let temporaryPrevious = this.previous;
+      this.current = this.current + this.previous;
+      this.previous = temporaryCurrent;
+      yield temporaryPrevious;
+    }
+  },
+};
+
+for (let item of fibonacciGenerator) {
+  if (item > 30) {
+    break;
+  }
+  console.log(item);
+}
+
 // ============ TASK 19 ==========================
 let trafficLights = {
   lights: ["red", "yellow", "green"],
-  max: 15,
-
+  max: 10,
   [Symbol.iterator]() {
     return {
       lights: this.lights,
@@ -705,9 +702,8 @@ let trafficLights = {
       index: 0,
       i: 0,
       next() {
+        this.index++;
         if (this.index < this.max) {
-          this.index++;
-
           let result = {
             value: this.lights[this.i],
             done: false,
