@@ -202,7 +202,7 @@ function toBinary(num) {
 function toDec(num) {
   let result = 0;
   let arr = num.split("");
-  console.log(arr);
+
   for (let i = 0; i < arr.length; i += 1) {
     result += Number(arr[i]) * Math.pow(2, arr.length - 1 - i);
   }
@@ -442,16 +442,13 @@ function transposeMatrix(matrix) {
 // );
 
 function addMatrixes(matrix1, matrix2) {
-  // return [...matrix1.flat(), ...matrix2.flat()]
   let newMatrix = [];
+  for (let i = 0; i < matrix1.length; i += 1) {
+    newMatrix.push([]);
+  }
   for (let i = 0; i < matrix1.length; i++) {
     for (let j = 0; j < matrix1.length; j++) {
-      newMatrix.push(matrix1[i][j]);
-    }
-  }
-  for (let i = 0; i < matrix2.length; i++) {
-    for (let j = 0; j < matrix2.length; j++) {
-      newMatrix.push(matrix2[i][j]);
+      newMatrix[i].push(matrix1[i][j] + matrix2[i][j]);
     }
   }
   return newMatrix;
@@ -640,7 +637,7 @@ console.log(
 );
 
 // ============ TASK 18==========================
-let fibonacci = {
+const fibonacci = {
   min: 0,
   current: 1,
 
@@ -669,7 +666,7 @@ for (let item of fibonacci) {
   console.log(item);
 }
 
-let fibonacciGenerator = {
+const fibonacciGenerator = {
   previous: 0,
   current: 1,
 
@@ -691,8 +688,31 @@ for (let item of fibonacciGenerator) {
   console.log(item);
 }
 
+function* fibonacciRecursion(max, prev = 0, next = 1) {
+  if (max === 0) {
+    return 0;
+  }
+  yield prev;
+  yield* fibonacciRecursion(--max, next, next + prev);
+}
+
+console.log([...fibonacciRecursion(8)]);
+
+function* fibonacciMemo(max, prev = 0, next = 1, memo) {
+  if (max === 0) {
+    return 0;
+  }
+  memo = memo || {};
+  if (memo[max]) {
+    return memo[max];
+  }
+  yield prev;
+  yield* (memo[max] = fibonacciMemo(--max, next, prev + next, memo));
+}
+console.log([...fibonacciMemo(8)]);
+
 // ============ TASK 19 ==========================
-let trafficLights = {
+const trafficLights = {
   lights: ["red", "yellow", "green"],
   max: 10,
   [Symbol.iterator]() {
@@ -724,3 +744,49 @@ let trafficLights = {
 for (let item of trafficLights) {
   console.log(item);
 }
+
+const trafficLightsGenerator = {
+  lights: ["red", "yellow", "green"],
+  max: 10,
+  index: 0,
+  [Symbol.iterator]: function* () {
+    for (let i = 0; i < this.max; i++) {
+      let result = this.lights[this.index];
+      this.index = this.index > 1 ? 0 : ++this.index;
+      yield result;
+    }
+  },
+};
+
+for (let item of trafficLightsGenerator) {
+  console.log(item);
+}
+
+// ============ TASK 20 ==========================
+function isPositive(num) {
+  let number = num;
+
+  while (number !== 1 && number !== -1) {
+    number = Math.floor(number / 2);
+  }
+  // console.log(numbe);
+  if (number === 1) {
+    return true;
+  }
+  return false;
+}
+console.log(isPositive(15));
+console.log(isPositive(-15));
+
+function countBites(num) {
+  let number = num;
+  let numberArr = num.split("");
+  console.log(numberArr);
+  zeroBites = 0;
+
+  for (let i = 0; i <= numberArr.length; i++) {
+    if (numberArr[i] === 1) {
+    }
+  }
+}
+console.log(countBites("00001010"));
