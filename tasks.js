@@ -33,7 +33,6 @@ function calculateLength(num) {
     amount += 1;
     num = Math.floor(num / 10);
   }
-
   return amount;
 }
 console.log(calculateLength(12345));
@@ -52,18 +51,16 @@ function calculateLengthByRecursion(num) {
   calc(num);
   return numbersAmount;
 }
-// console.log(calculateLengthByRecursion(1234));
+console.log(calculateLengthByRecursion(12345));
 // ============ TASK 4 ==========================
 function isPalindrom(str) {
   let reversedString = str.split("").reverse().join("");
   return reversedString === str;
 }
 console.log(isPalindrom("qwerewq"));
-
 // ============ TASK 5 ==========================
 function calculateUniqueWords(sentence) {
   const words = sentence.split(" ");
-  console.log(words);
   const uniqueWords = [];
   for (let i = 0; i < words.length; i += 1) {
     if (!uniqueWords.includes(words[i])) uniqueWords.push(words[i]);
@@ -189,12 +186,13 @@ console.log(circleConstructor.square());
 function calculateFactorial(num) {
   let result = 1;
   let count = 0;
-  for (count = num; count > 1; count -= 1) {
+  for (count = num; count > 1; count--) {
     result *= count;
   }
   return result;
 }
-//   console.log(calculateFactorial(4))
+console.log(calculateFactorial(4));
+
 function calculateFactorialByRecursion(num) {
   if (num === 0) {
     return 1;
@@ -202,7 +200,7 @@ function calculateFactorialByRecursion(num) {
     return num * calculateFactorialByRecursion(num - 1);
   }
 }
-//   console.log(calculateFactorialByRecursion(4))
+console.log(calculateFactorialByRecursion(4));
 
 const factorialByMemo = (function () {
   let memo = {};
@@ -218,26 +216,34 @@ const factorialByMemo = (function () {
   };
 })();
 
-//   console.log(factorialByMemo(4))
-
+console.log(factorialByMemo(4));
 // ============ TASK 9 ==========================
 
-function sum(arr, callback, index) {
+function arrayElementsSumRecursion(arr, callback, index) {
   index = index || 0;
 
   if (arr.length <= index) {
     return 0;
   }
   if (callback(arr[index])) {
-    return arr[index] + sum(arr, callback, ++index);
+    return arr[index] + arrayElementsSumRecursion(arr, callback, ++index);
   } else {
-    return sum(arr, callback, ++index);
+    return arrayElementsSumRecursion(arr, callback, ++index);
   }
 }
-//   console.log(sum([1,2,3,4,6], (element)=> element % 2 === 0));
-//   console.log(sum([1,2,3,4,6], (element)=> element % 3 === 0));
-//   console.log(sum([1,2,3,4,6], (element)=> element > 0));
-//   console.log(sum([1,2,3,4,6], (element)=> element < 0));
+// console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
+console.log(
+  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
+);
+console.log(
+  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 3 === 0)
+);
+console.log(
+  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element > 0)
+);
+console.log(
+  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element < 0)
+);
 // ============ TASK 10 ==========================
 function countElements(arr, callback) {
   let result = 0;
@@ -250,10 +256,12 @@ function countElements(arr, callback) {
   return result;
 }
 
-//   console.log(countElements([1,2,3,4,-6,0], (element)=> element === 0));
-// console.log(countElements([1,2,3,4,-6,0], (element)=> element > 0)));
-// console.log(countElements([1,2,3,4,-6,0], (element)=> element < 0)));
-// console.log(countElements([1,2,3,4,-6,0], (element)=> element % element === 0));
+console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element === 0));
+console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element > 0));
+console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element < 0));
+// console.log(
+//   countElements([1, 2, 3, 4, -6, 0], (element) => element % element === 0)
+// );
 
 // ============ TASK 11==========================
 
@@ -266,7 +274,7 @@ function toBinary(num) {
   }
   return result.split("").reverse().join("");
 }
-//   console.log(toBinary(25))
+console.log(toBinary(25));
 
 function toDec(num) {
   let result = 0;
@@ -277,13 +285,13 @@ function toDec(num) {
   }
   return result;
 }
-//   console.log(toDec("0100"))
+console.log(toDec("0100"));
 // ============ TASK 12==========================
 function sum(arr, callback) {
   let sum = 0;
 
-  for (let i = 0; i < arr.length; i += 1) {
-    for (let j = 0; j < arr[i].length; j += 1) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].length; j++) {
       if (callback && callback(arr[i][j])) {
         sum += arr[i][j];
       } else if (!callback) {
@@ -293,28 +301,139 @@ function sum(arr, callback) {
   }
   return sum;
 }
+console.log(
+  sum([
+    [1, 2],
+    [3, 4],
+    [6, 7],
+  ])
+);
+console.log(
+  sum(
+    [
+      [1, 2],
+      [3, 4],
+      [6, 7],
+    ],
+    (element) => element % 2 === 0
+  )
+);
+console.log(
+  sum(
+    [
+      [1, 2],
+      [3, 4],
+      [6, 7],
+    ],
+    (element) => element % 3 === 0
+  )
+);
+console.log(
+  sum(
+    [
+      [1, 2],
+      [3, 4],
+      [6, 7],
+    ],
+    (element) => element > 0
+  )
+);
+console.log(
+  sum(
+    [
+      [1, 2],
+      [3, 4],
+      [6, 7],
+    ],
+    (element) => element < 0
+  )
+);
 
-function sumByRecursion(arr, callback) {
-  index = index || 0;
-  j = j || 0;
-  if (arr.length <= index) {
-    return 0;
-  }
-  if (arr[index].length <= j) {
-    return 0;
-  }
-  if (callback(arr[index][j])) {
-    return arr[index][j] + sum(arr, callback, ++index, ++j);
-  } else {
-    return sum(arr, callback, ++index, ++j);
-  }
-}
+// function sumByRecursion(arr, callback) {
+//   index = index || 0;
+//   j = j || 0;
+//   if (arr.length <= index) {
+//     return 0;
+//   }
+//   if (arr[index].length <= j) {
+//     return 0;
+//   }
+//   if (callback(arr[index][j])) {
+//     return arr[index][j] + sum(arr, callback, ++index, ++j);
+//   } else {
+//     return sum(arr, callback, ++index, ++j);
+//   }
+// }
 
-// console.log(sum([[1,2],[3,4],[6,7]]));
-//   console.log(sum([[1,2],[3,4],[6,7]], (element)=> element % 2 === 0));
-//   console.log(sum([[1,2],[3,4],[6,7]], (element)=> element % 3 === 0));
-//   console.log(sum([[1,2],[3,4],[6,7]], (element)=> element > 0));
-//   console.log(sum([[1,2],[3,4],[6,7]], (element)=> element < 0));
+// function sumByRecursion(array, callback) {
+//   let arr = array;
+//   let index = 0;
+//   let = 0;
+//   console.log(arr.length);
+//   const result = (function sum(arr, callback, index, j) {
+//     console.log(arr);
+//     if (arr.length <= index) {
+//       return 0;
+//     }
+//     if (arr[index].length <= j) {
+//       return 0;
+//     }
+//     if (callback(arr[index][j])) {
+//       return arr[index][j] + sum(arr, callback, ++index, ++j);
+//     } else {
+//       return sum(arr, callback, ++index, ++j);
+//     }
+//   })();
+//   return result;
+// }
+
+// console.log(
+//   sumByRecursion([
+//     [1, 2],
+//     [3, 4],
+//     [6, 7],
+//   ])
+// );
+// console.log(
+//   sumByRecursion(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element % 2 === 0
+//   )
+// );
+// console.log(
+//   sumByRecursion(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element % 3 === 0
+//   )
+// );
+// console.log(
+//   sumByRecursion(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element > 0
+//   )
+// );
+// console.log(
+//   sumByRecursion(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element < 0
+//   )
+// );
 
 function countElementsQuantity(arr, callback) {
   let amount = 0;
@@ -360,23 +479,22 @@ console.log(
     (element) => element < 0
   )
 );
-console.log(
-  countElementsQuantity(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element % element === 0
-  )
-);
+// console.log(
+//   countElementsQuantity(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element % element === 0
+//   )
+// );
 // ============ TASK 13==========================
 function calcSumByMinMax(arr, min, max, callback) {
   let newArr = arr.slice(min - 1, max);
   let sum = 0;
   for (let i = 0; i < newArr.length; i += 1) {
     if (callback && callback(newArr[i])) {
-      console.log("y", callback(newArr[i]), newArr[i]);
       sum += newArr[i];
     } else if (!callback) {
       sum += newArr[i];
@@ -384,9 +502,11 @@ function calcSumByMinMax(arr, min, max, callback) {
   }
   return sum;
 }
-//   console.log(calcSumByMinMax([1,2,3,4,5,6], 2, 5));
-//   console.log(calcSumByMinMax([1,2,3,4,5,6], 2, 5, (elem)=> elem % 3 === 0));
-//   console.log(calcSumByMinMax([1,2,3,4,5,6], 2, 5, (elem)=> elem > 0));
+console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5));
+console.log(
+  calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem % 3 === 0)
+);
+console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem > 0));
 
 function calcSumByMinMaxRecursion(arr, min, max, callback) {
   let newArr = arr.slice(min - 1, max);
@@ -408,44 +528,14 @@ function calcSumByMinMaxRecursion(arr, min, max, callback) {
 
   return total;
 }
-//   console.log(calcSumByMinMaxRecursion([1,2,3,4,5,6], 2, 5));
-//   console.log(calcSumByMinMaxRecursion([1,2,3,4,5,6], 2, 5, (elem)=> elem % 3 === 0));
-//   console.log(calcSumByMinMaxRecursion([1,2,3,4,-5,6], 2, 5, (elem)=> elem > 0));
+console.log(calcSumByMinMaxRecursion([1, 2, 3, 4, 5, 6], 2, 5));
+console.log(
+  calcSumByMinMaxRecursion([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem % 3 === 0)
+);
+console.log(
+  calcSumByMinMaxRecursion([1, 2, 3, 4, -5, 6], 2, 5, (elem) => elem > 0)
+);
 
-// function calcSumByMinMaxMemo(arr, min, max, callback){
-//     let newArr = arr.slice(min-1, max);
-//     let i = 0;
-//     let memo = {};
-
-//   return (function sum(newArr, i, callback, totalSum){
-//           let index = i || 0;
-//           if(newArr.length <= index){
-//               return 0
-//           };
-//            let total = totalSum || 0;
-//         if (!memo[total]){
-//             total = sum(newArr, ++index, callback, total)
-//             memo[total] = sum(newArr, ++index, callback, total);
-//         }
-//           return memo[total] + newArr[index];
-//       })(newArr, i, callback);
-
-//   };
-//   console.log(calcSumByMinMaxMemo([1,2,3,4,5,6], 2, 5));
-
-//   const factorialByMemo = (function(){
-//     let memo ={};
-//      return function factorial(num){
-//         if(num === 0){
-//             return 1;
-//         }
-
-//         if (!memo[num]){
-//             memo[num] = factorial(num-1);
-//         }
-//       return num*memo[num];
-//     };
-// })()
 // ============ TASK 14==========================
 function countAverageValue(arr, callback) {
   let sum = 0;
@@ -455,7 +545,6 @@ function countAverageValue(arr, callback) {
     if (callback && callback(arr[i])) {
       sum += arr[i];
       len += 1;
-      console.log(arr[i]);
     } else if (!callback) {
       sum += arr[i];
       len = arr.length;
@@ -463,9 +552,10 @@ function countAverageValue(arr, callback) {
   }
   return Math.floor(sum / len);
 }
-//  console.log(countAverageValue([1,2,3,4,5]));
-//  console.log(countAverageValue([1,2,3,4,5], (elem)=> elem % 2 === 0));
-//  console.log(countAverageValue([1,2,3,4,5], (elem)=> elem % 2 !== 0));
+console.log(countAverageValue([1, 2, 3, 4, 5]));
+console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 === 0));
+console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 !== 0));
+
 function countDimensionalArrayAverageValue(arr, callback) {
   let sum = 0;
   let len = 0;
@@ -477,18 +567,38 @@ function countDimensionalArrayAverageValue(arr, callback) {
         len += 1;
       } else if (!callback) {
         sum += arr[i][j];
-        console.log(arr[i]);
 
         len += 1;
       }
     }
   }
-  console.log(sum);
+
   return Math.floor(sum / len);
 }
-//   console.log(countDimensionalArrayAverageValue([[1,2],[3,4]]));
-//  console.log(countDimensionalArrayAverageValue([[1,2],[3,4]], (elem)=> elem % 2 === 0));
-//  console.log(countDimensionalArrayAverageValue([[1,2],[3,4]], (elem)=> elem % 2 !== 0));
+console.log(
+  countDimensionalArrayAverageValue([
+    [1, 2],
+    [3, 4],
+  ])
+);
+console.log(
+  countDimensionalArrayAverageValue(
+    [
+      [1, 2],
+      [3, 4],
+    ],
+    (elem) => elem % 2 === 0
+  )
+);
+console.log(
+  countDimensionalArrayAverageValue(
+    [
+      [1, 2],
+      [3, 4],
+    ],
+    (elem) => elem % 2 !== 0
+  )
+);
 // ============ TASK 15==========================
 function transposeMatrix(matrix) {
   let newMatrix = [];
