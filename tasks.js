@@ -769,7 +769,6 @@ function isPositive(num) {
   while (number !== 1 && number !== -1) {
     number = Math.floor(number / 2);
   }
-  // console.log(numbe);
   if (number === 1) {
     return true;
   }
@@ -778,15 +777,66 @@ function isPositive(num) {
 console.log(isPositive(15));
 console.log(isPositive(-15));
 
-function countBites(num) {
-  let number = num;
-  let numberArr = num.split("");
-  console.log(numberArr);
-  zeroBites = 0;
+function countBits(num) {
+  const numeral = num.split("");
 
-  for (let i = 0; i <= numberArr.length; i++) {
-    if (numberArr[i] === 1) {
+  return numeral.reduce((acc, item) => {
+    if (item == 0 && !acc[0]) {
+      acc[0] = 1;
+    } else if (item == 0 && acc[0]) {
+      acc[0] += 1;
     }
-  }
+    if (item == 1 && !acc[1]) {
+      acc[1] = 1;
+    } else if (item == 1 && acc[1]) {
+      acc[1] += 1;
+    }
+    return acc;
+  }, {});
 }
-console.log(countBites("00001010"));
+console.log(countBits("00000000000000000000000100111010"));
+
+function bitNotOperation(num) {
+  // console.log(parseInt("00000000000000000000000100111010"));
+  let number = num;
+  let binaryNumber = "";
+  while (number > 0) {
+    binaryNumber += number % 2;
+    number = (number - (number % 2)) / 2;
+  }
+  binaryNumber = binaryNumber
+    .split("")
+    .reverse()
+    .join("")
+    .padStart(32, "0")
+    .split("");
+  // binaryNumber = binaryNumber.split("").reverse();
+  console.log(binaryNumber);
+  let oppositeBinaryNumber = binaryNumber.map((item) => {
+    return Number(item) === 0 ? 1 : 0;
+  });
+  let resultNumber = [];
+  console.log(oppositeBinaryNumber);
+  for (let i = oppositeBinaryNumber.length - 1; i >= 0; i--) {
+    if (oppositeBinaryNumber[i] === 0) {
+      oppositeBinaryNumber.splice(i, 1, 1);
+
+      // console.log(oppositeBinaryNumber);
+      resultNumber = oppositeBinaryNumber;
+
+      // console.log(resultNumber);
+      if (oppositeBinaryNumber[i + 1] === 1) {
+        let removed = oppositeBinaryNumber.splice(i + 1).map((item) => 0);
+        // console.log(removed);
+        resultNumber = [...oppositeBinaryNumber, ...removed];
+      }
+      break;
+    } else if (i === 0 && oppositeBinaryNumber[i] !== 0) {
+      oppositeBinaryNumber.unshift(1);
+    }
+    // console.log(oppositeBinaryNumber[i]);
+  }
+  // console.log(resultNumber);
+  return resultNumber.join("");
+}
+console.log(bitNotOperation(12));
