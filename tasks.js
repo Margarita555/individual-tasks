@@ -84,21 +84,6 @@ function calculateWords(sentence) {
 }
 console.log(calculateWords("I love javascript I love react"));
 // ============ TASK 7 ==========================
-//   const Rectangle = function (width, height){
-//       this.width = width;
-//       this.height = height;
-//   };
-//       Rectangle.prototype.perimeter = function(){
-//           return (this.width + this.height) * 2
-//       };
-//       Rectangle.prototype.square = function(){
-//         return this.width * this.height
-//     };
-
-//   const rectangle = new Rectangle(4,5);
-//   console.log(rectangle.perimeter());
-//   console.log(rectangle.square())
-
 class Rectangle {
   constructor(width, height) {
     this.width = width;
@@ -113,9 +98,93 @@ class Rectangle {
   }
 }
 
-//   const rectangle = new Rectangle(4,5);
-//   console.log(rectangle.perimeter());
-//   console.log(rectangle.square())
+const rectangle = new Rectangle(4, 5);
+console.log(rectangle.perimeter());
+console.log(rectangle.square());
+
+const RectangleConstructor = function (width, height) {
+  this.width = width;
+  this.height = height;
+};
+RectangleConstructor.prototype.perimeter = function () {
+  return (this.width + this.height) * 2;
+};
+RectangleConstructor.prototype.square = function () {
+  return this.width * this.height;
+};
+
+const rectangleConstructor = new RectangleConstructor(4, 5);
+console.log(rectangleConstructor.perimeter());
+console.log(rectangleConstructor.square());
+
+class Triangle {
+  constructor(height, base, side1, side2) {
+    this.height = height;
+    this.base = base;
+    this.side1 = side1;
+    this.side2 = side2;
+  }
+
+  perimeter() {
+    return this.side1 + this.side2 + this.base;
+  }
+  square() {
+    return (this.height * this.base) / 2;
+  }
+}
+
+const triangle = new Triangle(3, 6, 3.5, 5);
+console.log(triangle.perimeter());
+console.log(triangle.square());
+
+const TriangleConstructor = function (height, base, side1, side2) {
+  this.height = height;
+  this.base = base;
+  this.side1 = side1;
+  this.side2 = side2;
+};
+TriangleConstructor.prototype.perimeter = function () {
+  return this.side1 + this.side2 + this.base;
+};
+TriangleConstructor.prototype.square = function () {
+  return (this.height * this.base) / 2;
+};
+
+const triangleConstructor = new TriangleConstructor(3, 6, 3.5, 5);
+console.log(triangleConstructor.perimeter());
+console.log(triangleConstructor.square());
+
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  perimeter() {
+    return 2 * 3.14 * this.radius;
+  }
+  square() {
+    return 3.14 * this.radius ** 2;
+  }
+}
+
+const circle = new Circle(5);
+console.log(circle.perimeter());
+console.log(circle.square());
+
+const CircleConstructor = function (radius) {
+  this.radius = radius;
+};
+
+CircleConstructor.prototype.perimeter = function () {
+  return 2 * 3.14 * this.radius;
+};
+CircleConstructor.prototype.square = function () {
+  return 3.14 * this.radius ** 2;
+};
+
+const circleConstructor = new CircleConstructor(5);
+console.log(circleConstructor.perimeter());
+console.log(circleConstructor.square());
 // ============ TASK 8 ==========================
 function calculateFactorial(num) {
   let result = 1;
