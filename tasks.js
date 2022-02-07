@@ -1,8 +1,28 @@
+"use-strict"
+
+function mySplit(str){
+let splitArray = []
+for (let i = 0; i< str.length; i++){
+ 
+splitArray.push(str[i])
+}
+return splitArray;
+}
+console.log(mySplit('qwerty'))
+
+function myJoin(str){
+  let newString = '';
+  for (let i = 0; i< str.length; i++){
+  newString += str[i]
+  }
+  return newString;
+  }
+  // console.log(mySplit([1,2,3,4,5]))
 // ============ TASK 1 ==========================
 function findAnogram(firstWord, secondWord) {
   isLetterInBothWords = false;
-  firstWordLetters = firstWord.split("");
-  secondWordLetters = secondWord.split("");
+  firstWordLetters = mySplit(firstWord);
+  secondWordLetters = mySplit(secondWord);
   if (firstWord.length !== secondWord.length) {
     return false;
   }
@@ -24,7 +44,7 @@ function findAnogram(firstWord, secondWord) {
   }
   return isLetterInBothWords;
 }
-console.log(findAnogram("kaban", "banka"));
+// console.log(findAnogram("kaban", "banka"));
 // ============ TASK 3 ==========================
 function calculateLength(num) {
   let amount = 0;
@@ -35,7 +55,7 @@ function calculateLength(num) {
   }
   return amount;
 }
-console.log(calculateLength(12345));
+// console.log(calculateLength(12345));
 
 function calculateLengthByRecursion(num) {
   let numbersAmount = 0;
@@ -53,32 +73,51 @@ function calculateLengthByRecursion(num) {
 }
 console.log(calculateLengthByRecursion(12345));
 // ============ TASK 4 ==========================
-function isPalindrom(str) {
-  let reversedString = str.split("").reverse().join("");
-  return reversedString === str;
+function checkIsPalindrom(str) {
+    let result = false;
+  for(let i = 0; i< str.length; i++){
+    if(str[i] === str[str.length -1 -i]){
+       result = true;
+    }else result = false;
+  }
+  return result; 
 }
-console.log(isPalindrom("qwerewq"));
+
+console.log(checkIsPalindrom("qwerewq"));
 // ============ TASK 5 ==========================
 function calculateUniqueWords(sentence) {
   const words = sentence.split(" ");
-  const uniqueWords = [];
-  for (let i = 0; i < words.length; i += 1) {
-    if (!uniqueWords.includes(words[i])) uniqueWords.push(words[i]);
+  const wordsObj = {};
+  for (let i = 0; i < words.length; i++){
+    if (!wordsObj.hasOwnProperty(words[i])) {
+      wordsObj[words[i]] = 1;
+    } else wordsObj[words[i]] += 1;
   }
-  return uniqueWords.length;
+  const entries = Object.entries(wordsObj);
+  let result = [];
+  for (let i = 0; i < entries.length; i++){
+    if(entries[i][1]===1){
+       result.push(entries[i][0])
+    }
+  }
+  return result;  
 }
 
-console.log(calculateUniqueWords("I love javascript I love react"));
+// console.log(calculateUniqueWords("I love javascript I love react"));
 // ============ TASK 6 ==========================
+
 function calculateWords(sentence) {
   const words = sentence.split(" ");
-  return words.reduce((acc, word) => {
-    if (!acc.hasOwnProperty(word)) {
-      acc[word] = 1;
-    } else acc[word] += 1;
-    return acc;
-  }, {});
-}
+  const result = {};
+  for (let i = 0; i < words.length; i++){
+    if (!result.hasOwnProperty(words[i])) {
+      result[words[i]] = 1;
+    } else result[words[i]] += 1;
+
+  }
+   return result;
+  }
+
 console.log(calculateWords("I love javascript I love react"));
 // ============ TASK 7 ==========================
 class Rectangle {
@@ -130,9 +169,9 @@ class Triangle {
   }
 }
 
-const triangle = new Triangle(3, 6, 3.5, 5);
-console.log(triangle.perimeter());
-console.log(triangle.square());
+// const triangle = new Triangle(3, 6, 3.5, 5);
+// console.log(triangle.perimeter());
+// console.log(triangle.square());
 
 const TriangleConstructor = function (height, base, side1, side2) {
   this.height = height;
@@ -147,9 +186,9 @@ TriangleConstructor.prototype.square = function () {
   return (this.height * this.base) / 2;
 };
 
-const triangleConstructor = new TriangleConstructor(3, 6, 3.5, 5);
-console.log(triangleConstructor.perimeter());
-console.log(triangleConstructor.square());
+// const triangleConstructor = new TriangleConstructor(3, 6, 3.5, 5);
+// console.log(triangleConstructor.perimeter());
+// console.log(triangleConstructor.square());
 
 class Circle {
   constructor(radius) {
@@ -164,9 +203,9 @@ class Circle {
   }
 }
 
-const circle = new Circle(5);
-console.log(circle.perimeter());
-console.log(circle.square());
+// const circle = new Circle(5);
+// console.log(circle.perimeter());
+// console.log(circle.square());
 
 const CircleConstructor = function (radius) {
   this.radius = radius;
@@ -179,9 +218,9 @@ CircleConstructor.prototype.square = function () {
   return 3.14 * this.radius ** 2;
 };
 
-const circleConstructor = new CircleConstructor(5);
-console.log(circleConstructor.perimeter());
-console.log(circleConstructor.square());
+// const circleConstructor = new CircleConstructor(5);
+// console.log(circleConstructor.perimeter());
+// console.log(circleConstructor.square());
 // ============ TASK 8 ==========================
 function calculateFactorial(num) {
   let result = 1;
@@ -218,6 +257,24 @@ const factorialByMemo = (function () {
 
 console.log(factorialByMemo(4));
 // ============ TASK 9 ==========================
+function arrayElementsSum(arr, callback) {
+  let sum = 0;
+  for(let i = 0; i < arr.length; i++){
+    if(callback && callback(arr[i])){
+      sum+= arr[i]
+    }
+    else if(!callback){
+      sum+= arr[i]
+    }
+       
+  }
+  return sum
+}
+console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
+console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0));
+console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 3 === 0));
+console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element > 0));
+console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element < 0));
 
 function arrayElementsSumRecursion(arr, callback, index) {
   index = index || 0;
@@ -231,7 +288,7 @@ function arrayElementsSumRecursion(arr, callback, index) {
     return arrayElementsSumRecursion(arr, callback, ++index);
   }
 }
-// console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
+
 console.log(
   arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
 );
@@ -246,22 +303,27 @@ console.log(
 );
 // ============ TASK 10 ==========================
 function countElements(arr, callback) {
-  let result = 0;
+  let amount = 0;
 
   for (const element of arr) {
     if (callback(element)) {
-      result += 1;
+      amount += 1;
     }
   }
-  return result;
+  return amount;
 }
 
 console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element === 0));
 console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element > 0));
 console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element < 0));
-// console.log(
-//   countElements([1, 2, 3, 4, -6, 0], (element) => element % element === 0)
-// );
+console.log(
+  countElements([1, 2, 3, 4, -6, 0, 7],
+     (element) => {for(let i = 0; i < element; i++){
+      if((element % i === 0)){
+        return false;
+      }else return true;
+  }})
+);
 
 // ============ TASK 11==========================
 
@@ -349,91 +411,6 @@ console.log(
   )
 );
 
-// function sumByRecursion(arr, callback) {
-//   index = index || 0;
-//   j = j || 0;
-//   if (arr.length <= index) {
-//     return 0;
-//   }
-//   if (arr[index].length <= j) {
-//     return 0;
-//   }
-//   if (callback(arr[index][j])) {
-//     return arr[index][j] + sum(arr, callback, ++index, ++j);
-//   } else {
-//     return sum(arr, callback, ++index, ++j);
-//   }
-// }
-
-// function sumByRecursion(array, callback) {
-//   let arr = array;
-//   let index = 0;
-//   let = 0;
-//   console.log(arr.length);
-//   const result = (function sum(arr, callback, index, j) {
-//     console.log(arr);
-//     if (arr.length <= index) {
-//       return 0;
-//     }
-//     if (arr[index].length <= j) {
-//       return 0;
-//     }
-//     if (callback(arr[index][j])) {
-//       return arr[index][j] + sum(arr, callback, ++index, ++j);
-//     } else {
-//       return sum(arr, callback, ++index, ++j);
-//     }
-//   })();
-//   return result;
-// }
-
-// console.log(
-//   sumByRecursion([
-//     [1, 2],
-//     [3, 4],
-//     [6, 7],
-//   ])
-// );
-// console.log(
-//   sumByRecursion(
-//     [
-//       [1, 2],
-//       [3, 4],
-//       [6, 7],
-//     ],
-//     (element) => element % 2 === 0
-//   )
-// );
-// console.log(
-//   sumByRecursion(
-//     [
-//       [1, 2],
-//       [3, 4],
-//       [6, 7],
-//     ],
-//     (element) => element % 3 === 0
-//   )
-// );
-// console.log(
-//   sumByRecursion(
-//     [
-//       [1, 2],
-//       [3, 4],
-//       [6, 7],
-//     ],
-//     (element) => element > 0
-//   )
-// );
-// console.log(
-//   sumByRecursion(
-//     [
-//       [1, 2],
-//       [3, 4],
-//       [6, 7],
-//     ],
-//     (element) => element < 0
-//   )
-// );
 
 function countElementsQuantity(arr, callback) {
   let amount = 0;
@@ -474,21 +451,25 @@ console.log(
     [
       [1, 2],
       [3, 4],
-      [6, 7],
+      [6, -7],
     ],
     (element) => element < 0
   )
 );
-// console.log(
-//   countElementsQuantity(
-//     [
-//       [1, 2],
-//       [3, 4],
-//       [6, 7],
-//     ],
-//     (element) => element % element === 0
-//   )
-// );
+console.log(
+  countElementsQuantity(
+    [
+      [1, 2],
+      [3, 4],
+      [6, 7],
+    ],
+    (element) => {for(let i = 0; i < element; i++){
+      if((element % i === 0)){
+        return false;
+      }else return true;
+  }}
+  )
+);
 // ============ TASK 13==========================
 function calcSumByMinMax(arr, min, max, callback) {
   let newArr = arr.slice(min - 1, max);
@@ -892,7 +873,7 @@ console.log([...fibonacciMemo(8)]);
 
 // ============ TASK 19 ==========================
 const trafficLights = {
-  lights: ["red", "yellow", "green"],
+  lights: ["red", "yellow", "green", "yellow"],
   max: 10,
   [Symbol.iterator]() {
     return {
@@ -907,7 +888,7 @@ const trafficLights = {
             value: this.lights[this.i],
             done: false,
           };
-          this.i = this.i > 1 ? 0 : ++this.i;
+          this.i = this.i > 2 ? 0 : ++this.i;
           return result;
         } else {
           return {
@@ -920,60 +901,90 @@ const trafficLights = {
   },
 };
 
-for (let item of trafficLights) {
-  console.log(item);
-}
+// for (let item of trafficLights) {
+//   console.log(item);
+// }
 
+
+console.log('gggggggggggggggggggg')
 const trafficLightsGenerator = {
-  lights: ["red", "yellow", "green"],
+  lights: ["red", "yellow", "green", "yellow"],
   max: 10,
   index: 0,
   [Symbol.iterator]: function* () {
     for (let i = 0; i < this.max; i++) {
       let result = this.lights[this.index];
-      this.index = this.index > 1 ? 0 : ++this.index;
+      this.index = this.index > 2 ? 0 : ++this.index;
       yield result;
     }
   },
 };
 
-for (let item of trafficLightsGenerator) {
-  console.log(item);
-}
+// for (let item of trafficLightsGenerator) {
+//   console.log(item);
+// }
 
 // ============ TASK 20 ==========================
-function isPositive(num) {
-  let number = num;
+function checkIsPositive(num) {
+   if((num>>31)&1) {
+     return false;
+    }
+   else return true;
 
-  while (number !== 1 && number !== -1) {
-    number = Math.floor(number / 2);
-  }
-  if (number === 1) {
-    return true;
-  }
-  return false;
 }
-console.log(isPositive(15));
-console.log(isPositive(-15));
+
+// console.log(checkIsPositive(8));
+
+// function checkIsPositive(num) {
+//   let number = num;
+
+//   while (number !== 1 && number !== -1) {
+//     number = Math.floor(number / 2);
+//   }
+//   if (number === 1) {
+//     return true;
+//   }
+//   return false;
+// }
+// console.log(checkIsPositive(15));
+// console.log(checkIsPositive(-15));
+
+// function countBits(num) {
+//   const numeral = num.split("");
+
+//   return numeral.reduce((acc, item) => {
+//     if (item == 0 && !acc[0]) {
+//       acc[0] = 1;
+//     } else if (item == 0 && acc[0]) {
+//       acc[0] += 1;
+//     }
+//     if (item == 1 && !acc[1]) {
+//       acc[1] = 1;
+//     } else if (item == 1 && acc[1]) {
+//       acc[1] += 1;
+//     }
+//     return acc;
+//   }, {});
+// }
 
 function countBits(num) {
-  const numeral = num.split("");
+   const bitObj = {};
 
-  return numeral.reduce((acc, item) => {
-    if (item == 0 && !acc[0]) {
-      acc[0] = 1;
-    } else if (item == 0 && acc[0]) {
-      acc[0] += 1;
+   for (let i = 0; i< num.length; i++){
+     if(num[i] == 0 && !bitObj[0]){
+       bitObj[0] = 1;
+     }else if (num[i] == 0 && bitObj[0]) {
+      bitObj[0] += 1;
     }
-    if (item == 1 && !acc[1]) {
-      acc[1] = 1;
-    } else if (item == 1 && acc[1]) {
-      acc[1] += 1;
-    }
-    return acc;
-  }, {});
+    if (num[i] == 1 && !bitObj[1]) {
+      bitObj[1] = 1;
+    } else if (num[i] == 1 && bitObj[1]) {
+      bitObj[1] += 1;
+    } 
+   }
+    return bitObj;
 }
-console.log(countBits("00000000000000000000000100111010"));
+// console.log(countBits("00000000000000000000000100111010"));
 
 function bitNotOperation(num) {
   // console.log(parseInt("00000000000000000000000100111010"));
@@ -1019,3 +1030,11 @@ function bitNotOperation(num) {
   return resultNumber.join("");
 }
 console.log(bitNotOperation(12));
+
+console.log(~6)
+let n = 6
+console.log(n.toString(2))
+console.log(parseInt("110", 2))
+
+console.log(parseInt("11111111111111111111111111111001", 2))
+
