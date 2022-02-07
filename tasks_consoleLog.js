@@ -10,25 +10,21 @@
 // console.log(mySplit("qwerty"));
 
 function mySplit(str, seperator) {
+  let i = 0;
   let splitArray = [];
-  let j = 0;
-  let newWord = "";
 
-  for (let i = 0; i < str.length; i++) {
-    // console.log()
-    if (seperator && str[i] === seperator) {
-      while (str[j] !== seperator && j < str.length) {
-        newWord += str[j];
-        console.log(newWord);
-        j++;
+  while (i < str.length) {
+    if (seperator && str[i] !== seperator) {
+      let arrayItem = "";
+      while (i < str.length && str[i] !== seperator) {
+        arrayItem += str[i];
+        i++;
       }
-      splitArray.push(newWord);
-      newWord = "";
-      console.log(splitArray);
-      console.log("r");
+      splitArray.push(arrayItem);
     } else if (!seperator) {
       splitArray.push(str[i]);
     }
+    i++;
   }
   return splitArray;
 }
@@ -41,7 +37,17 @@ function myJoin(str) {
   }
   return newString;
 }
-// console.log(mySplit([1,2,3,4,5]))
+console.log(myJoin([1, 2, 3, 4, 5]));
+
+function myReverse(str) {
+  let newString = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    newString += str[i];
+  }
+  return newString;
+}
+console.log(myReverse("abcdef"));
+
 // ============ TASK 1 ==========================
 // Написать функцию которая проверяет являются две строки анаграммой или нет
 
@@ -52,15 +58,19 @@ function findAnogram(firstWord, secondWord) {
   if (firstWord.length !== secondWord.length) {
     return false;
   }
-
+  console.log(mySplit(firstWordLetters));
+  console.log(mySplit(secondWordLetters));
+  console.log(mySplit(firstWord, "a"));
   for (let i = 0; i < firstWordLetters.length; i += 1) {
     if (firstWordLetters.includes(secondWordLetters[i])) {
       let currentLetter = firstWordLetters[i];
 
+      console.log(mySplit(firstWord, `${currentLetter}`));
       let letterQuantityInFirstWord =
-        firstWord.split(`${currentLetter}`).length - 1;
+        mySplit(firstWord, `${currentLetter}`).length - 1;
+
       let letterQuantityInSecondWord =
-        secondWord.split(`${currentLetter}`).length - 1;
+        mySplit(firstWord, `${currentLetter}`).length - 1;
 
       if (letterQuantityInFirstWord !== letterQuantityInSecondWord) {
         return false;
@@ -72,6 +82,7 @@ function findAnogram(firstWord, secondWord) {
 }
 // console.log(findAnogram("kaban", "banka"));
 // ============ TASK 3 ==========================
+// Написать функцию которая вычисляет подсчет количество цифр в числе. Реализовать с помощью рекурсии.
 function calculateLength(num) {
   let amount = 0;
 
@@ -97,8 +108,10 @@ function calculateLengthByRecursion(num) {
   calc(num);
   return numbersAmount;
 }
-console.log(calculateLengthByRecursion(12345));
+// console.log(calculateLengthByRecursion(12345));
 // ============ TASK 4 ==========================
+// Реализовать функцию которая проверяет, является ли строка палиндромом
+
 function checkIsPalindrom(str) {
   let result = false;
   for (let i = 0; i < str.length; i++) {
@@ -109,10 +122,12 @@ function checkIsPalindrom(str) {
   return result;
 }
 
-console.log(checkIsPalindrom("qwerewq"));
+// console.log(checkIsPalindrom("qwerewq"));
 // ============ TASK 5 ==========================
+// Написать функцию которая вычисляет подсчет уникальных слов в предложении
+
 function calculateUniqueWords(sentence) {
-  const words = sentence.split(" ");
+  const words = mySplit(sentence, " ");
   const wordsObj = {};
   for (let i = 0; i < words.length; i++) {
     if (!wordsObj.hasOwnProperty(words[i])) {
@@ -131,9 +146,10 @@ function calculateUniqueWords(sentence) {
 
 // console.log(calculateUniqueWords("I love javascript I love react"));
 // ============ TASK 6 ==========================
+// Написать функцию которая вычисляет вхождение каждого слова в предложение
 
 function calculateWords(sentence) {
-  const words = sentence.split(" ");
+  const words = mySplit(sentence, " ");
   const result = {};
   for (let i = 0; i < words.length; i++) {
     if (!result.hasOwnProperty(words[i])) {
@@ -143,8 +159,10 @@ function calculateWords(sentence) {
   return result;
 }
 
-console.log(calculateWords("I love javascript I love react"));
+// console.log(calculateWords("I love javascript I love react"));
 // ============ TASK 7 ==========================
+// Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов.
+
 class Rectangle {
   constructor(width, height) {
     this.width = width;
@@ -174,9 +192,9 @@ RectangleConstructor.prototype.square = function () {
   return this.width * this.height;
 };
 
-const rectangleConstructor = new RectangleConstructor(4, 5);
-console.log(rectangleConstructor.perimeter());
-console.log(rectangleConstructor.square());
+// const rectangleConstructor = new RectangleConstructor(4, 5);
+// console.log(rectangleConstructor.perimeter());
+// console.log(rectangleConstructor.square());
 
 class Triangle {
   constructor(height, base, side1, side2) {
@@ -246,7 +264,10 @@ CircleConstructor.prototype.square = function () {
 // const circleConstructor = new CircleConstructor(5);
 // console.log(circleConstructor.perimeter());
 // console.log(circleConstructor.square());
+
 // ============ TASK 8 ==========================
+// Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала.
+
 function calculateFactorial(num) {
   let result = 1;
   let count = 0;
@@ -280,8 +301,11 @@ const factorialByMemo = (function () {
   };
 })();
 
-console.log(factorialByMemo(4));
+// console.log(factorialByMemo(4));
+
 // ============ TASK 9 ==========================
+// Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные), реализовать с помощью рекурсии для одномерного массива.
+
 function arrayElementsSum(arr, callback) {
   let sum = 0;
   for (let i = 0; i < arr.length; i++) {
@@ -293,15 +317,15 @@ function arrayElementsSum(arr, callback) {
   }
   return sum;
 }
-console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
-console.log(
-  arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
-);
-console.log(
-  arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 3 === 0)
-);
-console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element > 0));
-console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element < 0));
+// console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
+// console.log(
+//   arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
+// );
+// console.log(
+//   arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 3 === 0)
+// );
+// console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element > 0));
+// console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element < 0));
 
 function arrayElementsSumRecursion(arr, callback, index) {
   index = index || 0;
@@ -316,19 +340,22 @@ function arrayElementsSumRecursion(arr, callback, index) {
   }
 }
 
-console.log(
-  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
-);
-console.log(
-  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 3 === 0)
-);
-console.log(
-  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element > 0)
-);
-console.log(
-  arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element < 0)
-);
+// console.log(
+//   arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
+// );
+// console.log(
+//   arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element % 3 === 0)
+// );
+// console.log(
+//   arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element > 0)
+// );
+// console.log(
+//   arrayElementsSumRecursion([1, 2, 3, 4, 5, 6], (element) => element < 0)
+// );
+
 // ============ TASK 10 ==========================
+// Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа).
+
 function countElements(arr, callback) {
   let amount = 0;
 
@@ -340,20 +367,21 @@ function countElements(arr, callback) {
   return amount;
 }
 
-console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element === 0));
-console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element > 0));
-console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element < 0));
-console.log(
-  countElements([1, 2, 3, 4, -6, 0, 7], (element) => {
-    for (let i = 0; i < element; i++) {
-      if (element % i === 0) {
-        return false;
-      } else return true;
-    }
-  })
-);
+// console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element === 0));
+// console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element > 0));
+// console.log(countElements([1, 2, 3, 4, -6, 0], (element) => element < 0));
+// console.log(
+//   countElements([1, 2, 3, 4, -6, 0, 7], (element) => {
+//     for (let i = 0; i < element; i++) {
+//       if (element % i === 0) {
+//         return false;
+//       } else return true;
+//     }
+//   })
+// );
 
 // ============ TASK 11==========================
+// Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел).
 
 function toBinary(num) {
   let number = num;
@@ -362,21 +390,23 @@ function toBinary(num) {
     result += number % 2;
     number = (number - (number % 2)) / 2;
   }
-  return result.split("").reverse().join("");
+  return myJoin(myReverse(mySplit(result, "")));
 }
-console.log(toBinary(25));
+// console.log(toBinary(25));
 
 function toDec(num) {
   let result = 0;
-  let arr = num.split("");
+  let arr = mySplit(num);
 
   for (let i = 0; i < arr.length; i += 1) {
     result += Number(arr[i]) * Math.pow(2, arr.length - 1 - i);
   }
   return result;
 }
-console.log(toDec("0100"));
+console.log(toDec("011"));
 // ============ TASK 12==========================
+// Пункты 9 и 10 выполнить для двумерных массивов.
+
 function sum(arr, callback) {
   let sum = 0;
 
@@ -391,53 +421,53 @@ function sum(arr, callback) {
   }
   return sum;
 }
-console.log(
-  sum([
-    [1, 2],
-    [3, 4],
-    [6, 7],
-  ])
-);
-console.log(
-  sum(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element % 2 === 0
-  )
-);
-console.log(
-  sum(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element % 3 === 0
-  )
-);
-console.log(
-  sum(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element > 0
-  )
-);
-console.log(
-  sum(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element < 0
-  )
-);
+// console.log(
+//   sum([
+//     [1, 2],
+//     [3, 4],
+//     [6, 7],
+//   ])
+// );
+// console.log(
+//   sum(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element % 2 === 0
+//   )
+// );
+// console.log(
+//   sum(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element % 3 === 0
+//   )
+// );
+// console.log(
+//   sum(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element > 0
+//   )
+// );
+// console.log(
+//   sum(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element < 0
+//   )
+// );
 
 function countElementsQuantity(arr, callback) {
   let amount = 0;
@@ -453,53 +483,55 @@ function countElementsQuantity(arr, callback) {
   }
   return amount;
 }
-console.log(
-  countElementsQuantity(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element === 0
-  )
-);
-console.log(
-  countElementsQuantity(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => element > 0
-  )
-);
-console.log(
-  countElementsQuantity(
-    [
-      [1, 2],
-      [3, 4],
-      [6, -7],
-    ],
-    (element) => element < 0
-  )
-);
-console.log(
-  countElementsQuantity(
-    [
-      [1, 2],
-      [3, 4],
-      [6, 7],
-    ],
-    (element) => {
-      for (let i = 0; i < element; i++) {
-        if (element % i === 0) {
-          return false;
-        } else return true;
-      }
-    }
-  )
-);
+// console.log(
+//   countElementsQuantity(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element === 0
+//   )
+// );
+// console.log(
+//   countElementsQuantity(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => element > 0
+//   )
+// );
+// console.log(
+//   countElementsQuantity(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, -7],
+//     ],
+//     (element) => element < 0
+//   )
+// );
+// console.log(
+//   countElementsQuantity(
+//     [
+//       [1, 2],
+//       [3, 4],
+//       [6, 7],
+//     ],
+//     (element) => {
+//       for (let i = 0; i < element; i++) {
+//         if (element % i === 0) {
+//           return false;
+//         } else return true;
+//       }
+//     }
+//   )
+// );
 // ============ TASK 13==========================
+// Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. Реализовать также с помощью рекурсии.
+
 function calcSumByMinMax(arr, min, max, callback) {
   let newArr = arr.slice(min - 1, max);
   let sum = 0;
@@ -512,11 +544,11 @@ function calcSumByMinMax(arr, min, max, callback) {
   }
   return sum;
 }
-console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5));
-console.log(
-  calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem % 3 === 0)
-);
-console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem > 0));
+// console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5));
+// console.log(
+//   calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem % 3 === 0)
+// );
+// console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem > 0));
 
 function calcSumByMinMaxRecursion(arr, min, max, callback) {
   let newArr = arr.slice(min - 1, max);
@@ -538,15 +570,17 @@ function calcSumByMinMaxRecursion(arr, min, max, callback) {
 
   return total;
 }
-console.log(calcSumByMinMaxRecursion([1, 2, 3, 4, 5, 6], 2, 5));
-console.log(
-  calcSumByMinMaxRecursion([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem % 3 === 0)
-);
-console.log(
-  calcSumByMinMaxRecursion([1, 2, 3, 4, -5, 6], 2, 5, (elem) => elem > 0)
-);
+// console.log(calcSumByMinMaxRecursion([1, 2, 3, 4, 5, 6], 2, 5));
+// console.log(
+//   calcSumByMinMaxRecursion([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem % 3 === 0)
+// );
+// console.log(
+//   calcSumByMinMaxRecursion([1, 2, 3, 4, -5, 6], 2, 5, (elem) => elem > 0)
+// );
 
 // ============ TASK 14==========================
+// Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
+
 function countAverageValue(arr, callback) {
   let sum = 0;
   let len = 0;
@@ -562,9 +596,9 @@ function countAverageValue(arr, callback) {
   }
   return Math.floor(sum / len);
 }
-console.log(countAverageValue([1, 2, 3, 4, 5]));
-console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 === 0));
-console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 !== 0));
+// console.log(countAverageValue([1, 2, 3, 4, 5]));
+// console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 === 0));
+// console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 !== 0));
 
 function countDimensionalArrayAverageValue(arr, callback) {
   let sum = 0;
@@ -577,7 +611,6 @@ function countDimensionalArrayAverageValue(arr, callback) {
         len += 1;
       } else if (!callback) {
         sum += arr[i][j];
-
         len += 1;
       }
     }
@@ -585,31 +618,33 @@ function countDimensionalArrayAverageValue(arr, callback) {
 
   return Math.floor(sum / len);
 }
-console.log(
-  countDimensionalArrayAverageValue([
-    [1, 2],
-    [3, 4],
-  ])
-);
-console.log(
-  countDimensionalArrayAverageValue(
-    [
-      [1, 2],
-      [3, 4],
-    ],
-    (elem) => elem % 2 === 0
-  )
-);
-console.log(
-  countDimensionalArrayAverageValue(
-    [
-      [1, 2],
-      [3, 4],
-    ],
-    (elem) => elem % 2 !== 0
-  )
-);
+// console.log(
+//   countDimensionalArrayAverageValue([
+//     [1, 2],
+//     [3, 4],
+//   ])
+// );
+// console.log(
+//   countDimensionalArrayAverageValue(
+//     [
+//       [1, 2],
+//       [3, 4],
+//     ],
+//     (elem) => elem % 2 === 0
+//   )
+// );
+// console.log(
+//   countDimensionalArrayAverageValue(
+//     [
+//       [1, 2],
+//       [3, 4],
+//     ],
+//     (elem) => elem % 2 !== 0
+//   )
+// );
 // ============ TASK 15==========================
+// Транспонировать матрицу, сложить две матрицы.
+
 function transposeMatrix(matrix) {
   let newMatrix = [];
   for (let i = 0; i < matrix.length; i += 1) {
@@ -642,21 +677,23 @@ function addMatrixes(matrix1, matrix2) {
   }
   return newMatrix;
 }
-console.log(
-  addMatrixes(
-    [
-      [1, 1, 1],
-      [2, 2, 2],
-      [3, 3, 3],
-    ],
-    [
-      [4, 4, 4],
-      [5, 5, 5],
-      [6, 6, 6],
-    ]
-  )
-);
+// console.log(
+//   addMatrixes(
+//     [
+//       [1, 1, 1],
+//       [2, 2, 2],
+//       [3, 3, 3],
+//     ],
+//     [
+//       [4, 4, 4],
+//       [5, 5, 5],
+//       [6, 6, 6],
+//     ]
+//   )
+// );
 // ============ TASK 16==========================
+// Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
+
 function deleteString(matrix) {
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix.length; j++) {
@@ -697,6 +734,7 @@ function deleteColumn(matrix) {
 // );
 
 // ============ TASK 17==========================
+// Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
 
 function countSum(matrix, callback) {
   let sum = 0;
@@ -736,7 +774,6 @@ function countZeroElements(matrix, callback) {
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix.length; j++) {
       if (callback(j, i) && matrix[i][j] === 0) {
-        // console.log(callback(j,i));
         count += 1;
       }
     }
@@ -744,38 +781,38 @@ function countZeroElements(matrix, callback) {
   return count;
 }
 
-console.log(
-  countZeroElements(
-    [
-      [1, 0, 1],
-      [2, 2, 0],
-      [0, 3, 0],
-    ],
-    (j, i) => j > i
-  )
-);
+// console.log(
+//   countZeroElements(
+//     [
+//       [1, 0, 1],
+//       [2, 2, 0],
+//       [0, 3, 0],
+//     ],
+//     (j, i) => j > i
+//   )
+// );
 
-console.log(
-  countZeroElements(
-    [
-      [1, 0, 1],
-      [2, 2, 0],
-      [0, 3, 0],
-    ],
-    (j, i) => j < i
-  )
-);
+// console.log(
+//   countZeroElements(
+//     [
+//       [1, 0, 1],
+//       [2, 2, 0],
+//       [0, 3, 0],
+//     ],
+//     (j, i) => j < i
+//   )
+// );
 
-console.log(
-  countZeroElements(
-    [
-      [1, 0, 1],
-      [2, 2, 0],
-      [0, 3, 0],
-    ],
-    (j, i) => j === i
-  )
-);
+// console.log(
+//   countZeroElements(
+//     [
+//       [1, 0, 1],
+//       [2, 2, 0],
+//       [0, 3, 0],
+//     ],
+//     (j, i) => j === i
+//   )
+// );
 
 function countElementsAverageValue(matrix, callback) {
   let sum = 0;
@@ -792,40 +829,41 @@ function countElementsAverageValue(matrix, callback) {
   return Math.floor(sum / count);
 }
 
-console.log(
-  countElementsAverageValue(
-    [
-      [4, 5, 5],
-      [3, 4, 5],
-      [6, 6, 8],
-    ],
-    (j, i) => j > i
-  )
-);
+// console.log(
+//   countElementsAverageValue(
+//     [
+//       [4, 5, 5],
+//       [3, 4, 5],
+//       [6, 6, 8],
+//     ],
+//     (j, i) => j > i
+//   )
+// );
 
-console.log(
-  countElementsAverageValue(
-    [
-      [4, 5, 5],
-      [3, 4, 5],
-      [6, 6, 8],
-    ],
-    (j, i) => j < i
-  )
-);
+// console.log(
+//   countElementsAverageValue(
+//     [
+//       [4, 5, 5],
+//       [3, 4, 5],
+//       [6, 6, 8],
+//     ],
+//     (j, i) => j < i
+//   )
+// );
 
-console.log(
-  countElementsAverageValue(
-    [
-      [4, 5, 5],
-      [3, 4, 5],
-      [6, 6, 8],
-    ],
-    (j, i) => j === i
-  )
-);
+// console.log(
+//   countElementsAverageValue(
+//     [
+//       [4, 5, 5],
+//       [3, 4, 5],
+//       [6, 6, 8],
+//     ],
+//     (j, i) => j === i
+//   )
+// );
 
 // ============ TASK 18==========================
+// Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии.
 const fibonacci = {
   min: 0,
   current: 1,
@@ -874,7 +912,6 @@ for (let item of fibonacciGenerator) {
   if (item > 30) {
     break;
   }
-  console.log(item);
 }
 
 function* fibonacciRecursion(max, prev = 0, next = 1) {
@@ -885,7 +922,7 @@ function* fibonacciRecursion(max, prev = 0, next = 1) {
   yield* fibonacciRecursion(--max, next, next + prev);
 }
 
-console.log([...fibonacciRecursion(8)]);
+// console.log([...fibonacciRecursion(8)]);
 
 function* fibonacciMemo(max, prev = 0, next = 1, memo) {
   if (max === 0) {
@@ -898,9 +935,10 @@ function* fibonacciMemo(max, prev = 0, next = 1, memo) {
   yield prev;
   yield* (memo[max] = fibonacciMemo(--max, next, prev + next, memo));
 }
-console.log([...fibonacciMemo(8)]);
+// console.log([...fibonacciMemo(8)]);
 
 // ============ TASK 19 ==========================
+// Реализовать с помощью итератора и генератора светофор. При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора.
 const trafficLights = {
   lights: ["red", "yellow", "green", "yellow"],
   max: 10,
@@ -934,7 +972,6 @@ const trafficLights = {
 //   console.log(item);
 // }
 
-console.log("gggggggggggggggggggg");
 const trafficLightsGenerator = {
   lights: ["red", "yellow", "green", "yellow"],
   max: 10,

@@ -1,14 +1,5 @@
 "use-strict";
 
-// function mySplit(str) {
-//   let splitArray = [];
-//   for (let i = 0; i < str.length; i++) {
-//     splitArray.push(str[i]);
-//   }
-//   return splitArray;
-// }
-// console.log(mySplit("qwerty"));
-
 function mySplit(str, seperator) {
   let i = 0;
   let splitArray = [];
@@ -28,7 +19,6 @@ function mySplit(str, seperator) {
   }
   return splitArray;
 }
-console.log(mySplit("qw ert y", " "));
 
 function myJoin(str) {
   let newString = "";
@@ -37,7 +27,6 @@ function myJoin(str) {
   }
   return newString;
 }
-console.log(myJoin([1, 2, 3, 4, 5]));
 
 function myReverse(str) {
   let newString = "";
@@ -46,7 +35,6 @@ function myReverse(str) {
   }
   return newString;
 }
-console.log(myReverse("abcdef"));
 
 // ============ TASK 1 ==========================
 // Написать функцию которая проверяет являются две строки анаграммой или нет
@@ -58,14 +46,11 @@ function findAnogram(firstWord, secondWord) {
   if (firstWord.length !== secondWord.length) {
     return false;
   }
-  console.log(mySplit(firstWordLetters));
-  console.log(mySplit(secondWordLetters));
-  console.log(mySplit(firstWord, "a"));
+
   for (let i = 0; i < firstWordLetters.length; i += 1) {
     if (firstWordLetters.includes(secondWordLetters[i])) {
       let currentLetter = firstWordLetters[i];
 
-      console.log(mySplit(firstWord, `${currentLetter}`));
       let letterQuantityInFirstWord =
         mySplit(firstWord, `${currentLetter}`).length - 1;
 
