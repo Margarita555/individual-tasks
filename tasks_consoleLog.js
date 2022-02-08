@@ -1,15 +1,7 @@
 "use-strict";
 
-// function mySplit(str) {
-//   let splitArray = [];
-//   for (let i = 0; i < str.length; i++) {
-//     splitArray.push(str[i]);
-//   }
-//   return splitArray;
-// }
-// console.log(mySplit("qwerty"));
-
-function mySplit(str, seperator) {
+String.prototype.mySplit = function(seperator) {
+  let str = this;
   let i = 0;
   let splitArray = [];
 
@@ -20,70 +12,85 @@ function mySplit(str, seperator) {
         arrayItem += str[i];
         i++;
       }
-      splitArray.push(arrayItem);
+      splitArray.myPush(arrayItem);
     } else if (!seperator) {
-      splitArray.push(str[i]);
+      splitArray.myPush(str[i]);
     }
     i++;
   }
   return splitArray;
 }
-console.log(mySplit("qw ert y", " "));
 
-function myJoin(str) {
+Array.prototype.myJoin = function() {
+  let str = this;
   let newString = "";
   for (let i = 0; i < str.length; i++) {
     newString += str[i];
   }
   return newString;
 }
-console.log(myJoin([1, 2, 3, 4, 5]));
 
-function myReverse(str) {
-  let newString = "";
-  for (let i = str.length - 1; i >= 0; i--) {
-    newString += str[i];
+Array.prototype.myReverse = function() {
+  const arr = this;
+  let newArr = [];
+  for (let i = arr.length - 1; i >= 0; i--) {
+    newArr.myPush(arr[i]);
   }
-  return newString;
+  return newArr;
 }
-console.log(myReverse("abcdef"));
+
+Array.prototype.myPush = function myPush(item) {
+  const arr = this;
+  const length = arr.length;
+  arr[length] = item;
+  return arr;
+}
+
 
 // ============ TASK 1 ==========================
 // Написать функцию которая проверяет являются две строки анаграммой или нет
 
-function findAnogram(firstWord, secondWord) {
-  isLetterInBothWords = false;
-  firstWordLetters = mySplit(firstWord);
-  secondWordLetters = mySplit(secondWord);
-  if (firstWord.length !== secondWord.length) {
+function findAnogram(firstStr, secondStr) {
+  if(typeof firstStr !== 'string' || typeof secondStr !== 'string') {
+    throw new Error('String is not found');
+  };
+  isLetterInBothStrings = false;
+  firstStrLetters = firstStr.mySplit();
+  secondStrLetters = secondStr.mySplit();
+ 
+  if (firstStr.length !== secondStr.length) {
     return false;
   }
-  console.log(mySplit(firstWordLetters));
-  console.log(mySplit(secondWordLetters));
-  console.log(mySplit(firstWord, "a"));
-  for (let i = 0; i < firstWordLetters.length; i += 1) {
-    if (firstWordLetters.includes(secondWordLetters[i])) {
-      let currentLetter = firstWordLetters[i];
 
-      console.log(mySplit(firstWord, `${currentLetter}`));
-      let letterQuantityInFirstWord =
-        mySplit(firstWord, `${currentLetter}`).length - 1;
+  for (let i = 0; i < firstStrLetters.length; i += 1) {
+    if (firstStrLetters.includes(secondStrLetters[i])) {
+      let currentLetter = firstStrLetters[i];
 
-      let letterQuantityInSecondWord =
-        mySplit(firstWord, `${currentLetter}`).length - 1;
+      let firstStrletterQuantity = firstStr.mySplit(`${currentLetter}`).myJoin().length - 1;
+     
+      let secondStrletterQuantity = secondStr.mySplit(`${currentLetter}`).myJoin().length - 1;
 
-      if (letterQuantityInFirstWord !== letterQuantityInSecondWord) {
+      if (firstStrletterQuantity !== secondStrletterQuantity) {
         return false;
       }
-      isLetterInBothWords = true;
+      isLetterInBothStrings = true;
     } else return false;
   }
-  return isLetterInBothWords;
+
+  return isLetterInBothStrings;
+
 }
-// console.log(findAnogram("kaban", "banka"));
+console.log(findAnogram("kaban", "banka"));
 // ============ TASK 3 ==========================
 // Написать функцию которая вычисляет подсчет количество цифр в числе. Реализовать с помощью рекурсии.
 function calculateLength(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
+  if(typeof num!== 'number') {
+    throw new Error('Number is not found');
+  };
   let amount = 0;
 
   while (num > 0) {
@@ -95,6 +102,10 @@ function calculateLength(num) {
 // console.log(calculateLength(12345));
 
 function calculateLengthByRecursion(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   let numbersAmount = 0;
 
   function calc(currentNum) {
@@ -113,6 +124,9 @@ function calculateLengthByRecursion(num) {
 // Реализовать функцию которая проверяет, является ли строка палиндромом
 
 function checkIsPalindrom(str) {
+  if(typeof str !== 'string') {
+    throw new Error('String is not found');
+  };
   let result = false;
   for (let i = 0; i < str.length; i++) {
     if (str[i] === str[str.length - 1 - i]) {
@@ -127,8 +141,13 @@ function checkIsPalindrom(str) {
 // Написать функцию которая вычисляет подсчет уникальных слов в предложении
 
 function calculateUniqueWords(sentence) {
-  const words = mySplit(sentence, " ");
+  if(typeof sentence !== 'string') {
+    throw new Error('String is not found');
+  };
+
+  const words = sentence.mySplit(" ");
   const wordsObj = {};
+
   for (let i = 0; i < words.length; i++) {
     if (!wordsObj.hasOwnProperty(words[i])) {
       wordsObj[words[i]] = 1;
@@ -138,7 +157,7 @@ function calculateUniqueWords(sentence) {
   let result = [];
   for (let i = 0; i < entries.length; i++) {
     if (entries[i][1] === 1) {
-      result.push(entries[i][0]);
+      result.myPush(entries[i][0]);
     }
   }
   return result;
@@ -149,7 +168,11 @@ function calculateUniqueWords(sentence) {
 // Написать функцию которая вычисляет вхождение каждого слова в предложение
 
 function calculateWords(sentence) {
-  const words = mySplit(sentence, " ");
+  if(typeof sentence !== 'string') {
+    throw new Error('String is not found');
+  };
+  const words = sentence.mySplit(" ");
+  
   const result = {};
   for (let i = 0; i < words.length; i++) {
     if (!result.hasOwnProperty(words[i])) {
@@ -177,9 +200,9 @@ class Rectangle {
   }
 }
 
-const rectangle = new Rectangle(4, 5);
-console.log(rectangle.perimeter());
-console.log(rectangle.square());
+// const rectangle = new Rectangle(4, 5);
+// console.log(rectangle.perimeter());
+// console.log(rectangle.square());
 
 const RectangleConstructor = function (width, height) {
   this.width = width;
@@ -269,6 +292,10 @@ CircleConstructor.prototype.square = function () {
 // Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала.
 
 function calculateFactorial(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   let result = 1;
   let count = 0;
   for (count = num; count > 1; count--) {
@@ -276,16 +303,20 @@ function calculateFactorial(num) {
   }
   return result;
 }
-console.log(calculateFactorial(4));
+// console.log(calculateFactorial(4));
 
 function calculateFactorialByRecursion(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   if (num === 0) {
     return 1;
   } else {
     return num * calculateFactorialByRecursion(num - 1);
   }
 }
-console.log(calculateFactorialByRecursion(4));
+// console.log(calculateFactorialByRecursion(4));
 
 const factorialByMemo = (function () {
   let memo = {};
@@ -307,6 +338,13 @@ const factorialByMemo = (function () {
 // Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные), реализовать с помощью рекурсии для одномерного массива.
 
 function arrayElementsSum(arr, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  };
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let sum = 0;
   for (let i = 0; i < arr.length; i++) {
     if (callback && callback(arr[i])) {
@@ -317,7 +355,7 @@ function arrayElementsSum(arr, callback) {
   }
   return sum;
 }
-// console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
+console.log(arrayElementsSum([1, 2, 3, 4, 5, 6]));
 // console.log(
 //   arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element % 2 === 0)
 // );
@@ -328,6 +366,13 @@ function arrayElementsSum(arr, callback) {
 // console.log(arrayElementsSum([1, 2, 3, 4, 5, 6], (element) => element < 0));
 
 function arrayElementsSumRecursion(arr, callback, index) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  };
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   index = index || 0;
 
   if (arr.length <= index) {
@@ -357,6 +402,14 @@ function arrayElementsSumRecursion(arr, callback, index) {
 // Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа).
 
 function countElements(arr, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  };
+
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let amount = 0;
 
   for (const element of arr) {
@@ -384,30 +437,62 @@ function countElements(arr, callback) {
 // Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел).
 
 function toBinary(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  }; 
+
   let number = num;
   let result = "";
   while (number > 0) {
     result += number % 2;
     number = (number - (number % 2)) / 2;
   }
-  return myJoin(myReverse(mySplit(result, "")));
+  return result.mySplit("").myReverse().myJoin();
 }
 // console.log(toBinary(25));
 
+
 function toDec(num) {
+  if(typeof num !== 'string') {
+    throw new Error('Give the right number');
+  };
+
   let result = 0;
-  let arr = mySplit(num);
+  let arr = num.mySplit();
 
   for (let i = 0; i < arr.length; i += 1) {
-    result += Number(arr[i]) * Math.pow(2, arr.length - 1 - i);
+    result += Number(arr[i]) * myMathPow(2, arr.length - 1 - i);
   }
   return result;
 }
 console.log(toDec("011"));
+
+function myMathPow(base, pow){
+  if(typeof base !== 'number' || typeof pow !== 'number') {
+    throw new Error('Number is not found');
+  };
+
+  let result = base;
+  if(pow === 0) return 1;
+  for(let i = pow-1; i > 0; i-- ){
+     result *= base;
+    
+  }
+  return result;
+}
+
 // ============ TASK 12==========================
 // Пункты 9 и 10 выполнить для двумерных массивов.
 
 function sum(arr, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  };
+
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let sum = 0;
 
   for (let i = 0; i < arr.length; i++) {
@@ -470,6 +555,14 @@ function sum(arr, callback) {
 // );
 
 function countElementsQuantity(arr, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  };
+
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let amount = 0;
 
   for (let i = 0; i < arr.length; i += 1) {
@@ -533,6 +626,18 @@ function countElementsQuantity(arr, callback) {
 // Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. Реализовать также с помощью рекурсии.
 
 function calcSumByMinMax(arr, min, max, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  }; 
+
+  if(typeof min !== 'number' || typeof max !== 'number') {
+    throw new Error('Number is not found');
+  };
+
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let newArr = arr.slice(min - 1, max);
   let sum = 0;
   for (let i = 0; i < newArr.length; i += 1) {
@@ -551,6 +656,18 @@ function calcSumByMinMax(arr, min, max, callback) {
 // console.log(calcSumByMinMax([1, 2, 3, 4, 5, 6], 2, 5, (elem) => elem > 0));
 
 function calcSumByMinMaxRecursion(arr, min, max, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  };
+
+  if(typeof min !== 'number' || typeof max !== 'number') {
+    throw new Error('Number is not found');
+  };
+
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let newArr = arr.slice(min - 1, max);
   let i = 0;
   let total = (function sum(newArr, i, callback) {
@@ -582,6 +699,14 @@ function calcSumByMinMaxRecursion(arr, min, max, callback) {
 // Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 
 function countAverageValue(arr, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  }; 
+
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let sum = 0;
   let len = 0;
 
@@ -601,6 +726,14 @@ function countAverageValue(arr, callback) {
 // console.log(countAverageValue([1, 2, 3, 4, 5], (elem) => elem % 2 !== 0));
 
 function countDimensionalArrayAverageValue(arr, callback) {
+  if(!Array.isArray(arr)) {
+    throw new Error('Array is not found');
+  }; 
+  
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let sum = 0;
   let len = 0;
 
@@ -648,7 +781,7 @@ function countDimensionalArrayAverageValue(arr, callback) {
 function transposeMatrix(matrix) {
   let newMatrix = [];
   for (let i = 0; i < matrix.length; i += 1) {
-    newMatrix.push([]);
+    newMatrix.myPush([]);
   }
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix.length; j++) {
@@ -737,6 +870,10 @@ function deleteColumn(matrix) {
 // Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
 
 function countSum(matrix, callback) {
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let sum = 0;
 
   for (let i = 0; i < matrix.length; i++) {
@@ -770,6 +907,10 @@ function countSum(matrix, callback) {
 //   ],(j,i) => j=== i)
 // );
 function countZeroElements(matrix, callback) {
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let count = 0;
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix.length; j++) {
@@ -815,6 +956,10 @@ function countZeroElements(matrix, callback) {
 // );
 
 function countElementsAverageValue(matrix, callback) {
+  if(callback && typeof callback !== 'function') {
+    throw new Error('Callback is not found');
+  };
+
   let sum = 0;
   let count = 0;
 
@@ -890,7 +1035,7 @@ for (let item of fibonacci) {
   if (item > 30) {
     break;
   }
-  console.log(item);
+  
 }
 
 const fibonacciGenerator = {
@@ -992,12 +1137,20 @@ const trafficLightsGenerator = {
 // ============ TASK 20 ==========================
 // Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово).
 function checkIsPositive(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   if ((num >> 31) & 1) {
     return false;
   } else return true;
 }
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0.
 function countBits(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   const bits = {
     0: 0,
     1: 0,
@@ -1018,6 +1171,10 @@ console.log(countBits(10));
 
 //  Написать свою реализацию для ~, двумя способами
 function transformBitNotNumber(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   if (num > 0) {
     return -1 * (1 << 32) - num;
   }
@@ -1027,6 +1184,10 @@ function transformBitNotNumber(num) {
 console.log(transformBitNotNumber(-5));
 
 function transformBitNotNumber2(num) {
+  if(typeof num !== 'number') {
+    throw new Error('Number is not found');
+  };
+
   console.log((1 >> 32) - num);
   if (num >= 0) {
     return -1 * (num + 1);
