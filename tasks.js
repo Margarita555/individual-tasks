@@ -75,16 +75,18 @@ function findAnogram(firstStr, secondStr) {
       let currentLetter = firstStrLetters[i];
 
       let firstStrletterQuantity =
-        firstStr.mySplit(`${currentLetter}`).myJoin().length - 1;
+        firstStr.mySplit(currentLetter).myJoin().length - 1;
 
       let secondStrletterQuantity =
-        secondStr.mySplit(`${currentLetter}`).myJoin().length - 1;
+        secondStr.mySplit(currentLetter).myJoin().length - 1;
 
       if (firstStrletterQuantity !== secondStrletterQuantity) {
         return false;
       }
       isLetterInBothStrings = true;
-    } else return false;
+    } else {
+      return false
+    };
   }
 
   return isLetterInBothStrings;
@@ -121,7 +123,7 @@ function calculateLengthByRecursion(num) {
       numbersAmount += 1;
       return numbersAmount;
     }
-    numbersAmount += 1;
+    numbersAmount ++;
     calc(Math.floor(currentNum / 10));
   }
   calc(num);
@@ -157,7 +159,7 @@ function calculateUniqueWords(string) {
   let count = 0;
   for(let i = 0; i < words.length; i++){
     if(words.indexOf(words[i]) === i) {
-      count +=1;}
+      count ++;}
   }
   return count;
 }
@@ -244,7 +246,7 @@ class Circle {
   }
 
   perimeter() {
-    return 2 * 3.14 * this.radius;
+    return 2 * Math.PI * this.radius;
   }
   square() {
     return 3.14 * this.radius ** 2;
@@ -271,8 +273,7 @@ function calculateFactorial(num) {
   }
 
   let result = 1;
-  let count = 0;
-  for (count = num; count > 1; count--) {
+  for (let count = num; count > 1; count--) {
     result *= count;
   }
   return result;
@@ -285,10 +286,11 @@ function calculateFactorialByRecursion(num) {
 
   if (num === 0) {
     return 1;
-  } else {
-    return num * calculateFactorialByRecursion(num - 1);
   }
+    return num * calculateFactorialByRecursion(num - 1);
+  
 }
+
 
 const factorialByMemo = (function () {
   let memo = {};
@@ -304,6 +306,7 @@ const factorialByMemo = (function () {
   };
 })();
 
+
 // ============ TASK 9 ==========================
 // Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные), реализовать с помощью рекурсии для одномерного массива.
 
@@ -317,9 +320,7 @@ function arrayElementsSum(arr, callback) {
 
   let sum = 0;
   for (let i = 0; i < arr.length; i++) {
-    if (callback && callback(arr[i])) {
-      sum += arr[i];
-    } else if (!callback) {
+    if (callback(arr[i])) {
       sum += arr[i];
     }
   }
@@ -405,7 +406,9 @@ function myMathPow(base, pow) {
   }
 
   let result = base;
-  if (pow === 0) return 1;
+  if (pow === 0) {
+    return 1
+  };
   for (let i = pow - 1; i > 0; i--) {
     result *= base;
   }
@@ -711,11 +714,7 @@ const fibonacci = {
     };
   },
 };
-for (let item of fibonacci) {
-  if (item > 30) {
-    break;
-  }
-}
+
 
 const fibonacciGenerator = {
   previous: 0,
@@ -829,25 +828,15 @@ function countBits(num) {
 
 //  Написать свою реализацию для ~, двумя способами
 function transformBitNotNumber(num) {
-  if (typeof num !== "number") {
-    throw new Error("Number is not found");
-  }
 
-  if (num > 0) {
-    return -1 * (1 << 32) - num;
-  }
-  return -1 * (1 >> 32) + num;
+  return (num ^ -1)
+
 }
+console.log(transformBitNotNumber(5))
 
 function transformBitNotNumber2(num) {
-  if (typeof num !== "number") {
-    throw new Error("Number is not found");
-  }
-
-  if (num >= 0) {
-    return -1 * (num + 1);
-  } else {
-    return -1 * (-1 * num + 1);
-  }
+ return -num-1
 }
 
+
+  
