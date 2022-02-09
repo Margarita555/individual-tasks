@@ -851,12 +851,3 @@ function transformBitNotNumber2(num) {
   }
 }
 
-function myFilter(arr){
-  const filteredArr = []
-  for(let i = 0; i < arr.length; i++){
-    if(arr.indexOf(arr[i]) === i) filteredArr.push(arr[i])
-  }
-
-  return filteredArr;
-}
-console.log(myFilter([1,2,2,3,4,4,5,5,6]) )
