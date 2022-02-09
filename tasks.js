@@ -147,28 +147,21 @@ function checkIsPalindrom(str) {
 // ============ TASK 5 ==========================
 // Написать функцию которая вычисляет подсчет уникальных слов в предложении
 
-function calculateUniqueWords(sentence) {
-  if (typeof sentence !== "string") {
+
+function calculateUniqueWords(string) {
+  if (typeof string !== "string") {
     throw new Error("String is not found");
   }
 
-  const words = sentence.mySplit(" ");
-  const wordsObj = {};
-
-  for (let i = 0; i < words.length; i++) {
-    if (!wordsObj.hasOwnProperty(words[i])) {
-      wordsObj[words[i]] = 1;
-    } else wordsObj[words[i]] += 1;
+  const words = string.mySplit(" ");
+  let count = 0;
+  for(let i = 0; i < words.length; i++){
+    if(words.indexOf(words[i]) === i) {
+      count +=1;}
   }
-  const entries = Object.entries(wordsObj);
-  let result = [];
-  for (let i = 0; i < entries.length; i++) {
-    if (entries[i][1] === 1) {
-      result.myPush(entries[i][0]);
-    }
-  }
-  return result;
+  return count;
 }
+
 
 // ============ TASK 6 ==========================
 // Написать функцию которая вычисляет вхождение каждого слова в предложение
@@ -857,3 +850,13 @@ function transformBitNotNumber2(num) {
     return -1 * (-1 * num + 1);
   }
 }
+
+function myFilter(arr){
+  const filteredArr = []
+  for(let i = 0; i < arr.length; i++){
+    if(arr.indexOf(arr[i]) === i) filteredArr.push(arr[i])
+  }
+
+  return filteredArr;
+}
+console.log(myFilter([1,2,2,3,4,4,5,5,6]) )
