@@ -9,4 +9,37 @@ Array.prototype.myFilter = function (callback){
   }
 //   let arr = [1,2,2,3,4,4,5,5,6];
 //   console.log(arr.myFilter((item, i, arr) => arr.indexOf(item)=== i))
-  
+ 
+// const person ={
+//   name: ''
+// }
+
+// function test(phone){
+//   this.phone = phone;
+//   console.log(`${this.name} ${this.phone}`)
+//   // return `${this.name} ${this.phone}`
+// }
+
+// Function.prototype.myBind = function(callback, context, ...rest){
+//   return function(...args){
+//   const uniqueId = Date.now().toString();
+//   context[uniqueId] = callback;
+//   const result = context[uniqueId](...rest,...args);
+//   delete context[uniqueId];
+//   return result;
+// }
+// }
+
+// Function.prototype.myCall = function(callback, context, ...args){
+//   const uniqueId = Date.now().toString();
+//   context[uniqueId] = callback;
+//   const result = context[uniqueId](...args);
+//   delete context[uniqueId];
+//   return result;
+// }
+
+// const exp = test.myCall(person, 123456)
+// const exp2 = test.myBind(person, 123456)
+// console.log(exp2())
+
+

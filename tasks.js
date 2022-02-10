@@ -828,15 +828,18 @@ function countBits(num) {
 
 //  Написать свою реализацию для ~, двумя способами
 function transformBitNotNumber(num) {
-
   return (num ^ -1)
-
 }
-console.log(transformBitNotNumber(5))
 
 function transformBitNotNumber2(num) {
- return -num-1
-}
+  let numeral = num;
+  for(let i = 0; i<32; i++){
+    console.log(numeral)
+    numeral ^ (1<<i)
+  }
+  return numeral;
+ }
+
 
 
   
