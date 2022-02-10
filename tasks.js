@@ -91,11 +91,12 @@ function checkIsAnogram(firstStr, secondStr) {
       }
       isLetterInBothStrings = true;
     } else {
-      return false
+      return false;
     };
   }
   return isLetterInBothStrings;
 }
+
 
 // ============ TASK 3 ==========================
 // Написать функцию которая вычисляет подсчет количество цифр в числе. Реализовать с помощью рекурсии.
@@ -178,7 +179,7 @@ function calculateWords(sentence) {
   for (let i = 0; i < words.length; i++) {
     if (!result.hasOwnProperty(words[i])) {
       result[words[i]] = 1;
-    } else result[words[i]] += 1;
+    } else result[words[i]]++;
   }
   return result;
 }
@@ -255,7 +256,7 @@ class Circle {
     return 2 * Math.PI * this.radius;
   }
   square() {
-    return 3.14 * this.radius ** 2;
+    return Math.PI * this.radius ** 2;
   }
 }
 
@@ -607,10 +608,10 @@ function transposeMatrix(matrix) {
 
 function addMatrixes(matrix1, matrix2) {
   if(!matrix1.length || !matrix2.length){
-    return []
+    return [];
   }
   let newMatrix = [];
-  for (let i = 0; i < matrix1.length; i += 1) {
+  for (let i = 0; i < matrix1.length; i++) {
     newMatrix.myPush([]);
   }
   for (let i = 0; i < matrix1.length; i++) {
