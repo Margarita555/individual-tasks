@@ -43,11 +43,4 @@ Function.prototype.myBind = function(callback, context, ...rest){
 // const exp2 = test.myBind(person)(123456)
 // console.log(exp2())
 
-// function transformBitNotNumber2(num) {
-//   let numeral = num;
-//   for(let i = 0; i<32; i++){
-//     console.log(numeral)
-//     numeral ^ (1<<i)
-//   }
-//   return numeral;
-//  }
+

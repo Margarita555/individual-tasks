@@ -837,5 +837,16 @@ function transformBitNotNumber(num) {
  return -num-1;
 }
 
+function transformBitNotNumber3(num) {
+  let numeral = num;
+  for(let i = 0; i<32; i++){
+    
+    numeral = numeral ^ (1<<i)
+    console.log(numeral)
+  }
+  return numeral;
+ }
+
+
 
   
