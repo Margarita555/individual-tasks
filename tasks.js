@@ -1,4 +1,4 @@
-"use-strict";
+"use strict";
 
 String.prototype.mySplit = function (seperator) {
   let str = this;
