@@ -49,3 +49,38 @@ const exp2 = test.myBind(person, 123456)
 // console.log(exp2())
 
 
+// function checkIsAnogram(firstStr, secondStr) {
+//   if (typeof firstStr !== "string" || typeof secondStr !== "string") {
+//     throw new Error("String is not found");
+//   }
+//   if (firstStr.length !== secondStr.length) {
+//     return false;
+//   }
+//   firstStr = firstStr.toLowerCase();
+//   secondStr = secondStr.toLowerCase();
+
+//   let isLetterInBothStrings = false;
+//   let firstWord = firstStr.mySplit();
+//   let secondWord = secondStr.mySplit();
+
+//   for (let i = 0; i < firstWord.length; i++) {
+//     if (firstWord.includes(secondWord[i])) {
+//       let currentLetter = firstWord[i];
+        
+
+//       let firstStrletterQuantity =
+//         firstStr.mySplit(currentLetter).myJoin().length - 1;
+
+//       let secondStrletterQuantity =
+//         secondStr.mySplit(currentLetter).myJoin().length - 1;
+
+//       if (firstStrletterQuantity !== secondStrletterQuantity) {
+//         return false;
+//       }
+//       isLetterInBothStrings = true;
+//     } else {
+//       return false
+//     };
+//   }
+//   return isLetterInBothStrings;
+// }

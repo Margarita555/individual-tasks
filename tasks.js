@@ -65,24 +65,28 @@ function checkIsAnogram(firstStr, secondStr) {
   if (firstStr.length !== secondStr.length) {
     return false;
   }
-  firstStr = firstStr.toLowerCase();
-  secondStr = secondStr.toLowerCase();
 
   let isLetterInBothStrings = false;
-  let firstStrLetters = firstStr.mySplit();
-  let secondStrLetters = secondStr.mySplit();
 
-  for (let i = 0; i < firstStrLetters.length; i++) {
-    if (firstStrLetters.includes(secondStrLetters[i])) {
-      let currentLetter = firstStrLetters[i];
+  let firstWord = firstStr.toLowerCase();
+  let secondWord = secondStr.toLowerCase();
 
-      let firstStrletterQuantity =
-        firstStr.mySplit(currentLetter).myJoin().length - 1;
+  for (let i = 0; i < firstWord.length; i++) {
+    if (firstWord.includes(secondWord[i])) {
+      let currentLetter = firstWord[i];
+         let length1 = 0;
+         let length2 = 0;
+         
+       for(let j = 0; j < firstWord.length; j++){
+          if(currentLetter === firstWord[j]){
+            length1++;
+          }
+          if(currentLetter === secondWord[j]){
+            length2++;
+          }
+       }
 
-      let secondStrletterQuantity =
-        secondStr.mySplit(currentLetter).myJoin().length - 1;
-
-      if (firstStrletterQuantity !== secondStrletterQuantity) {
+      if (length1 !== length2) {
         return false;
       }
       isLetterInBothStrings = true;
@@ -92,7 +96,7 @@ function checkIsAnogram(firstStr, secondStr) {
   }
   return isLetterInBothStrings;
 }
-console.log(checkIsAnogram('kaban', 'banka'))
+
 // ============ TASK 3 ==========================
 // Написать функцию которая вычисляет подсчет количество цифр в числе. Реализовать с помощью рекурсии.
 function calculateLength(num) {
