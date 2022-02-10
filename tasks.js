@@ -831,15 +831,11 @@ function transformBitNotNumber(num) {
   return (num ^ -1)
 }
 
-function transformBitNotNumber2(num) {
-  let numeral = num;
-  for(let i = 0; i<32; i++){
-    console.log(numeral)
-    numeral ^ (1<<i)
-  }
-  return numeral;
- }
 
+
+ function transformBitNotNumber2(num) {
+ return -num-1;
+}
 
 
   

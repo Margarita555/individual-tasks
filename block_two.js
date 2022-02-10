@@ -10,25 +10,26 @@ Array.prototype.myFilter = function (callback){
 //   let arr = [1,2,2,3,4,4,5,5,6];
 //   console.log(arr.myFilter((item, i, arr) => arr.indexOf(item)=== i))
  
-// const person ={
-//   name: ''
-// }
+const person ={
+  name: 'Rita'
+}
 
-// function test(phone){
-//   this.phone = phone;
-//   console.log(`${this.name} ${this.phone}`)
-//   // return `${this.name} ${this.phone}`
-// }
+function test(phone){
+  this.phone = phone;
+  console.log(`${this.name} ${phone}`)
+  // return `${this.name} ${this.phone}`
+}
+test.bind(person,'12345')()
 
-// Function.prototype.myBind = function(callback, context, ...rest){
-//   return function(...args){
-//   const uniqueId = Date.now().toString();
-//   context[uniqueId] = callback;
-//   const result = context[uniqueId](...rest,...args);
-//   delete context[uniqueId];
-//   return result;
-// }
-// }
+Function.prototype.myBind = function(callback, context, ...rest){
+  return function(...args){
+  const uniqueId = Date.now().toString();
+  context[uniqueId] = callback;
+  const result = context[uniqueId](...rest,...args);
+  delete context[uniqueId];
+  return result;
+}
+}
 
 // Function.prototype.myCall = function(callback, context, ...args){
 //   const uniqueId = Date.now().toString();
@@ -39,7 +40,14 @@ Array.prototype.myFilter = function (callback){
 // }
 
 // const exp = test.myCall(person, 123456)
-// const exp2 = test.myBind(person, 123456)
+// const exp2 = test.myBind(person)(123456)
 // console.log(exp2())
 
-
+// function transformBitNotNumber2(num) {
+//   let numeral = num;
+//   for(let i = 0; i<32; i++){
+//     console.log(numeral)
+//     numeral ^ (1<<i)
+//   }
+//   return numeral;
+//  }
