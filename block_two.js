@@ -19,9 +19,11 @@ function test(phone){
   console.log(`${this.name} ${phone}`)
   // return `${this.name} ${this.phone}`
 }
-test.bind(person,'12345')()
+// test.bind(person,'12345')()
 
-Function.prototype.myBind = function(callback, context, ...rest){
+
+Function.prototype.myBind = function( context, ...rest){
+  let callback = this;
   return function(...args){
   const uniqueId = Date.now().toString();
   context[uniqueId] = callback;
@@ -31,6 +33,8 @@ Function.prototype.myBind = function(callback, context, ...rest){
 }
 }
 
+// test.myBind(person,'1234567')()
+
 // Function.prototype.myCall = function(callback, context, ...args){
 //   const uniqueId = Date.now().toString();
 //   context[uniqueId] = callback;
@@ -39,8 +43,9 @@ Function.prototype.myBind = function(callback, context, ...rest){
 //   return result;
 // }
 
+// test.myCall(person,'12345')()
 // const exp = test.myCall(person, 123456)
-// const exp2 = test.myBind(person)(123456)
+const exp2 = test.myBind(person, 123456)
 // console.log(exp2())
 
 

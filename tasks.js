@@ -58,19 +58,21 @@ Array.prototype.mySlice = function (begin, end) {
 // ============ TASK 1 ==========================
 // Написать функцию которая проверяет являются две строки анаграммой или нет
 
-function findAnogram(firstStr, secondStr) {
+function checkIsAnogram(firstStr, secondStr) {
   if (typeof firstStr !== "string" || typeof secondStr !== "string") {
     throw new Error("String is not found");
   }
+  if (firstStr.length !== secondStr.length) {
+    return false;
+  }
+  firstStr = firstStr.toLowerCase();
+  secondStr = secondStr.toLowerCase();
+
   isLetterInBothStrings = false;
   firstStrLetters = firstStr.mySplit();
   secondStrLetters = secondStr.mySplit();
 
-  if (firstStr.length !== secondStr.length) {
-    return false;
-  }
-
-  for (let i = 0; i < firstStrLetters.length; i += 1) {
+  for (let i = 0; i < firstStrLetters.length; i++) {
     if (firstStrLetters.includes(secondStrLetters[i])) {
       let currentLetter = firstStrLetters[i];
 
@@ -88,7 +90,6 @@ function findAnogram(firstStr, secondStr) {
       return false
     };
   }
-
   return isLetterInBothStrings;
 }
 
@@ -105,7 +106,7 @@ function calculateLength(num) {
   let amount = 0;
 
   while (num > 0) {
-    amount += 1;
+    amount++;
     num = Math.floor(num / 10);
   }
   return amount;
@@ -116,18 +117,11 @@ function calculateLengthByRecursion(num) {
     throw new Error("Number is not found");
   }
 
-  let numbersAmount = 0;
-
-  function calc(currentNum) {
-    if (currentNum < 10) {
-      numbersAmount += 1;
-      return numbersAmount;
-    }
-    numbersAmount ++;
-    calc(Math.floor(currentNum / 10));
-  }
-  calc(num);
-  return numbersAmount;
+   if (num > 10){
+   return 1 + calculateLengthByRecursion(num/10);}
+   else {
+      return 1;
+   }
 }
 
 // ============ TASK 4 ==========================
@@ -141,8 +135,10 @@ function checkIsPalindrom(str) {
   for (let i = 0; i < str.length; i++) {
     if (str[i] === str[str.length - 1 - i]) {
       result = true;
-    } else result = false;
-  }
+    } else {
+      return false;
+    };
+  };
   return result;
 }
 
@@ -159,7 +155,7 @@ function calculateUniqueWords(string) {
   let count = 0;
   for(let i = 0; i < words.length; i++){
     if(words.indexOf(words[i]) === i) {
-      count ++;}
+      count++;}
   }
   return count;
 }
@@ -201,6 +197,9 @@ class Rectangle {
 }
 
 const RectangleConstructor = function (width, height) {
+  if (width <= 0 || height <= 0) {
+    throw new Error("String is not found");
+  }
   this.width = width;
   this.height = height;
 };
@@ -228,6 +227,9 @@ class Triangle {
 }
 
 const TriangleConstructor = function (height, base, side1, side2) {
+  if (height <= 0 || base <= 0 || side1 <= 0 || side2 <= 0) {
+    throw new Error("String is not found");
+  }
   this.height = height;
   this.base = base;
   this.side1 = side1;
@@ -254,14 +256,17 @@ class Circle {
 }
 
 const CircleConstructor = function (radius) {
+  if (radius <= 0) {
+    throw new Error("String is not found");
+  }
   this.radius = radius;
 };
 
 CircleConstructor.prototype.perimeter = function () {
-  return 2 * 3.14 * this.radius;
+  return 2 * Math.PI * this.radius;
 };
 CircleConstructor.prototype.square = function () {
-  return 3.14 * this.radius ** 2;
+  return Math.PI * this.radius ** 2;
 };
 
 // ============ TASK 8 ==========================
@@ -287,10 +292,8 @@ function calculateFactorialByRecursion(num) {
   if (num === 0) {
     return 1;
   }
-    return num * calculateFactorialByRecursion(num - 1);
-  
+    return num * calculateFactorialByRecursion(num - 1); 
 }
-
 
 const factorialByMemo = (function () {
   let memo = {};
@@ -342,9 +345,9 @@ function arrayElementsSumRecursion(arr, callback, index) {
   }
   if (callback(arr[index])) {
     return arr[index] + arrayElementsSumRecursion(arr, callback, ++index);
-  } else {
-    return arrayElementsSumRecursion(arr, callback, ++index);
   }
+    return arrayElementsSumRecursion(arr, callback, ++index);
+  
 }
 
 // ============ TASK 10 ==========================
@@ -363,7 +366,7 @@ function countElements(arr, callback) {
 
   for (const element of arr) {
     if (callback(element)) {
-      amount += 1;
+      amount++;
     }
   }
   return amount;
@@ -528,7 +531,7 @@ function calcSumByMinMaxRecursion(arr, min, max, callback) {
 // ============ TASK 14==========================
 // Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 
-function countAverageValue(arr, callback) {
+function countArithmeticAverage(arr, callback) {
   if (!Array.isArray(arr)) {
     throw new Error("Array is not found");
   }
@@ -543,7 +546,7 @@ function countAverageValue(arr, callback) {
   for (let i = 0; i < arr.length; i += 1) {
     if (callback && callback(arr[i])) {
       sum += arr[i];
-      len += 1;
+      len++;
     } else if (!callback) {
       sum += arr[i];
       len = arr.length;
@@ -583,12 +586,15 @@ function countDimensionalArrayAverageValue(arr, callback) {
 // Транспонировать матрицу, сложить две матрицы.
 
 function transposeMatrix(matrix) {
+  if(!matrix.length){
+    return [];
+  }
   let newMatrix = [];
-  for (let i = 0; i < matrix.length; i += 1) {
+  for (let i = 0; i < matrix[0].length; i++) {
     newMatrix.myPush([]);
   }
   for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix.length; j++) {
+    for (let j = 0; j < matrix[i].length; j++) {
       newMatrix[j].myPush(matrix[i][j]);
     }
   }
@@ -596,13 +602,16 @@ function transposeMatrix(matrix) {
 }
 
 function addMatrixes(matrix1, matrix2) {
+  if(!matrix1.length || !matrix2.length){
+    return []
+  }
   let newMatrix = [];
   for (let i = 0; i < matrix1.length; i += 1) {
     newMatrix.myPush([]);
   }
   for (let i = 0; i < matrix1.length; i++) {
     for (let j = 0; j < matrix1.length; j++) {
-      newMatrix[i].muPush(matrix1[i][j] + matrix2[i][j]);
+      newMatrix[i].myPush(matrix1[i][j] + matrix2[i][j]);
     }
   }
   return newMatrix;
@@ -612,28 +621,41 @@ function addMatrixes(matrix1, matrix2) {
 // Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 
 function deleteString(matrix) {
+  if(!matrix.length){
+    return []
+  }
   for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix.length; j++) {
+    for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === 0) {
         matrix.splice(i, 1);
+        i--;
+      }
+    } 
+  }
+  return matrix;
+}
+
+// console.log(deleteString([[1,1,1,1,1],[2,2,0,2,2],[3,3,0,3,3]]))
+
+function deleteColumn(matrix) {
+  if(!matrix.length){
+    return []
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] === 0) {
+        console.log(matrix[i][j])
+        for (let k = 0; k < matrix.length; k++) {
+          matrix[k].splice(j, 1);
+        
+        }
+        j--;
       }
     }
   }
   return matrix;
 }
 
-function deleteColumn(matrix) {
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix.length; j++) {
-      if (matrix[i][j] === 0) {
-        for (let i = 0; i < matrix.length; i++) {
-          matrix[i].splice(j, 1);
-        }
-      }
-    }
-  }
-  return matrix;
-}
 
 // ============ TASK 17==========================
 // Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
@@ -646,7 +668,7 @@ function countSum(matrix, callback) {
   let sum = 0;
 
   for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix.length; j++) {
+    for (let j = 0; j < matrix[i].length; j++) {
       if (callback(j, i)) {
         sum += matrix[i][j];
       }
@@ -654,6 +676,7 @@ function countSum(matrix, callback) {
   }
   return sum;
 }
+// console.log(countSum([[1,1,1],[2,2,2],[3,3,3]], (j,i)=> j<i ));
 
 function countZeroElements(matrix, callback) {
   if (callback && typeof callback !== "function") {
@@ -744,17 +767,23 @@ function fibinacciRecursion(num) {
   return fibinacciRecursion(num - 1) + fibinacciRecursion(num - 2);
 }
 
-function* fibonacciMemo(max, prev = 0, next = 1, memo) {
-  if (max === 0) {
-    return 0;
+const fibonacciMemo = (function(){
+  let memo = {};
+  
+  return function fibonacci(num){
+    console.log(memo)
+    if(memo[num]){
+      return memo[num];
+    };
+   
+    if (num <=1){
+        return 1;
+      };
+
+    memo[num] = fibonacci(num-1) + fibonacci(num-2);
+    return memo[num];
   }
-  memo = memo || {};
-  if (memo[max]) {
-    return memo[max];
-  }
-  yield prev;
-  yield* (memo[max] = fibonacciMemo(--max, next, prev + next, memo));
-}
+ })();
 
 // ============ TASK 19 ==========================
 // Реализовать с помощью итератора и генератора светофор. При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора.
@@ -798,10 +827,7 @@ function checkIsPositive(num) {
   if (typeof num !== "number") {
     throw new Error("Number is not found");
   }
-
-  if ((num >> 31) & 1) {
-    return false;
-  } else return true;
+    return (num >> 31) & 1;
 }
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0.
 function countBits(num) {
@@ -834,7 +860,7 @@ function transformBitNotNumber(num) {
 function transformBitNotNumber2(num) {
   let numeral = num;
   for(let i = 0; i<32; i++){
-    numeral = numeral ^ (1<<i)
+    numeral ^= (1<<i)
   }
   return numeral;
  }
@@ -843,8 +869,3 @@ function transformBitNotNumber2(num) {
  return -num-1;
 }
 
-
-
-
-
-  
