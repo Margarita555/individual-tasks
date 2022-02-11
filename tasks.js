@@ -66,8 +66,6 @@ function checkIsAnogram(firstStr, secondStr) {
     return false;
   }
 
-  let isLetterInBothStrings = false;
-
   let firstWord = firstStr.toLowerCase();
   let secondWord = secondStr.toLowerCase();
 
@@ -89,12 +87,12 @@ function checkIsAnogram(firstStr, secondStr) {
       if (length1 !== length2) {
         return false;
       }
-      isLetterInBothStrings = true;
+
     } else {
       return false;
     }
   }
-  return isLetterInBothStrings;
+  return true;
 }
 
 // ============ TASK 3 ==========================
@@ -620,6 +618,7 @@ function deleteColumn(matrix, value) {
   if (matrix.length === 0) {
     return [];
   }
+
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === value) {
@@ -628,6 +627,9 @@ function deleteColumn(matrix, value) {
         }
         j--;
       }
+    }
+    if(matrix[i].length === 0){
+      matrix.splice(i--,1);
     }
   }
   return matrix;
@@ -817,7 +819,7 @@ function countBits(num) {
 
   while(number > 0){
     bits[number % 2]++;
-    number = (number -(number % 2)) / 2
+    number = (number -(number % 2)) / 2;
   }
   bits[0] = 32 - bits[1];
 

@@ -82,10 +82,11 @@ Array.prototype.myFind = function(callback){
   }
 
   let arr = this;
-  let result;
+  let result; 
    for ( let i = 0; i< arr.length; i++){
-      if(callback(this[i], i, this))
-       result.push(arr[i])
+      if(callback(arr[i], i, arr)){
+        result = arr[i]
+      } 
    }
    return result;
 }
