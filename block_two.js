@@ -82,62 +82,43 @@ Array.prototype.myFind = function(callback){
   }
 
   let arr = this;
-  let result; 
    for ( let i = 0; i< arr.length; i++){
       if(callback(arr[i], i, arr)){
-        result = arr[i]
+        return arr[i];
       } 
    }
-   return result;
+   return undefined;
 }
+// console.log(a.myFind(el => el > 7))
 
-// Array.prototype.myReduce = function(callback){
+// Array.prototype.myReduce = function(callback,accumulator){
 //   if (typeof callback !== "function") {
 //     throw new Error("Callback is not a function");
 //   }
 
 //   let arr = this;
-//   let acc = [];
+//    let acc = accumulator || 0;
+//    console.log(acc)
 //    for ( let i = 0; i< arr.length; i++){
-//       if(callback(this[i], i, this))
-//        result.push(arr[i])
-//    }
-//    return result;
-// }
-
-// function checkIsAnogram(firstStr, secondStr) {
-//   if (typeof firstStr !== "string" || typeof secondStr !== "string") {
-//     throw new Error("String is not found");
-//   }
-//   if (firstStr.length !== secondStr.length) {
-//     return false;
-//   }
-//   firstStr = firstStr.toLowerCase();
-//   secondStr = secondStr.toLowerCase();
-
-//   let isLetterInBothStrings = false;
-//   let firstWord = firstStr.mySplit();
-//   let secondWord = secondStr.mySplit();
-
-//   for (let i = 0; i < firstWord.length; i++) {
-//     if (firstWord.includes(secondWord[i])) {
-//       let currentLetter = firstWord[i];
-
-//       let firstStrletterQuantity =
-//         firstStr.mySplit(currentLetter).myJoin().length - 1;
-
-//       let secondStrletterQuantity =
-//         secondStr.mySplit(currentLetter).myJoin().length - 1;
-
-//       if (firstStrletterQuantity !== secondStrletterQuantity) {
-//         return false;
+//     //  if(!accumulator){
+//     //    callback(arr[0], arr[i+1], i, arr)
+//     //  }
+//     console.log('el ',arr[i])
+//     if(typeof acc === 'number'){
+//     acc = callback(acc, arr[i], i, arr);
+//     }
+//     if( Array.isArray(acc)){
+//       acc.push(callback(acc, arr[i], i, arr));
 //       }
-//       isLetterInBothStrings = true;
-//     } else {
-//       return false
-//     };
-//   }
-//   return isLetterInBothStrings;
+//     console.log(acc)
+       
+//    }
+//    return acc;
 // }
+
+// console.log(a.myReduce((total, el)=> {total + el, 0}, 0))
+
+console.log(a.myReduce((total, el)=> {total.push(el*2)}, []))
+
 
 

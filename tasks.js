@@ -730,12 +730,6 @@ const fibonacciGenerator = {
   },
 };
 
-for (let item of fibonacciGenerator) {
-  if (item > 30) {
-    break;
-  }
-}
-
 function fibinacciRecursion(num) {
   if (num <= 1) {
     return num;
