@@ -125,7 +125,6 @@ function calculateLengthByRecursion(num) {
     return 1 + calculateLengthByRecursion(num / 10);
   }
   return 1;
-  
 }
 
 // ============ TASK 4 ==========================
@@ -601,28 +600,29 @@ function addMatrixes(matrix1, matrix2) {
 // Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 
 function deleteString(matrix, value) {
-  if (matrix.length === value) {
+  if (matrix.length === 0) {
     return [];
   }
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] === value) {
-        matrix.splice(i--, 1);
-        
+   
+    let index = 0;
+  for ( index = index; index < matrix.length; index++) {
+    for (let j = 0; j < matrix[index].length; j++) {
+      if (matrix[index][j] === value) {
+        matrix.splice(index--, 1);
+        break;
       }
     }
   }
   return matrix;
 }
 
-function deleteColumn(matrix) {
+function deleteColumn(matrix, value) {
   if (matrix.length === 0) {
     return [];
   }
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] === 0) {
-        console.log(matrix[i][j]);
+      if (matrix[i][j] === value) {
         for (let k = 0; k < matrix.length; k++) {
           matrix[k].splice(j, 1);
         }
@@ -823,7 +823,6 @@ function countBits(num) {
 
   return bits;
 }
-
 
 //  Написать свою реализацию для ~, двумя способами
 function transformBitNotNumber(num) {
