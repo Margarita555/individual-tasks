@@ -1,18 +1,3 @@
-/*  Как работает принцип работы отлова ошибок с помощью throw, try, catch 
-с учетом вызова ряда функций?*/
-
-// Выполняется код внутри блока try. Если нет ошибок, блок catch игнорируется. 
-// Если есть ошибка, то выполнение блока try прерывается и выполняется catch с переменной error,
-//  которая указываeт, какая ошибка произошла. При использовании try catch наш код не падает, 
-//  обрабатывается ошибка и код выполняется дальше. С помощью оператора throw мы используем 
-//  конструктор new Error и создаём ошибку.
-
-
-/*  Отличие instanceOf от typeof
-
-typeof передает тип данных, а instanceof вернёт true или fslse , проверяет,
- принадлежит ли object определенному классу с учётом наследования, присутствует ли object в цепочке прототипов*/
-
 "use strict";
 
 String.prototype.mySplit = function (seperator) {
@@ -585,7 +570,7 @@ function countDimensionalArrayArithmeticAverage(arr, callback) {
 // ============ TASK 15==========================
 // Транспонировать матрицу, сложить две матрицы.
 function transposeMatrix(matrix) {
-  if (!matrix.length) {
+  if (matrix.length === 0) {
     return [];
   }
   let newMatrix = [];
@@ -597,17 +582,15 @@ function transposeMatrix(matrix) {
   }
   return newMatrix;
 }
- console.log(transposeMatrix([[1,1,1,1,1],[2,2,0,2,2],[3,3,0,3,3]]))
 
 function addMatrixes(matrix1, matrix2) {
-  if (!matrix1.length || !matrix2.length) {
+  if (matrix1.length === 0 || matrix2.length === 0) {
     return [];
   }
   let newMatrix = [];
+
   for (let i = 0; i < matrix1.length; i++) {
     newMatrix.myPush([]);
-  }
-  for (let i = 0; i < matrix1.length; i++) {
     for (let j = 0; j < matrix1.length; j++) {
       newMatrix[i].myPush(matrix1[i][j] + matrix2[i][j]);
     }
@@ -619,7 +602,7 @@ function addMatrixes(matrix1, matrix2) {
 // Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 
 function deleteString(matrix) {
-  if (!matrix.length) {
+  if (matrix.length === 0) {
     return [];
   }
   for (let i = 0; i < matrix.length; i++) {
@@ -633,10 +616,8 @@ function deleteString(matrix) {
   return matrix;
 }
 
-// console.log(deleteString([[1,1,1,1,1],[2,2,0,2,2],[3,3,0,3,3]]))
-
 function deleteColumn(matrix) {
-  if (!matrix.length) {
+  if (matrix.length === 0) {
     return [];
   }
   for (let i = 0; i < matrix.length; i++) {
@@ -672,7 +653,6 @@ function countSum(matrix, callback) {
   }
   return sum;
 }
-// console.log(countSum([[1,1,1],[2,2,2],[3,3,3]], (j,i)=> j<i ));
 
 function countZeroElements(matrix, callback) {
   if (callback && typeof callback !== "function") {
