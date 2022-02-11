@@ -35,18 +35,74 @@ Function.prototype.myBind = function (context, ...rest) {
 
 // test.myBind(person,'1234567')()
 
-// Function.prototype.myCall = function(callback, context, ...args){
-//   const uniqueId = Date.now().toString();
-//   context[uniqueId] = callback;
-//   const result = context[uniqueId](...args);
-//   delete context[uniqueId];
-//   return result;
-// }
+Function.prototype.myCall = function(context, ...args){
+  let callback = this;
+  const uniqueId = Date.now().toString();
+  context[uniqueId] = callback;
+  const result = context[uniqueId](...args);
+  delete context[uniqueId];
+  return result;
+}
 
-// test.myCall(person,'12345')()
-// const exp = test.myCall(person, 123456)
-const exp2 = test.myBind(person, 123456);
-// console.log(exp2())
+// test.myCall(person,'123')
+
+Array.prototype.myMap = function(callback){
+  if (typeof callback !== "function") {
+    throw new Error("Callback is not a function");
+  }
+
+  let arr = this;
+  const result = [];
+   for ( let i = 0; i< arr.length; i++){
+       result.push(callback(this[i], i, this))
+   }
+   return result;
+}
+let a = [1,2,3,4,5]
+// console.log(a.myMap(el => el+2))
+
+Array.prototype.myFilter = function(callback){
+  if (typeof callback !== "function") {
+    throw new Error("Callback is not a function");
+  }
+
+  let arr = this;
+  const result = [];
+   for ( let i = 0; i< arr.length; i++){
+      if(callback(this[i], i, this))
+       result.push(arr[i])
+   }
+   return result;
+}
+// console.log(a.myFilter(el => el > 2));
+
+Array.prototype.myFind = function(callback){
+  if (typeof callback !== "function") {
+    throw new Error("Callback is not a function");
+  }
+
+  let arr = this;
+  let result;
+   for ( let i = 0; i< arr.length; i++){
+      if(callback(this[i], i, this))
+       result.push(arr[i])
+   }
+   return result;
+}
+
+// Array.prototype.myReduce = function(callback){
+//   if (typeof callback !== "function") {
+//     throw new Error("Callback is not a function");
+//   }
+
+//   let arr = this;
+//   let acc = [];
+//    for ( let i = 0; i< arr.length; i++){
+//       if(callback(this[i], i, this))
+//        result.push(arr[i])
+//    }
+//    return result;
+// }
 
 // function checkIsAnogram(firstStr, secondStr) {
 //   if (typeof firstStr !== "string" || typeof secondStr !== "string") {
@@ -82,25 +138,5 @@ const exp2 = test.myBind(person, 123456);
 //   }
 //   return isLetterInBothStrings;
 // }
-// function transposeMatrix(matrix) {
-//   if (!matrix.length) {
-//     return [];
-//   }
-//   let newMatrix = [];
-//   for (let i = 0; i < matrix[0].length; i++) {
-//     newMatrix.myPush([]);
-//   }
-//   for (let i = 0; i < matrix.length; i++) {
-//     for (let j = 0; j < matrix[i].length; j++) {
-//       newMatrix[j].myPush(matrix[i][j]);
-//     }
-//   }
-//   return newMatrix;
-// }
 
-// console.log(
-//   transposeMatrix([
-//     [1, 1, 1, 1],
-//     [2, 2, 2, 2],
-//   ])
-// );
+
