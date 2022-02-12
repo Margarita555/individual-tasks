@@ -1,16 +1,3 @@
-Array.prototype.myFilter = function (callback) {
-  let arr = this;
-  const filteredArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (callback(arr[i], i, arr)) {
-      filteredArr.push(arr[i]);
-    }
-  }
-  return filteredArr;
-};
-//   let arr = [1,2,2,3,4,4,5,5,6];
-//   console.log(arr.myFilter((item, i, arr) => arr.indexOf(item)=== i))
-
 const person = {
   name: "Rita",
 };
@@ -55,7 +42,6 @@ Array.prototype.myMap = function (callback) {
   let result = [];
   for (let i = 0; i < arr.length; i++) {
     result[i] = callback(this[i], i, this);
-    
   }
   return result;
 };
@@ -66,16 +52,18 @@ Array.prototype.myFilter = function (callback) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
-
   let arr = this;
-  let result = [];
+  const filteredArr = [];
   for (let i = 0; i < arr.length; i++) {
-    if (callback(this[i], i, this)) {
-      result.push(arr[i]);
+    if (callback(arr[i], i, arr)) {
+      filteredArr.push(arr[i]);
     }
   }
-  return result;
+  return filteredArr;
 };
+//   let arr = [1,2,2,3,4,4,5,5,6];
+//   console.log(arr.myFilter((item, i, arr) => arr.indexOf(item)=== i))
+
 // console.log(a.myFilter(el => el > 2));
 
 Array.prototype.myFind = function (callback) {
@@ -107,35 +95,42 @@ Array.prototype.myForEach = function (callback) {
 };
 a.myForEach((el) => console.log(el));
 // console.log(a.myForEach((el) => console.log(el)));
-// Array.prototype.myReduce = function(callback,accumulator){
-//   if (typeof callback !== "function") {
-//     throw new Error("Callback is not a function");
-//   }
 
-//   let arr = this;
-//    let acc = accumulator || 0;
-//    console.log(acc)
-//    for ( let i = 0; i< arr.length; i++){
-//     //  if(!accumulator){
-//     //    callback(arr[0], arr[i+1], i, arr)
-//     //  }
-//     console.log('el ',arr[i])
-//     if(typeof acc === 'number'){
-//     acc = callback(acc, arr[i], i, arr);
-//     }
-//     if( Array.isArray(acc)){
-//       acc.push(callback(acc, arr[i], i, arr));
-//       }
-//     console.log(acc)
+Array.prototype.myReduce = function (callback, accumulator = 0) {
+  if (typeof callback !== "function") {
+    throw new Error("Callback is not a function");
+  }
+  if (this.length === 0) {
+    return accumulator;
+  }
+  let acc = accumulator;
 
-//    }
-//    return acc;
-// }
+  for (let i = 0; i < this.length; i++) {
+    acc = callback(acc, this[i], i, this);
+  }
+  return acc;
+  // const [first, ...rest] = this;
 
-// console.log(a.myReduce((total, el)=> {total + el, 0}, 0))
+  // let acc = callback(accumulator, first);
+  // return rest.myReduce(callback, acc);
+};
 
-// console.log(
-//   a.myReduce((total, el) => {
-//     total.push(el * 2);
-//   }, [])
-// );
+console.log(
+  a.myReduce((total, el) => {
+    return total + el;
+  }, 0)
+);
+let b = ["hello", "world", "hello", "dogs", "hello", "cats"];
+console.log(
+  b.myReduce((acc, el) => {
+    acc[el] = (acc[el] || 0) + 1;
+    return acc;
+  }, {})
+);
+
+console.log(
+  a.myReduce((acc, el) => {
+    acc.push(el * 2);
+    return acc;
+  }, [])
+);
