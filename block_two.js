@@ -1,11 +1,14 @@
+/* ======================= Task 1 ==========================
+ Написать свою реализацию функций bind, call
+ */
 const person = {
   name: "Rita",
 };
 
 function test(phone) {
   this.phone = phone;
-  console.log(`${this.name} ${phone}`);
-  // return `${this.name} ${this.phone}`
+  // console.log(`${this.name} ${phone}`);
+  return;
 }
 // test.bind(person,'12345')()
 
@@ -32,7 +35,9 @@ Function.prototype.myCall = function (context, ...args) {
 };
 
 // test.myCall(person,'123')
-
+/* ======================= Task 2 ==========================
+ Написать свою реализацию функций для работы с массивами, которые являются аналогами следующих функций: map, filter, reduce, find, forEach.
+ */
 Array.prototype.myMap = function (callback) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
@@ -93,7 +98,7 @@ Array.prototype.myForEach = function (callback) {
     callback(arr[i], i, arr);
   }
 };
-a.myForEach((el) => console.log(el));
+// a.myForEach((el) => console.log(el));
 // console.log(a.myForEach((el) => console.log(el)));
 
 Array.prototype.myReduce = function (callback, accumulator = 0) {
@@ -115,22 +120,22 @@ Array.prototype.myReduce = function (callback, accumulator = 0) {
   // return rest.myReduce(callback, acc);
 };
 
-console.log(
-  a.myReduce((total, el) => {
-    return total + el;
-  }, 0)
-);
+// console.log(
+//   a.myReduce((total, el) => {
+//     return total + el;
+//   }, 0)
+// );
 let b = ["hello", "world", "hello", "dogs", "hello", "cats"];
-console.log(
-  b.myReduce((acc, el) => {
-    acc[el] = (acc[el] || 0) + 1;
-    return acc;
-  }, {})
-);
+// console.log(
+//   b.myReduce((acc, el) => {
+//     acc[el] = (acc[el] || 0) + 1;
+//     return acc;
+//   }, {})
+// );
 
-console.log(
-  a.myReduce((acc, el) => {
-    acc.push(el * 2);
-    return acc;
-  }, [])
-);
+// console.log(
+//   a.myReduce((acc, el) => {
+//     acc.push(el * 2);
+//     return acc;
+//   }, [])
+// );

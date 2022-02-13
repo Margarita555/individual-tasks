@@ -87,7 +87,6 @@ function checkIsAnogram(firstStr, secondStr) {
       if (length1 !== length2) {
         return false;
       }
-
     } else {
       return false;
     }
@@ -601,9 +600,9 @@ function deleteString(matrix, value) {
   if (matrix.length === 0) {
     return [];
   }
-   
-    let index = 0;
-  for ( index = index; index < matrix.length; index++) {
+
+  let index = 0;
+  for (index = index; index < matrix.length; index++) {
     for (let j = 0; j < matrix[index].length; j++) {
       if (matrix[index][j] === value) {
         matrix.splice(index--, 1);
@@ -628,8 +627,8 @@ function deleteColumn(matrix, value) {
         j--;
       }
     }
-    if(matrix[i].length === 0){
-      matrix.splice(i--,1);
+    if (matrix[i].length === 0) {
+      matrix.splice(i--, 1);
     }
   }
   return matrix;
@@ -806,14 +805,14 @@ function countBits(num) {
   }
 
   const bits = {
-    '0': 0,
-    '1': 0,
+    0: 0,
+    1: 0,
   };
   let number = num;
 
-  while(number > 0){
+  while (number > 0) {
     bits[number % 2]++;
-    number = (number -(number % 2)) / 2;
+    number = (number - (number % 2)) / 2;
   }
   bits[0] = 32 - bits[1];
 
