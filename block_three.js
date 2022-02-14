@@ -180,7 +180,7 @@ binaryTree.insert(1);
 binaryTree.insert(10);
 binaryTree.insert(12);
 binaryTree.insert(9);
-console.log(binaryTree);
+// console.log(binaryTree);
 // console.log(binaryTree.search(12));
 // binaryTree.delete(9);
 // binaryTree.delete(2);
