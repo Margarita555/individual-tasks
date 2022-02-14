@@ -915,22 +915,32 @@ function transformBitNotNumber3(num) {
     // }
 
     // Function.prototype.myCall = function (context, ...args) {
-//   let callback = this;
-  
-//   const uniqueId = Date.now().toString();
-//   context[uniqueId] = callback;
-//   const result = context[uniqueId](...args);
-//   delete context[uniqueId];
-//   return result;
-// };
+    //   let callback = this;
+    
+    //   const getRandomKey = () => {
+    //     return (Date.now() + Math.floor(Math.random()* 101)).toString();
+    //  }
+    
+    //   const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
+    //   const uniqueKey = checkedKey(getRandomKey());
+    //   context[uniqueKey] = callback;
+    //   const result = context[uniqueKey](...args);
+    //   delete context[uniqueKey];
+    //   return result;
+    // };
 
-// Function.prototype.myBind = function (context, ...rest) {
-//   let callback = this;
-//   return function (...args) {
-//     const uniqueId = Date.now().toString();
-//     context[uniqueId] = callback;
-//     const result = context[uniqueId](...rest.concat(args));
-//     delete context[uniqueId];
-//     return result;
-//   };
-// };
+    // Function.prototype.myBind = function (context, ...rest) {
+    //   let callback = this;
+    //   return function (...args) {
+    //     const getRandomKey = () => {
+    //       return (Date.now() + Math.floor(Math.random()* 101)).toString();
+    //    }
+     
+    //     const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
+    //     const uniqueKey = checkedKey(getRandomKey());
+    //     context[uniqueKey] = callback;
+    //     const result = context[uniqueKey](...rest.concat(args));
+    //     delete context[uniqueKey];
+    //     return result;
+    //   };
+    // };

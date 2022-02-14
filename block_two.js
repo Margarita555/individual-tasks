@@ -2,37 +2,23 @@
  Написать свою реализацию функций bind, call
  */
 Function.prototype.myBind = function (context, ...rest) {
-  let callback = this;
+  let fn = this;
+  const callback = Symbol();
   return function (...args) {
-    const getRandomKey = () => {
-      return (Date.now() + Math.floor(Math.random()* 101)).toString();
-   }
- 
-    const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
-    const uniqueKey = checkedKey(getRandomKey());
-    context[uniqueKey] = callback;
-    const result = context[uniqueKey](...rest.concat(args));
-    delete context[uniqueKey];
+    context[callback] = fn;
+    const result = context[callback](...rest.concat(args));
+    delete context[callback];
     return result;
   };
 };
 
-
 Function.prototype.myCall = function (context, ...args) {
-  let callback = this;
-
-  const getRandomKey = () => {
-    return (Date.now() + Math.floor(Math.random()* 101)).toString();
- }
-
-  const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
-  const uniqueKey = checkedKey(getRandomKey());
-  context[uniqueKey] = callback;
-  const result = context[uniqueKey](...args);
-  delete context[uniqueKey];
+  const callback = Symbol();
+  context[callback] = this;
+  const result = context[callback](...args);
+  delete context[callback];
   return result;
 };
-
 
 /* ======================= Task 2 ==========================
  Написать свою реализацию функций для работы с массивами, которые являются аналогами следующих функций: map, filter, reduce, find, forEach.
@@ -49,22 +35,19 @@ Array.prototype.myMap = function (callback) {
   return result;
 };
 
-
-
 Array.prototype.myFilter = function (callback) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
   
-  const filteredArr = [];
+  const result = [];
   for (let i = 0; i < this.length; i++) {
     if (callback(this[i], i, this)) {
-      filteredArr.push(this[i]);
+      result.push(this[i]);
     }
   }
-  return filteredArr;
+  return result;
 };
-
 
 Array.prototype.myFind = function (callback) {
   if (typeof callback !== "function") {
@@ -95,10 +78,11 @@ Array.prototype.myForEach = function (callback) {
 };
 
 
-Array.prototype.myReduce = function (callback, accumulator = 0) {
+Array.prototype.myReduce = function (callback, acc) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
+   let accumulator = acc || 0;
 
   if (this.length === 0) {
     return accumulator;
