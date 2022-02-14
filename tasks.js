@@ -913,3 +913,24 @@ function transformBitNotNumber3(num) {
     //     currentNode = currentNode.right;
     //   }
     // }
+
+    // Function.prototype.myCall = function (context, ...args) {
+//   let callback = this;
+  
+//   const uniqueId = Date.now().toString();
+//   context[uniqueId] = callback;
+//   const result = context[uniqueId](...args);
+//   delete context[uniqueId];
+//   return result;
+// };
+
+// Function.prototype.myBind = function (context, ...rest) {
+//   let callback = this;
+//   return function (...args) {
+//     const uniqueId = Date.now().toString();
+//     context[uniqueId] = callback;
+//     const result = context[uniqueId](...rest.concat(args));
+//     delete context[uniqueId];
+//     return result;
+//   };
+// };

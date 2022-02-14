@@ -189,24 +189,35 @@ function mySort(array) {
 
 
 // console.log(mySort(arr));
-
+let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 function mySort2(array) {
   let arr = array;
-
-  for (let i = arr.length - 1; i > 0; i++) {
+  
+ for (let i = 0; i <arr.length; i++) {
     let min = i;
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] < min) {
-        min = arr[j];
-      }
-        let temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
-      
+    if(arr[i]> arr[arr.length-1]){
+      let temp = arr[i];
+      arr[i] =arr[arr.length-1];
+      arr[arr.length-1] = temp;
     }
+
   }
+  // for (let i = arr.length - 1; i > 0; i++) {
+  //   let min = i;
+  //   for (let j = i + 1; j < arr.length; j++) {
+  //     if (arr[j] < min) {
+  //       min = arr[j];
+  //     }
+  //       let temp = arr[j];
+  //       arr[j] = arr[j + 1];
+  //       arr[j + 1] = temp;
+      
+  //   }
+  // }
+ 
   return arr;
 }
+console.log(mySort2(ar))
 
 // function bubbleSortConcept2(arr) {
 //   let swapped;

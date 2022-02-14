@@ -4,10 +4,14 @@
 Function.prototype.myBind = function (context, ...rest) {
   let callback = this;
   return function (...args) {
-    const uniqueId = Date.now().toString();
-    context[uniqueId] = callback;
-    const result = context[uniqueId](...rest.concat(args));
-    delete context[uniqueId];
+    const getRandomKey = () => {
+      return (Date.now() + Math.floor(Math.random()* 101)).toString();
+   }
+   
+    const checkedKey = (key) => context[key] === undefined ? key : checkRandomKey(getRandomKey());
+    context[checkedKey] = callback;
+    const result = context[checkedKey](...rest.concat(args));
+    delete context[checkedKey];
     return result;
   };
 };
@@ -15,10 +19,14 @@ Function.prototype.myBind = function (context, ...rest) {
 
 Function.prototype.myCall = function (context, ...args) {
   let callback = this;
-  const uniqueId = Date.now().toString();
-  context[uniqueId] = callback;
-  const result = context[uniqueId](...args);
-  delete context[uniqueId];
+  const getRandomKey = () => {
+     return (Date.now() + Math.floor(Math.random()* 101)).toString()
+  }
+ 
+  const checkedKey = (key) => context[key] === undefined ? key : checkRandomKey(getRandomKey());
+  context[checkedKey] = callback;
+  const result = context[checkedKey](...args);
+  delete context[checkedKey];
   return result;
 };
 
@@ -88,7 +96,7 @@ Array.prototype.myReduce = function (callback, accumulator = 0) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
-  
+
   if (this.length === 0) {
     return accumulator;
   }
