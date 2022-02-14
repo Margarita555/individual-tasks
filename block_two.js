@@ -7,11 +7,12 @@ Function.prototype.myBind = function (context, ...rest) {
     const getRandomKey = () => {
       return (Date.now() + Math.floor(Math.random()* 101)).toString();
    }
-   
-    const checkedKey = (key) => context[key] === undefined ? key : checkRandomKey(getRandomKey());
-    context[checkedKey] = callback;
-    const result = context[checkedKey](...rest.concat(args));
-    delete context[checkedKey];
+ 
+    const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
+    const uniqueKey = checkedKey(getRandomKey());
+    context[uniqueKey] = callback;
+    const result = context[uniqueKey](...rest.concat(args));
+    delete context[uniqueKey];
     return result;
   };
 };
@@ -19,14 +20,16 @@ Function.prototype.myBind = function (context, ...rest) {
 
 Function.prototype.myCall = function (context, ...args) {
   let callback = this;
+
   const getRandomKey = () => {
-     return (Date.now() + Math.floor(Math.random()* 101)).toString()
-  }
- 
-  const checkedKey = (key) => context[key] === undefined ? key : checkRandomKey(getRandomKey());
-  context[checkedKey] = callback;
-  const result = context[checkedKey](...args);
-  delete context[checkedKey];
+    return (Date.now() + Math.floor(Math.random()* 101)).toString();
+ }
+
+  const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
+  const uniqueKey = checkedKey(getRandomKey());
+  context[uniqueKey] = callback;
+  const result = context[uniqueKey](...args);
+  delete context[uniqueKey];
   return result;
 };
 
