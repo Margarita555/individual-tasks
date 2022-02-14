@@ -840,7 +840,6 @@ function transformBitNotNumber3(num) {
   return -num - 1;
 }
 
-
 // const person = {
 //   name: "Rita",
 // };
@@ -851,7 +850,6 @@ function transformBitNotNumber3(num) {
 //   console.log(`${this.name} ${phone} ${email}` );
 //   return;
 // }
-
 
 // test.myBind(person,'1234567')()
 // test.myBind(person,'1234567')('123@com')
@@ -870,11 +868,10 @@ function transformBitNotNumber3(num) {
 // a.myForEach((el) => console.log(el));
 // console.log(a.myForEach((el) => console.log(el+1)));
 
-  // const [first, ...rest] = this;
+// const [first, ...rest] = this;
 
-  // let acc = callback(accumulator, first);
-  // return rest.myReduce(callback, acc);
-
+// let acc = callback(accumulator, first);
+// return rest.myReduce(callback, acc);
 
 // console.log(
 //   a.myReduce((total, el) => {
@@ -897,50 +894,19 @@ function transformBitNotNumber3(num) {
 // );
 
 // ====================
-   // let currentNode = this.root;
-    // while (currentNode) {
-    //   if (num < currentNode.number) {
-    //     if (!currentNode.left) {
-    //       currentNode.left = newNode;
-    //       return;
-    //     }
-    //     currentNode = currentNode.left;
-    //   } else {
-    //     if (!currentNode.right) {
-    //       currentNode.right = newNode;
-    //       return;
-    //     }
-    //     currentNode = currentNode.right;
-    //   }
-    // }
-
-    // Function.prototype.myCall = function (context, ...args) {
-    //   let callback = this;
-    
-    //   const getRandomKey = () => {
-    //     return (Date.now() + Math.floor(Math.random()* 101)).toString();
-    //  }
-    
-    //   const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
-    //   const uniqueKey = checkedKey(getRandomKey());
-    //   context[uniqueKey] = callback;
-    //   const result = context[uniqueKey](...args);
-    //   delete context[uniqueKey];
-    //   return result;
-    // };
-
-    // Function.prototype.myBind = function (context, ...rest) {
-    //   let callback = this;
-    //   return function (...args) {
-    //     const getRandomKey = () => {
-    //       return (Date.now() + Math.floor(Math.random()* 101)).toString();
-    //    }
-     
-    //     const checkedKey = (key) => context[key] === undefined ? key : checkedKey(getRandomKey());
-    //     const uniqueKey = checkedKey(getRandomKey());
-    //     context[uniqueKey] = callback;
-    //     const result = context[uniqueKey](...rest.concat(args));
-    //     delete context[uniqueKey];
-    //     return result;
-    //   };
-    // };
+// let currentNode = this.root;
+// while (currentNode) {
+//   if (num < currentNode.number) {
+//     if (!currentNode.left) {
+//       currentNode.left = newNode;
+//       return;
+//     }
+//     currentNode = currentNode.left;
+//   } else {
+//     if (!currentNode.right) {
+//       currentNode.right = newNode;
+//       return;
+//     }
+//     currentNode = currentNode.right;
+//   }
+// }

@@ -6,7 +6,6 @@ class Node {
     this.number = num;
     this.left = null;
     this.right = null;
-    this.parent = null;
   }
 }
 
@@ -21,21 +20,19 @@ class BinaryTree {
       this.root = newNode;
       return;
     }
-  
+
     function insertRecursion(currentNode) {
       if (num < currentNode.number) {
         if (currentNode.left) {
           insertRecursion(currentNode.left);
         } else {
           currentNode.left = newNode;
-          currentNode.left.parent = currentNode;
         }
       } else {
         if (currentNode.right) {
           insertRecursion(currentNode.right);
         } else {
           currentNode.right = newNode;
-          currentNode.right.parent = currentNode;
         }
       }
     }
@@ -56,116 +53,85 @@ class BinaryTree {
       }
     }
 
-    function deleteNoChildNode(current) {
-      if (!current.parent) {
+    function deleteNoChildNode(current, parent) {
+      if (!parent) {
         this.root = null;
       }
-      if (current.parent.left === current) {
-        current.parent.left = null;
+      if (parent.left === current) {
+        parent.left = null;
       } else {
-        current.parent.right = null;
+        parent.right = null;
       }
     }
 
-    function deleteOneChildNode(current) {
+    function deleteOneChildNode(current, parent) {
       let replacedNode = null;
       if (!current.left) {
         replacedNode = current.right;
       } else {
         replacedNode = current.left;
       }
-      if (!current.parent) {
-        replacedNode.parent = null;
+      if (!parent) {
         this.root = replacedNode;
-        
-      } else if (current.parent.left === current) {
-        replacedNode.parent = current.parent;
-        current.parent.left = replacedNode;
+      } else if (parent.left === current) {
+        parent.left = replacedNode;
       } else {
-        replacedNode.parent = current.parent;
-        current.parent.right = replacedNode;
+        parent.right = replacedNode;
       }
     }
 
-    // function deleteTwoChildrenNode(current) {
-    //   let replacedNode = current.left;
-    //   if (replacedNode.right) {
-    //     while (replacedNode.right) {
-    //       replacedNode = replacedNode.right;
-    //     }
-    //   }
-    //   console.log(replacedNode)
-    //   deleteOneChildNode(replacedNode);
-    //   if (!current.parent) {
-    //     replacedNode.left = current.left;
-    //     replacedNode.right = current.right;
-    //     replacedNode.parent = null;
-    //     this.root = replacedNode;
-    //   } else {
-    //     if (current.parent.left === current) {
-    //       replacedNode.left = current.right;
-    //       replacedNode.right = current.right;
-    //       replacedNode.parent = current;
-    //       current.parent.left = replacedNode;
-    //     } else {
-    //       replacedNode.left = current.right;
-    //       replacedNode.right = current.right;
-    //       replacedNode.parent = current;
-    //       current.parent.right = replacedNode;
-    //     }
-    //   }
-    // }
-    function deleteTwoChildrenNode(current) {
-      let replacedNode = null;
-      if( current.number < this.root.number){
-        replacedNode = current.right;
-         if (replacedNode.right) {
+    function deleteTwoChildrenNode(current, parent) {
+      console.log("d");
+      let replacedNode = current.left;
+      let replacedNodeParent = current;
+      console.log(replacedNode);
+      if (replacedNode.right) {
         while (replacedNode.right) {
+          replacedNodeParent = replacedNode;
           replacedNode = replacedNode.right;
         }
       }
-      } else { 
-        replacedNode = current.left;
-        if (replacedNode.right) {
-          while (replacedNode.right) {
-            replacedNode = replacedNode.right;
-          }
-        }
-      }
-      
-     
-      console.log(replacedNode)
-      // deleteOneChildNode(replacedNode);
-      if (!current.parent) {
+      // console.log(replacedNode);
+      deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
+      if (!parent) {
+        // console.log("w");
         replacedNode.left = current.left;
         replacedNode.right = current.right;
-        replacedNode.parent = null;
+
         this.root = replacedNode;
       } else {
-        if (current.parent.left === current) {
-          replacedNode.left = current.right;
+        console.log("y");
+        if (parent.left === current) {
+          // replacedNode.left = current.right;
           replacedNode.right = current.right;
-          replacedNode.parent = current;
-          current.parent.left = replacedNode;
-          // deleteOneChildNode(replacedNode);
+
+          parent.left = replacedNode;
         } else {
-          replacedNode.left = current.right;
+          console.log("s");
+          console.log(parent.right);
+
+          // replacedNode.left = current.right;
           replacedNode.right = current.right;
-          replacedNode.parent = current;
-          current.parent.right = replacedNode;
+          parent.right = replacedNode;
         }
       }
-    }  
+    }
 
     let result = searchRecursion(this.root);
     let current = result.current;
+    let parent = result.parent;
+    // console.log(current);
+    // console.log(parent);
 
     if (!current.left && !current.right) {
-      deleteNoChildNode(current);
+      // console.log("a");
+      deleteNoChildNode(current, parent);
     } else if (!current.left || !current.right) {
-      deleteOneChildNode.call(this, current);
+      // console.log("b");
+      deleteOneChildNode.call(this, current, parent);
     } else {
-      deleteTwoChildrenNode.call(this, current);
+      console.log("c");
+      deleteTwoChildrenNode.call(this, current, parent);
     }
   }
 
@@ -197,6 +163,7 @@ binaryTree.insert(9);
 console.log(binaryTree);
 // console.log(binaryTree.search(12));
 // binaryTree.delete(9);
+// binaryTree.delete(12);
 binaryTree.delete(2);
 // binaryTree.delete(10);
 // binaryTree.delete(5);
@@ -225,20 +192,19 @@ function mySort(array) {
 // console.log(mySort(arr));
 // let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 function mySort2(arr) {
-  console.log(arr)
+  console.log(arr);
   for (let i = 0; i < arr.length; i++) {
     let min = i;
     for (let j = i + 1; j < arr.length; j++) {
       if (arr[j] < arr[min]) {
         min = j;
       }
-      
-      if(min !== i) {
-         [arr[i], arr[min]] = [arr[min], arr[i]];
+
+      if (min !== i) {
+        [arr[i], arr[min]] = [arr[min], arr[i]];
       }
     }
   }
   return arr;
 }
 // console.log(mySort2(ar))
-
