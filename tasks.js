@@ -613,6 +613,9 @@ function deleteString(matrix, value) {
   return matrix;
 }
 
+// console.log(deleteString([[1,0,1,1,1,],[2,0,2,2,2],[3,3,3,3,3],[4,4,4,4,0]],0))
+// console.log(deleteString([[1,0],[2,2],[3,3],[4,4]],0))
+
 function deleteColumn(matrix, value) {
   if (matrix.length === 0) {
     return [];
@@ -633,7 +636,8 @@ function deleteColumn(matrix, value) {
   }
   return matrix;
 }
-
+// console.log(deleteColumn([[1,0,2,3,4,],[5,0,6,0,8],[9,10,11,12,13],[14,15,16,17,18]],0))
+// console.log(deleteColumn([[1,0],[2,3],[4,5],[6,7]],0))
 // ============ TASK 17==========================
 // Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
 
@@ -891,3 +895,21 @@ function transformBitNotNumber3(num) {
 //     return acc;
 //   }, [])
 // );
+
+// ====================
+   // let currentNode = this.root;
+    // while (currentNode) {
+    //   if (num < currentNode.number) {
+    //     if (!currentNode.left) {
+    //       currentNode.left = newNode;
+    //       return;
+    //     }
+    //     currentNode = currentNode.left;
+    //   } else {
+    //     if (!currentNode.right) {
+    //       currentNode.right = newNode;
+    //       return;
+    //     }
+    //     currentNode = currentNode.right;
+    //   }
+    // }

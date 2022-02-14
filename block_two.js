@@ -2,7 +2,6 @@
  Написать свою реализацию функций bind, call
  */
 Function.prototype.myBind = function (context, ...rest) {
-  console.log(...rest);
   let callback = this;
   return function (...args) {
     const uniqueId = Date.now().toString();
@@ -32,25 +31,24 @@ Array.prototype.myMap = function (callback) {
     throw new Error("Callback is not a function");
   }
 
-  let arr = this;
   let result = [];
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < this.length; i++) {
     result[i] = callback(this[i], i, this);
   }
   return result;
 };
-let a = [1, 2, 3, 4, 5];
+
 
 
 Array.prototype.myFilter = function (callback) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
-  let arr = this;
+  
   const filteredArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (callback(arr[i], i, arr)) {
-      filteredArr.push(arr[i]);
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i], i, this)) {
+      filteredArr.push(this[i]);
     }
   }
   return filteredArr;
@@ -62,10 +60,9 @@ Array.prototype.myFind = function (callback) {
     throw new Error("Callback is not a function");
   }
 
-  let arr = this;
-  for (let i = 0; i < arr.length; i++) {
-    if (callback(arr[i], i, arr)) {
-      return arr[i];
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i], i, this)) {
+      return this[i];
     }
   }
   return undefined;
@@ -76,12 +73,13 @@ Array.prototype.myForEach = function (callback) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
+
   if (this === "null") {
     throw new Error("The array is invalid");
   }
-  let arr = this;
-  for (let i = 0; i < arr.length; i++) {
-    callback(arr[i], i, arr);
+  
+  for (let i = 0; i < this.length; i++) {
+    callback(this[i], i, this);
   }
 };
 
@@ -90,13 +88,13 @@ Array.prototype.myReduce = function (callback, accumulator = 0) {
   if (typeof callback !== "function") {
     throw new Error("Callback is not a function");
   }
+  
   if (this.length === 0) {
     return accumulator;
   }
-  let acc = accumulator;
 
   for (let i = 0; i < this.length; i++) {
-    acc = callback(acc, this[i], i, this);
+    accumulator = callback(accumulator, this[i], i, this);
   }
-  return acc;
+  return accumulator;
 }

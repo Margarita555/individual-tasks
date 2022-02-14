@@ -21,7 +21,7 @@ class BinaryTree {
       this.root = newNode;
       return;
     }
-    // console.log(newNode);
+  
     function insertRecursion(currentNode) {
       if (num < currentNode.number) {
         if (currentNode.left) {
@@ -40,22 +40,7 @@ class BinaryTree {
       }
     }
     insertRecursion(this.root);
-    // let currentNode = this.root;
-    // while (currentNode) {
-    //   if (num < currentNode.number) {
-    //     if (!currentNode.left) {
-    //       currentNode.left = newNode;
-    //       return;
-    //     }
-    //     currentNode = currentNode.left;
-    //   } else {
-    //     if (!currentNode.right) {
-    //       currentNode.right = newNode;
-    //       return;
-    //     }
-    //     currentNode = currentNode.right;
-    //   }
-    // }
+
   }
 
   delete(num) {
@@ -99,7 +84,7 @@ class BinaryTree {
       }
     }
 
-    function deleteTwoChildrenNode(current, parent) {
+    function deleteTwoChildrenNode(current) {
       let replacedNode = current.left;
       if (replacedNode.right) {
         while (replacedNode.right) {
@@ -107,12 +92,10 @@ class BinaryTree {
         }
       }
       deleteOneChildNode(replacedNode);
-
       if (!current.parent) {
         replacedNode.left = current.left;
         replacedNode.right = current.right;
         replacedNode.parent = null;
-        // console.log(this);
         this.root = replacedNode;
       } else {
         if (current.parent.left === current) {
@@ -127,25 +110,11 @@ class BinaryTree {
           current.parent.right = replacedNode;
         }
       }
-      // else if (current.number < current.parent.number) {
-      //   replacedNode = current.right;
-      //   replacedNode.left = current.left;
-      // } else {
-      //   replacedNode = current.left;
-      //   replacedNode.right = current.right;
-      // }
-
-      // if (parent.left === current) {
-      //   parent.left = replacedNode;
-      // } else {
-      //   parent.right = replacedNode;
-      // }
     }
 
     let result = searchRecursion(this.root);
     let current = result.current;
 
-    // console.log(current, parent);
     if (!current.left && !current.right) {
       deleteNoChildNode(current);
     } else if (!current.left || !current.right) {
@@ -218,7 +187,26 @@ function mySort(array) {
   return arr;
 }
 
+
 // console.log(mySort(arr));
+
+function mySort2(array) {
+  let arr = array;
+
+  for (let i = arr.length - 1; i > 0; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < min) {
+        min = arr[j];
+      }
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      
+    }
+  }
+  return arr;
+}
 
 // function bubbleSortConcept2(arr) {
 //   let swapped;
