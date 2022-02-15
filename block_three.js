@@ -1,13 +1,6 @@
 /* ======================= Task 1 ==========================
  Написать свою реализацию бинарного дерева поиска. (Возможности структуры данных должны быть: Добавить новый элемент, удалить элемент, найти элемент по его значению)
  */
-class Node {
-  constructor(num) {
-    this.number = num;
-    this.left = null;
-    this.right = null;
-  }
-}
 
 class BinaryTree {
   constructor() {
@@ -15,7 +8,11 @@ class BinaryTree {
   }
 
   insert(num) {
-    const newNode = new Node(num);
+    const newNode = {
+      number: num,
+      left: null,
+      right: null,
+    }
     if (!this.root) {
       this.root = newNode;
       return;
@@ -137,14 +134,10 @@ class BinaryTree {
   }
 }
 
-let binaryTree = new BinaryTree();
-
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */
-function mySort(array) {
-  let arr = array;
-
+function bubbleSort(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     for (let j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
@@ -157,8 +150,7 @@ function mySort(array) {
   return arr;
 }
 
-function mySort2(arr) {
-  console.log(arr);
+function selectionSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     let min = i;
     for (let j = i + 1; j < arr.length; j++) {

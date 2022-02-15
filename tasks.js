@@ -912,9 +912,9 @@ function transformBitNotNumber3(num) {
 // }
 
 // let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
-// console.log(mySort(arr));
+// console.log(bubbleSort(arr));
 // let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
-// console.log(mySort2(ar))
+// console.log(selectionSort(ar))
 
 // let binaryTree = new BinaryTree();
 // binaryTree.insert(5);
@@ -931,3 +931,142 @@ function transformBitNotNumber3(num) {
 // binaryTree.delete(2);
 // binaryTree.delete(10);
 // binaryTree.delete(5);
+  
+// class Node {
+//   constructor(num) {
+//     this.number = num;
+//     this.left = null;
+//     this.right = null;
+//   }
+// }
+
+
+// class BinaryTree {
+//   constructor() {
+//     this.root = null;
+//   }
+
+//   insert(num) {
+//     const newNode = new Node(num);
+//     if (!this.root) {
+//       this.root = newNode;
+//       return;
+//     }
+
+//     function insertRecursion(currentNode) {
+//       if (num < currentNode.number) {
+//         if (currentNode.left) {
+//           insertRecursion(currentNode.left);
+//         } else {
+//           currentNode.left = newNode;
+//         }
+//       } else {
+//         if (currentNode.right) {
+//           insertRecursion(currentNode.right);
+//         } else {
+//           currentNode.right = newNode;
+//         }
+//       }
+//     }
+//     insertRecursion(this.root);
+//   }
+
+//   search(num) {
+//     function searchRecursion(currentNode) {
+//       if (!currentNode) {
+//         return null;
+//       }
+//       if (currentNode.number === num) {
+//         return currentNode;
+//       } else if (num < currentNode.number) {
+//         return searchRecursion(currentNode.left);
+//       } else {
+//         return searchRecursion(currentNode.right);
+//       }
+//     }
+//     return searchRecursion(this.root);
+//   }
+
+//   delete(num) {
+//     function searchRecursion(currentNode, parentNode) {
+//       if (!currentNode) {
+//         return null;
+//       }
+//       if (currentNode.number === num) {
+//         return { current: currentNode, parent: parentNode };
+//       } else if (num < currentNode.number) {
+//         return searchRecursion(currentNode.left, currentNode);
+//       } else {
+//         return searchRecursion(currentNode.right, currentNode);
+//       }
+//     }
+
+//     function deleteNoChildNode(current, parent) {
+//       if (!parent) {
+//         this.root = null;
+//       }
+//       if (parent.left === current) {
+//         parent.left = null;
+//       } else {
+//         parent.right = null;
+//       }
+//     }
+
+//     function deleteOneChildNode(current, parent) {
+//       let replacedNode = null;
+//       if (!current.left) {
+//         replacedNode = current.right;
+//       } else {
+//         replacedNode = current.left;
+//       }
+//       if (!parent) {
+//         this.root = replacedNode;
+//       } else if (parent.left === current) {
+//         parent.left = replacedNode;
+//       } else {
+//         parent.right = replacedNode;
+//       }
+//     }
+
+//     function deleteTwoChildrenNode(current, parent) {
+//       let replacedNode = current.left;
+//       let replacedNodeParent = current;
+//       if (replacedNode.right) {
+//         while (replacedNode.right) {
+//           replacedNodeParent = replacedNode;
+//           replacedNode = replacedNode.right;
+//         }
+//       }
+//       deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
+//       if (!parent) {
+//         replacedNode.left = current.left;
+//         replacedNode.right = current.right;
+//         this.root = replacedNode;
+//       } else {
+//         if (parent.left === current) {
+//           replacedNode.left = current.left;
+//           replacedNode.right = current.right;
+//           parent.left = replacedNode;
+//         } else {
+//           replacedNode.left = current.left;
+//           replacedNode.right = current.right;
+//           parent.right = replacedNode;
+//         }
+//       }
+//     }
+
+//     let result = searchRecursion(this.root);
+//     let current = result.current;
+//     let parent = result.parent;
+
+//     if (!current.left && !current.right) {
+//       deleteNoChildNode(current, parent);
+//     } else if (!current.left || !current.right) {
+//       deleteOneChildNode.call(this, current, parent);
+//     } else {
+//       deleteTwoChildrenNode.call(this, current, parent);
+//     }
+//   }
+// }
+
+// let binaryTree = new BinaryTree();
