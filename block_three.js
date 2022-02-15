@@ -10,7 +10,7 @@ class treeNode {
     const newNode = new treeNode(num);
     if (!this.root) { 
       this.root = newNode;
-      delete this.value
+      delete this.value;
       return;
     }
 
