@@ -1,25 +1,21 @@
 /* ======================= Task 1 ==========================
  Написать свою реализацию бинарного дерева поиска. (Возможности структуры данных должны быть: Добавить новый элемент, удалить элемент, найти элемент по его значению)
  */
-
-class BinaryTree {
-  constructor() {
-    this.root = null;
+class treeNode {
+  constructor(num) {
+    this.value = num;
   }
 
-  insert(num) {
-    const newNode = {
-      number: num,
-      left: null,
-      right: null,
-    }
-    if (!this.root) {
+    insert(num) {
+    const newNode = new treeNode(num);
+    if (!this.root) { 
       this.root = newNode;
+      delete this.value
       return;
     }
 
     function insertRecursion(currentNode) {
-      if (num < currentNode.number) {
+      if (num < currentNode.value) {
         if (currentNode.left) {
           insertRecursion(currentNode.left);
         } else {
@@ -37,32 +33,33 @@ class BinaryTree {
   }
 
   search(num) {
-    function searchRecursion(currentNode) {
+    function searchNode(currentNode) {
       if (!currentNode) {
         return null;
       }
-      if (currentNode.number === num) {
+      if (currentNode.value === num) {
         return currentNode;
-      } else if (num < currentNode.number) {
-        return searchRecursion(currentNode.left);
+      } else if (num < currentNode.value) {
+        return searchNode(currentNode.left);
       } else {
-        return searchRecursion(currentNode.right);
+        return searchNode(currentNode.right);
       }
     }
-    return searchRecursion(this.root);
+    return searchNode(this.root);
   }
 
   delete(num) {
-    function searchRecursion(currentNode, parentNode) {
+    
+    function searchNode(currentNode, parentNode) {
       if (!currentNode) {
         return null;
       }
-      if (currentNode.number === num) {
+      if (currentNode.value === num) {
         return { current: currentNode, parent: parentNode };
-      } else if (num < currentNode.number) {
-        return searchRecursion(currentNode.left, currentNode);
+      } else if (num < currentNode.value) {
+        return searchNode(currentNode.left, currentNode);
       } else {
-        return searchRecursion(currentNode.right, currentNode);
+        return searchNode(currentNode.right, currentNode);
       }
     }
 
@@ -119,8 +116,7 @@ class BinaryTree {
         }
       }
     }
-
-    let result = searchRecursion(this.root);
+    let result = searchNode(this.root);
     let current = result.current;
     let parent = result.parent;
 
@@ -131,9 +127,8 @@ class BinaryTree {
     } else {
       deleteTwoChildrenNode.call(this, current, parent);
     }
-  }
+  }  
 }
-
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */

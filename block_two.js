@@ -100,34 +100,34 @@ Array.prototype.myReduce = function (callback, acc) {
 //   }
 // }
 
-class BinaryTree2 {
-  constructor() {
-    this.root = null;
-  }
+// class BinaryTree2 {
+//   constructor() {
+//     this.root = null;
+//   }
 
-  insert(value) {
-    let newNode = new Node(value);
+//   insert(value) {
+//     let newNode = new Node(value);
 
-    if (!this.root) {
-      this.root = newNode;
-      return;
-    }
-    function insertRecursion(currentNode) {
-      if (value < currentNode.value) {
-        if (currentNode.left) {
-          insertRecursion(currentNode.left);
-        } else {
-          currentNode.left = newNode;
-        }
-      } else {
-        if (currentNode.right) {
-          insertRecursion(currentNode.right);
-        } else {
-          currentNode.right = newNode;
-        }
-      }
-    }
-    insertRecursion(this.root);
+//     if (!this.root) {
+//       this.root = newNode;
+//       return;
+//     }
+//     function insertRecursion(currentNode) {
+//       if (value < currentNode.value) {
+//         if (currentNode.left) {
+//           insertRecursion(currentNode.left);
+//         } else {
+//           currentNode.left = newNode;
+//         }
+//       } else {
+//         if (currentNode.right) {
+//           insertRecursion(currentNode.right);
+//         } else {
+//           currentNode.right = newNode;
+//         }
+//       }
+//     }
+//     insertRecursion(this.root);
     // let tree = this.root;
 
     // while (true) {
@@ -146,23 +146,23 @@ class BinaryTree2 {
     //   }
     // }
     // return this;
-  }
+  // }
 
-  search(value) {
-    function searchRecursion(currentNode) {
-      if (!currentNode) {
-        return null;
-      }
-      if (currentNode.value === value) {
-        return currentNode;
-      } else if (value < currentNode.value) {
-        return searchRecursion(currentNode.left);
-      } else {
-        return searchRecursion(currentNode.right);
-      }
-    }
-    return searchRecursion(this.root);
-  }
+  // search(value) {
+  //   function searchRecursion(currentNode) {
+  //     if (!currentNode) {
+  //       return null;
+  //     }
+  //     if (currentNode.value === value) {
+  //       return currentNode;
+  //     } else if (value < currentNode.value) {
+  //       return searchRecursion(currentNode.left);
+  //     } else {
+  //       return searchRecursion(currentNode.right);
+  //     }
+  //   }
+  //   return searchRecursion(this.root);
+  // }
   // search(value) {
   //   if (!this.root) {
   //     return false;
@@ -182,83 +182,83 @@ class BinaryTree2 {
   //   return false;
   // }
 
-  remove(value) {
-    if (!this.root) {
-      return false;
-    }
+//   remove(value) {
+//     if (!this.root) {
+//       return false;
+//     }
 
-    let currentNode = this.root;
-    let parentNode = null;
+//     let currentNode = this.root;
+//     let parentNode = null;
 
-    while (currentNode) {
-      if (value < currentNode.value) {
-        parentNode = currentNode;
-        currentNode = currentNode.left;
-      } else if (value > currentNode.value) {
-        parentNode = currentNode;
-        currentNode = currentNode.right;
-      } else if (currentNode.value === value) {
-        //We have a Match!
-        //Option 1: No right child
-        if (currentNode.right === null) {
-          if (parentNode === null) {
-            this.root = currentNode.left;
-          } else {
-            //if parent > current value, make current left child a child of parent
-            if (currentNode.value < parentNode.value) {
-              parentNode.left = currentNode.left;
+//     while (currentNode) {
+//       if (value < currentNode.value) {
+//         parentNode = currentNode;
+//         currentNode = currentNode.left;
+//       } else if (value > currentNode.value) {
+//         parentNode = currentNode;
+//         currentNode = currentNode.right;
+//       } else if (currentNode.value === value) {
+//         //We have a Match!
+//         //Option 1: No right child
+//         if (currentNode.right === null) {
+//           if (parentNode === null) {
+//             this.root = currentNode.left;
+//           } else {
+//             //if parent > current value, make current left child a child of parent
+//             if (currentNode.value < parentNode.value) {
+//               parentNode.left = currentNode.left;
 
-              //if parent < current value, make left child a right child of parent
-            } else if (currentNode.value > parentNode.value) {
-              parentNode.right = currentNode.left;
-            }
-          }
+//               //if parent < current value, make left child a right child of parent
+//             } else if (currentNode.value > parentNode.value) {
+//               parentNode.right = currentNode.left;
+//             }
+//           }
 
-          //Option 2: Right child which doesnt have a left child
-        } else if (currentNode.right.left === null) {
-          currentNode.right.left = currentNode.left;
-          if (parentNode === null) {
-            this.root = currentNode.right;
-          } else {
-            //if parent > current, make right child of the left the parent
-            if (currentNode.value < parentNode.value) {
-              parentNode.left = currentNode.right;
+//           //Option 2: Right child which doesnt have a left child
+//         } else if (currentNode.right.left === null) {
+//           currentNode.right.left = currentNode.left;
+//           if (parentNode === null) {
+//             this.root = currentNode.right;
+//           } else {
+//             //if parent > current, make right child of the left the parent
+//             if (currentNode.value < parentNode.value) {
+//               parentNode.left = currentNode.right;
 
-              //if parent < current, make right child a right child of the parent
-            } else if (currentNode.value > parentNode.value) {
-              parentNode.right = currentNode.right;
-            }
-          }
+//               //if parent < current, make right child a right child of the parent
+//             } else if (currentNode.value > parentNode.value) {
+//               parentNode.right = currentNode.right;
+//             }
+//           }
 
-          //Option 3: Right child that has a left child
-        } else {
-          //Find the Right child's left most child
-          let leftmost = currentNode.right.left;
-          let leftmostParent = currentNode.right;
-          while (leftmost.left) {
-            leftmostParent = leftmost;
-            leftmost = leftmost.left;
-          }
-          //Parent's left subtree is now leftmost's right subtree
-          leftmostParent.left = leftmost.right;
-          leftmost.left = currentNode.left;
-          leftmost.right = currentNode.right;
+//           //Option 3: Right child that has a left child
+//         } else {
+//           //Find the Right child's left most child
+//           let leftmost = currentNode.right.left;
+//           let leftmostParent = currentNode.right;
+//           while (leftmost.left) {
+//             leftmostParent = leftmost;
+//             leftmost = leftmost.left;
+//           }
+//           //Parent's left subtree is now leftmost's right subtree
+//           leftmostParent.left = leftmost.right;
+//           leftmost.left = currentNode.left;
+//           leftmost.right = currentNode.right;
 
-          if (parentNode === null) {
-            this.root = leftmost;
-          } else {
-            if (currentNode.value < parentNode.value) {
-              parentNode.left = leftmost;
-            } else if (currentNode.value > parentNode.value) {
-              parentNode.right = leftmost;
-            }
-          }
-        }
-        return true;
-      }
-    }
-  }
-}
+//           if (parentNode === null) {
+//             this.root = leftmost;
+//           } else {
+//             if (currentNode.value < parentNode.value) {
+//               parentNode.left = leftmost;
+//             } else if (currentNode.value > parentNode.value) {
+//               parentNode.right = leftmost;
+//             }
+//           }
+//         }
+//         return true;
+//       }
+//     }
+//   }
+// }
 
 // const tree = new BinaryTree2();
 

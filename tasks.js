@@ -1070,3 +1070,17 @@ function transformBitNotNumber3(num) {
 // }
 
 // let binaryTree = new BinaryTree();
+
+// let tree = new treeNode()
+ 
+// tree.insert(5)
+// console.log(tree)
+// tree.insert(2)
+// tree.insert(10)
+// tree.insert(9)
+// tree.insert(1)
+// tree.insert(3)
+// tree.insert(12)
+// console.log(tree.search(10))
+// // tree.delete(10)
+// tree.delete(2)
