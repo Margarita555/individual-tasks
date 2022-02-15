@@ -1,36 +1,55 @@
 /* ======================= Task 1 ==========================
  Написать свою реализацию бинарного дерева поиска. (Возможности структуры данных должны быть: Добавить новый элемент, удалить элемент, найти элемент по его значению)
  */
-class treeNode {
+class TreeNode {
   constructor(num) {
     this.value = num;
+    this.left = null;
+    this.right = null;
   }
 
-    insert(num) {
-    const newNode = new treeNode(num);
-    if (!this.root) { 
-      this.root = newNode;
-      delete this.value;
+  insert(num) {
+    const node = new TreeNode(num);
+    if (!this.value) {
+      this.value = node;
+      // delete this.value;
       return;
     }
 
     function insertNode(currentNode) {
       if (num < currentNode.value) {
-        if (currentNode.left) {
-          insertNode(currentNode.left);
-        } else {
-          currentNode.left = newNode;
+        if (currentNode.left === null) {
+          currentNode.left = node;
+          return;
         }
+        insertNode(currentNode.left);
       } else {
-        if (currentNode.right) {
-          insertNode(currentNode.right);
-        } else {
-          currentNode.right = newNode;
+        if (currentNode.right === null) {
+          currentNode.right = node;
+          return;
         }
+        insertNode(currentNode.right);
       }
     }
-    insertNode(this.root);
+    insertNode(this.value);
   }
+  //   function insertNode(currentNode) {
+  //     if (num < currentNode.value) {
+  //       if (currentNode.left) {
+  //         insertNode(currentNode.left);
+  //       } else {
+  //         currentNode.left = node;
+  //       }
+  //     } else {
+  //       if (currentNode.right) {
+  //         insertNode(currentNode.right);
+  //       } else {
+  //         currentNode.right = node;
+  //       }
+  //     }
+  //   }
+  //   insertNode(this.value);
+  // }
 
   search(num) {
     function searchNode(currentNode) {
@@ -39,17 +58,16 @@ class treeNode {
       }
       if (currentNode.value === num) {
         return currentNode;
-      } else if (num < currentNode.value) {
-        return searchNode(currentNode.left);
-      } else {
-        return searchNode(currentNode.right);
       }
+      if (num < currentNode.value) {
+        return searchNode(currentNode.left);
+      }
+      return searchNode(currentNode.right);
     }
-    return searchNode(this.root);
+    return searchNode(this.value);
   }
 
   delete(num) {
-    
     function searchNode(currentNode, parentNode) {
       if (!currentNode) {
         return null;
@@ -82,7 +100,7 @@ class treeNode {
         replacedNode = current.left;
       }
       if (!parent) {
-        this.root = replacedNode;
+        this.value = replacedNode;
       } else if (parent.left === current) {
         parent.left = replacedNode;
       } else {
@@ -103,7 +121,7 @@ class treeNode {
       if (!parent) {
         replacedNode.left = current.left;
         replacedNode.right = current.right;
-        this.root = replacedNode;
+        this.value = replacedNode;
       } else {
         if (parent.left === current) {
           replacedNode.left = current.left;
@@ -116,7 +134,7 @@ class treeNode {
         }
       }
     }
-    let result = searchNode(this.root);
+    let result = searchNode(this.value);
     let current = result.current;
     let parent = result.parent;
 
@@ -127,8 +145,23 @@ class treeNode {
     } else {
       deleteTwoChildrenNode.call(this, current, parent);
     }
-  }  
+  }
 }
+const tree = new TreeNode();
+tree.insert(5);
+tree.insert(2);
+tree.insert(3);
+tree.insert(1);
+tree.insert(10);
+tree.insert(12);
+tree.insert(9);
+console.log(tree.search(10));
+// tree.delete(10);
+// tree.delete(12);
+// tree.delete(9);
+// tree.delete(2);
+// tree.delete(5);
+console.log(tree);
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */
