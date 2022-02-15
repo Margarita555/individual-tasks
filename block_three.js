@@ -14,22 +14,22 @@ class treeNode {
       return;
     }
 
-    function insertRecursion(currentNode) {
+    function insertNode(currentNode) {
       if (num < currentNode.value) {
         if (currentNode.left) {
-          insertRecursion(currentNode.left);
+          insertNode(currentNode.left);
         } else {
           currentNode.left = newNode;
         }
       } else {
         if (currentNode.right) {
-          insertRecursion(currentNode.right);
+          insertNode(currentNode.right);
         } else {
           currentNode.right = newNode;
         }
       }
     }
-    insertRecursion(this.root);
+    insertNode(this.root);
   }
 
   search(num) {
