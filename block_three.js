@@ -39,6 +39,22 @@ class BinaryTree {
     insertRecursion(this.root);
   }
 
+  search(num) {
+    function searchRecursion(currentNode) {
+      if (!currentNode) {
+        return null;
+      }
+      if (currentNode.number === num) {
+        return currentNode;
+      } else if (num < currentNode.number) {
+        return searchRecursion(currentNode.left);
+      } else {
+        return searchRecursion(currentNode.right);
+      }
+    }
+    return searchRecursion(this.root);
+  }
+
   delete(num) {
     function searchRecursion(currentNode, parentNode) {
       if (!currentNode) {
@@ -81,36 +97,26 @@ class BinaryTree {
     }
 
     function deleteTwoChildrenNode(current, parent) {
-      console.log("d");
       let replacedNode = current.left;
       let replacedNodeParent = current;
-      console.log(replacedNode);
       if (replacedNode.right) {
         while (replacedNode.right) {
           replacedNodeParent = replacedNode;
           replacedNode = replacedNode.right;
         }
       }
-      // console.log(replacedNode);
       deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
       if (!parent) {
-        // console.log("w");
         replacedNode.left = current.left;
         replacedNode.right = current.right;
-
         this.root = replacedNode;
       } else {
-        console.log("y");
         if (parent.left === current) {
-          // replacedNode.left = current.right;
+          replacedNode.left = current.left;
           replacedNode.right = current.right;
-
           parent.left = replacedNode;
         } else {
-          console.log("s");
-          console.log(parent.right);
-
-          // replacedNode.left = current.right;
+          replacedNode.left = current.left;
           replacedNode.right = current.right;
           parent.right = replacedNode;
         }
@@ -120,59 +126,22 @@ class BinaryTree {
     let result = searchRecursion(this.root);
     let current = result.current;
     let parent = result.parent;
-    // console.log(current);
-    // console.log(parent);
 
     if (!current.left && !current.right) {
-      // console.log("a");
       deleteNoChildNode(current, parent);
     } else if (!current.left || !current.right) {
-      // console.log("b");
       deleteOneChildNode.call(this, current, parent);
     } else {
-      console.log("c");
       deleteTwoChildrenNode.call(this, current, parent);
     }
-  }
-
-  search(num) {
-    function searchRecursion(currentNode) {
-      if (!currentNode) {
-        return null;
-      }
-      if (currentNode.number === num) {
-        return currentNode;
-      } else if (num < currentNode.number) {
-        return searchRecursion(currentNode.left);
-      } else {
-        return searchRecursion(currentNode.right);
-      }
-    }
-    return searchRecursion(this.root);
   }
 }
 
 let binaryTree = new BinaryTree();
-binaryTree.insert(5);
-binaryTree.insert(2);
-binaryTree.insert(3);
-binaryTree.insert(1);
-binaryTree.insert(10);
-binaryTree.insert(12);
-binaryTree.insert(9);
-console.log(binaryTree);
-// console.log(binaryTree.search(12));
-// binaryTree.delete(9);
-// binaryTree.delete(12);
-binaryTree.delete(2);
-// binaryTree.delete(10);
-// binaryTree.delete(5);
 
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */
-// let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
-
 function mySort(array) {
   let arr = array;
 
@@ -180,7 +149,6 @@ function mySort(array) {
     for (let j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
         let temp = arr[j];
-
         arr[j] = arr[j + 1];
         arr[j + 1] = temp;
       }
@@ -189,8 +157,6 @@ function mySort(array) {
   return arr;
 }
 
-// console.log(mySort(arr));
-// let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 function mySort2(arr) {
   console.log(arr);
   for (let i = 0; i < arr.length; i++) {
@@ -207,4 +173,3 @@ function mySort2(arr) {
   }
   return arr;
 }
-// console.log(mySort2(ar))

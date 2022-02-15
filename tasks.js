@@ -910,3 +910,24 @@ function transformBitNotNumber3(num) {
 //     currentNode = currentNode.right;
 //   }
 // }
+
+// let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
+// console.log(mySort(arr));
+// let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
+// console.log(mySort2(ar))
+
+// let binaryTree = new BinaryTree();
+// binaryTree.insert(5);
+// binaryTree.insert(2);
+// binaryTree.insert(3);
+// binaryTree.insert(1);
+// binaryTree.insert(10);
+// binaryTree.insert(12);
+// binaryTree.insert(9);
+// console.log(binaryTree);
+// console.log(binaryTree.search(12));
+// binaryTree.delete(9);
+// binaryTree.delete(12);
+// binaryTree.delete(2);
+// binaryTree.delete(10);
+// binaryTree.delete(5);
