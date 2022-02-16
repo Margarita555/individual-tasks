@@ -916,21 +916,7 @@ function transformBitNotNumber3(num) {
 // let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 // console.log(selectionSort(ar))
 
-// let binaryTree = new BinaryTree();
-// binaryTree.insert(5);
-// binaryTree.insert(2);
-// binaryTree.insert(3);
-// binaryTree.insert(1);
-// binaryTree.insert(10);
-// binaryTree.insert(12);
-// binaryTree.insert(9);
-// console.log(binaryTree);
-// console.log(binaryTree.search(12));
-// binaryTree.delete(9);
-// binaryTree.delete(12);
-// binaryTree.delete(2);
-// binaryTree.delete(10);
-// binaryTree.delete(5);
+
   
 // class Node {
 //   constructor(num) {
@@ -1069,18 +1055,20 @@ function transformBitNotNumber3(num) {
 //   }
 // }
 
-// let binaryTree = new BinaryTree();
 
-// let tree = new treeNode()
- 
-// tree.insert(5)
-// console.log(tree)
-// tree.insert(2)
-// tree.insert(10)
-// tree.insert(9)
-// tree.insert(1)
-// tree.insert(3)
-// tree.insert(12)
-// console.log(tree.search(10))
-// // tree.delete(10)
-// tree.delete(2)
+
+// const tree = new TreeNode();
+// tree.insert(5);
+// tree.insert(2);
+// tree.insert(3);
+// tree.insert(1);
+// tree.insert(10);
+// tree.insert(12);
+// tree.insert(9);
+// console.log(tree.search(10));
+// tree.delete(10);
+// tree.delete(12);
+// tree.delete(9);
+// tree.delete(2);
+// tree.delete(5);
+// console.log(tree);
