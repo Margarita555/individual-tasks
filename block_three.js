@@ -15,52 +15,69 @@ class TreeNode {
       return;
     }
 
-    function insertNode(currentNode) {
-      if (num < currentNode.value) {
-        if (currentNode.left === null) {
-          currentNode.left = node;
-          return;
-        }
-        insertNode(currentNode.left);
-      } else {
-        if (currentNode.right === null) {
-          currentNode.right = node;
-          return;
-        }
-        insertNode(currentNode.right);
+    let currentNode = this.value;
+
+    while (currentNode) {
+    if (num < currentNode.value) {
+      if (currentNode.left === null) {
+        currentNode.left = node;
+        return;
+      }
+      currentNode = currentNode.left;
+    } else {
+      if (currentNode.right === null) {
+        currentNode.right = node;
+        return;
+      }
+      currentNode = currentNode.right;
+    }
+  }
+ }
+
+ search(num){
+      if (!this.value) {
+      return false;
+    }
+    let varifiableValue = this.value;
+
+    while(varifiableValue){
+      if (num < varifiableValue.value){
+        varifiableValue = varifiableValue.left;
+      } else if (num > varifiableValue.value){
+        varifiableValue = varifiableValue.right;
+      } else if (varifiableValue.value === num){
+        return varifiableValue;
       }
     }
-    insertNode(this.value);
-  }
-
-  search(num) {
-    function searchNode(currentNode) {
-      if (currentNode === null) {
-        return null;
-      }
-      if (currentNode.value === num) {
-        return currentNode;
-      }
-      if (num < currentNode.value) {
-        return searchNode(currentNode.left);
-      }
-      return searchNode(currentNode.right);
-    }
-    return searchNode(this.value);
-  }
-
+ }
+  
   delete(num) {
-    function searchNode(currentNode, parentNode) {
-      if (currentNode === null) {
-        return null;
+    let searchNode = {current: this.value, parent: null}
+    while(searchNode.current.value){
+      if (num < searchNode.current.value){
+        searchNode.parent = searchNode.current;
+        searchNode.current = searchNode.current.left;
+      } else if (num > searchNode.current.value){
+        searchNode.parent = searchNode.current;
+        searchNode.current = searchNode.current.right;
+      } else if (searchNode.current.value === num){
+        break;
       }
-      if (currentNode.value === num) {
-        return { current: currentNode, parent: parentNode };
-      } 
-      if (num < currentNode.value) {
-        return searchNode(currentNode.left, currentNode);
-      } 
-      return searchNode(currentNode.right, currentNode);
+    }
+ 
+    let current = searchNode.current;
+    let parent = searchNode.parent;
+ 
+    if (!current.left && !current.right) {
+      deleteNoChildNode.call(this,current, parent);
+      return;
+    }
+    if (!current.left || !current.right) {
+      deleteOneChildNode.call(this, current, parent);
+      return;
+    }
+     if (current.left || !current.right) {
+      deleteTwoChildrenNode.call(this, current, parent);
     }
 
     function deleteNoChildNode(current, parent) {
@@ -72,8 +89,9 @@ class TreeNode {
         parent.left = null;
         return;
       } 
-      if (parent.left === current) {
+      if (parent.right === current) {
         parent.right = null;
+        return
       }
     }
 
@@ -106,7 +124,6 @@ class TreeNode {
           replacedNode = replacedNode.right;
         }
       }
-
       deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
       replacedNode.left = current.left;
       replacedNode.right = current.right;
@@ -122,21 +139,6 @@ class TreeNode {
       if (parent.right === current) {
           parent.right = replacedNode;
       } 
-    }
-    let result = searchNode(this.value);
-    let current = result.current;
-    let parent = result.parent;
-
-    if (!current.left && !current.right) {
-      deleteNoChildNode.call(this,current, parent);
-      return;
-    }
-    if (!current.left || !current.right) {
-      deleteOneChildNode.call(this, current, parent);
-      return;
-    }
-     if (current.left || !current.right) {
-      deleteTwoChildrenNode.call(this, current, parent);
     }
   }
 }
@@ -164,7 +166,6 @@ function selectionSort(row) {
       if (row[j] < row[min]) {
         min = j;
       }
-
       if (min !== i) {
         [row[i], row[min]] = [row[min], row[i]];
       }

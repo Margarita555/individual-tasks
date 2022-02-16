@@ -29,14 +29,14 @@ const bank = {
         active: false,
         registrationDate: "",
         accounts: {
-            debitAccount: {
-                currentBalance: 500000,
+            debit: {
+                balance: 500000,
                 activity: false,
                 activityDate: "",
                 cardExpiryDate: "",
                 currency: "USD",
             },
-            creditAccount: {
+            credit: {
                 balance: {
                     personalFunds: 200000,
                     creditFunds: 0,
@@ -51,19 +51,15 @@ const bank = {
     },
 }
 
-// function fetchCurrencyRate() {
-   
+// function fetchCurrencyRate() { 
 //         const fetchedCurrencyRate = await fetch(`https://restcountries.com/v2/name/${searchQuery}`)
 //         .then(response => {
 //         return response.json();
-//         }).then(countries => {
-//         return countries
+//         }).then(rate => {
+//         return rate
 //     })
-        
- 
 // }
 
-  
 
 // async function bankCashTotal() {
 //     const debitCurrency = bank.client.accounts.debitAccount.currency;
