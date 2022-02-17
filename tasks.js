@@ -916,8 +916,6 @@ function transformBitNotNumber3(num) {
 // let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 // console.log(selectionSort(ar))
 
-
-  
 // class Node {
 //   constructor(num) {
 //     this.number = num;
@@ -925,7 +923,6 @@ function transformBitNotNumber3(num) {
 //     this.right = null;
 //   }
 // }
-
 
 // class BinaryTree {
 //   constructor() {
@@ -1055,126 +1052,131 @@ function transformBitNotNumber3(num) {
 //   }
 // }
 
-    // function insertNode(currentNode) {
-    //   if (num < currentNode.value) {
-    //     if (currentNode.left === null) {
-    //       currentNode.left = node;
-    //       return;
-    //     }
-    //     insertNode(currentNode.left);
-    //   } else {
-    //     if (currentNode.right === null) {
-    //       currentNode.right = node;
-    //       return;
-    //     }
-    //     insertNode(currentNode.right);
-    //   }
-    // }
-    // insertNode(this.value);
+// function insertNode(currentNode) {
+//   if (num < currentNode.value) {
+//     if (currentNode.left === null) {
+//       currentNode.left = node;
+//       return;
+//     }
+//     insertNode(currentNode.left);
+//   } else {
+//     if (currentNode.right === null) {
+//       currentNode.right = node;
+//       return;
+//     }
+//     insertNode(currentNode.right);
+//   }
+// }
+// insertNode(this.value);
 
-    // delete(num) {
-    //   function searchNode(currentNode, parentNode) {
-    //     if (currentNode === null) {
-    //       return null;
-    //     }
-    //     if (currentNode.value === num) {
-    //       return { current: currentNode, parent: parentNode };
-    //     } 
-    //     if (num < currentNode.value) {
-    //       return searchNode(currentNode.left, currentNode);
-    //     } 
-    //     return searchNode(currentNode.right, currentNode);
-    //   }
-  
-    //   function deleteNoChildNode(current, parent) {
-    //     if (!parent) {
-    //       this.value = null;
-    //       return;
-    //     }
-    //     if (parent.left === current) {
-    //       parent.left = null;
-    //       return;
-    //     } 
-    //     if (parent.left === current) {
-    //       parent.right = null;
-    //     }
-    //   }
-  
-    //   function deleteOneChildNode(current, parent) {
-    //     let replacedNode = null;
-    //     if (current.left === null) {
-    //       replacedNode = current.right;
-    //     } else {
-    //       replacedNode = current.left;
-    //     }
-    //     if (!parent) {
-    //       this.value = replacedNode;
-    //       return;
-    //     }
-    //     if (parent.left === current) {
-    //       parent.left = replacedNode;
-    //       return;
-    //     }
-    //     if (parent.right === current){
-    //       parent.right = replacedNode;
-    //     }
-    //   }
-  
-    //   function deleteTwoChildrenNode(current, parent) {
-    //     let replacedNode = current.left;
-    //     let replacedNodeParent = current;
-    //     if (replacedNode.right) {
-    //       while (replacedNode.right) {
-    //         replacedNodeParent = replacedNode;
-    //         replacedNode = replacedNode.right;
-    //       }
-    //     }
-  
-    //     deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
-    //     replacedNode.left = current.left;
-    //     replacedNode.right = current.right;
-     
-    //     if (!parent) {
-    //       this.value = replacedNode;
-    //       return;
-    //     }
-    //     if (parent.left === current) {
-    //         parent.left = replacedNode;
-    //         return;
-    //     } 
-    //     if (parent.right === current) {
-    //         parent.right = replacedNode;
-    //     } 
-    //   }
-    //   let result = searchNode(this.value);
-    //   let current = result.current;
-    //   let parent = result.parent;
-  
-    //   if (!current.left && !current.right) {
-    //     deleteNoChildNode.call(this,current, parent);
-    //     return;
-    //   }
-    //   if (!current.left || !current.right) {
-    //     deleteOneChildNode.call(this, current, parent);
-    //     return;
-    //   }
-    //    if (current.left || !current.right) {
-    //     deleteTwoChildrenNode.call(this, current, parent);
-    //   }
-    // }
+// delete(num) {
+//   function searchNode(currentNode, parentNode) {
+//     if (currentNode === null) {
+//       return null;
+//     }
+//     if (currentNode.value === num) {
+//       return { current: currentNode, parent: parentNode };
+//     }
+//     if (num < currentNode.value) {
+//       return searchNode(currentNode.left, currentNode);
+//     }
+//     return searchNode(currentNode.right, currentNode);
+//   }
+
+//   function deleteNoChildNode(current, parent) {
+//     if (!parent) {
+//       this.value = null;
+//       return;
+//     }
+//     if (parent.left === current) {
+//       parent.left = null;
+//       return;
+//     }
+//     if (parent.left === current) {
+//       parent.right = null;
+//     }
+//   }
+
+//   function deleteOneChildNode(current, parent) {
+//     let replacedNode = null;
+//     if (current.left === null) {
+//       replacedNode = current.right;
+//     } else {
+//       replacedNode = current.left;
+//     }
+//     if (!parent) {
+//       this.value = replacedNode;
+//       return;
+//     }
+//     if (parent.left === current) {
+//       parent.left = replacedNode;
+//       return;
+//     }
+//     if (parent.right === current){
+//       parent.right = replacedNode;
+//     }
+//   }
+
+//   function deleteTwoChildrenNode(current, parent) {
+//     let replacedNode = current.left;
+//     let replacedNodeParent = current;
+//     if (replacedNode.right) {
+//       while (replacedNode.right) {
+//         replacedNodeParent = replacedNode;
+//         replacedNode = replacedNode.right;
+//       }
+//     }
+
+//     deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
+//     replacedNode.left = current.left;
+//     replacedNode.right = current.right;
+
+//     if (!parent) {
+//       this.value = replacedNode;
+//       return;
+//     }
+//     if (parent.left === current) {
+//         parent.left = replacedNode;
+//         return;
+//     }
+//     if (parent.right === current) {
+//         parent.right = replacedNode;
+//     }
+//   }
+//   let result = searchNode(this.value);
+//   let current = result.current;
+//   let parent = result.parent;
+
+//   if (!current.left && !current.right) {
+//     deleteNoChildNode.call(this,current, parent);
+//     return;
+//   }
+//   if (!current.left || !current.right) {
+//     deleteOneChildNode.call(this, current, parent);
+//     return;
+//   }
+//    if (current.left || !current.right) {
+//     deleteTwoChildrenNode.call(this, current, parent);
+//   }
+// }
 
 // const tree = new TreeNode();
 // tree.insert(5);
 // tree.insert(2);
 // tree.insert(3);
 // tree.insert(1);
+// tree.insert(2.5);
 // tree.insert(10);
-// tree.insert(12);
+// tree.insert(13);
 // tree.insert(9);
-// console.log(tree.search(10));
+// tree.insert(12);
+// tree.insert(11);
+// tree.insert(15);
+// console.log(tree.search(3));
 // tree.delete(10);
 // tree.delete(12);
 // tree.delete(9);
+// tree.delete(3);
 // tree.delete(2);
 // tree.delete(5);
 // console.log(tree);
