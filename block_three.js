@@ -9,140 +9,125 @@ class TreeNode {
   }
 
   insert(num) {
-    const node = new TreeNode(num);
     if (!this.value) {
-      this.value = node;
+      this.value = num;
       return;
     }
-    this._insertNode(this.value, node);
+   if(num < this.value && this.left){
+     this.left.insert(num);
+   } else if (num < this.value && this.left === null){
+     this.left = new TreeNode(num);
+     return;
+   }
+   if (num > this.value && this.right){
+    this.right.insert(num);
+   } else if (num > this.value && this.right === null){
+    this.right = new TreeNode(num);
+    return;
+   }
   }
 
-  _insertNode(parent, node) {
-    if (node.value < parent.value && parent.left === null) {
-      parent.left = node;
-      return;
-    }
-    if (node.value < parent.value) {
-      this._insertNode(parent.left, node);
-    }
-    if (node.value > parent.value && parent.right === null) {
-      parent.right = node;
-      return;
-    }
-    if (node.value > parent.value) {
-      this._insertNode(parent.right, node);
-    }
+  search(num){
+           if (this.value === null) {
+          return null;
+        }
+        if (this.value === num) {
+          return this.value;
+        } 
+        if(num < this.value){
+          return this.left.search(num);
+        }
+        return this.right.search(num);
   }
 
-  search(num) {
-    if (!this.value) {
-      return false;
-    }
-    let value = this.value;
+  // delete(num) {
+  //   let current = this;
+  //   let parent = null;
+  //   // console.log(current)
+  //   while(current) {
+  //     if (num < current.value){
+  //       parent = current;
+  //       current = current.left
+  //     } else if (num > current.value){
+  //       parent = current;
+  //       current = current.right;
+  //     } else if (num === current.value){
+  //       // console.log(current.value)
+  //       if (current.right === null) {
+  //         if (parent === null) {
+  //           this.value = current.left;
+  //         } else {
+  //           //if parent > current value, make current left child a child of parent
+  //           if (current.value < parent.value) {
+  //             parent.left = current.left;
 
-    while (value) {
-      if (num < value.value) {
-        value = value.left;
-      } else if (num > value.value) {
-        value = value.right;
-      } else if (value.value === num) {
-        return value;
-      }
-    }
-  }
+  //             //if parent < current value, make left child a right child of parent
+  //           } else if (current.value > parent.value) {
+  //             parent.right = current.left;
+  //           }
+  //         }
+  //         //2: Right child which doesnt have a left child
+  //       } else if (current.right.left === null) {
+  //         current.right.left = current.left;
+  //         if (parent === null) {
+  //           this.value = current.right;
+  //         } else {
+  //           //if parent > current, make right child of the left the parent
+  //           if (current.value < parent.value) {
+  //             parent.left = current.right;
 
-  delete(num) {
-    let node = { current: this.value, parent: null };
-    while (node.current.value) {
-      if (num < node.current.value) {
-        node.parent = node.current;
-        node.current = node.current.left;
-      } else if (num > node.current.value) {
-        node.parent = node.current;
-        node.current = node.current.right;
-      } else if (node.current.value === num) {
-        break;
-      }
-    }
+  //             //if parent < current, make right child a right child of the parent
+  //           } else if (current.value > parent.value) {
+  //             parent.right = current.right;
+  //           }
+  //         }
 
-    let current = node.current;
-    let parent = node.parent;
+  //         //3: Right child that has a left child
+  //       } else {
+  //         //Find the Right child's left most child
+  //         let leftLast = current.right.left;
+  //         let leftLastParent = current.right;
+  //         while (leftLast.left) {
+  //           leftLastParent = leftLast;
+  //           leftLast = leftLast.left;
+  //         }
+  //         //Parent's left subtree is now leftmost's right subtree
+  //         leftLastParent.left = leftLast.right;
+  //         leftLast.left = current.left;
+  //         leftLast.right = current.right;
 
-    if (!current.left && !current.right) {
-      this._deleteNoChildNode.call(this, current, parent);
-      return;
-    }
-    if (!current.left || !current.right) {
-      this._deleteOneChildNode.call(this, current, parent);
-      return;
-    }
-    if (current.left || !current.right) {
-      this._deleteTwoChildrenNode.call(this, current, parent);
-    }
-  }
-
-  _deleteNoChildNode(current, parent) {
-    if (!parent) {
-      this.value = null;
-      return;
-    }
-    if (parent.left === current) {
-      parent.left = null;
-      return;
-    }
-    if (parent.right === current) {
-      parent.right = null;
-      return;
-    }
-  }
-
-  _deleteOneChildNode(current, parent) {
-    let replacedNode = null;
-    if (current.left === null) {
-      replacedNode = current.right;
-    } else {
-      replacedNode = current.left;
-    }
-    if (!parent) {
-      this.value = replacedNode;
-      return;
-    }
-    if (parent.left === current) {
-      parent.left = replacedNode;
-      return;
-    }
-    if (parent.right === current) {
-      parent.right = replacedNode;
-    }
-  }
-
-  _deleteTwoChildrenNode(current, parent) {
-    let replacedNode = current.left;
-    let replacedNodeParent = current;
-    if (replacedNode.right) {
-      while (replacedNode.right) {
-        replacedNodeParent = replacedNode;
-        replacedNode = replacedNode.right;
-      }
-    }
-    this._deleteOneChildNode.call(this, replacedNode, replacedNodeParent);
-    replacedNode.left = current.left;
-    replacedNode.right = current.right;
-
-    if (!parent) {
-      this.value = replacedNode;
-      return;
-    }
-    if (parent.left === current) {
-      parent.left = replacedNode;
-      return;
-    }
-    if (parent.right === current) {
-      parent.right = replacedNode;
-    }
-  }
+  //         if (parent === null) {
+  //           this.value = leftLast;
+  //         } else {
+  //           if (current.value < parent.value) {
+  //             parent.left = leftLast;
+  //           } else if (current.value > parent.value) {
+  //             parent.right = leftLast;
+  //           }
+  //         }
+  //       }
+  //       return true;
+  //     }
+  //   }
+  // }
 }
 
+const tree = new TreeNode();
+tree.insert(5);
+tree.insert(2);
+tree.insert(3);
+tree.insert(1);
+tree.insert(10);
+tree.insert(12);
+tree.insert(9);
+// console.log(tree.search(3));
+// tree.delete(10);
+// tree.delete(12);
+// tree.delete(9);
+// tree.delete(3);
+// tree.delete(2);
+// tree.delete(5);
+console.log(tree);
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */
