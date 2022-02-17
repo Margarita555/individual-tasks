@@ -1178,3 +1178,40 @@ function transformBitNotNumber3(num) {
 // tree.delete(2);
 // tree.delete(5);
 // console.log(tree);
+
+// function bubbleSort(row) {
+//   for (let i = row.length - 1; i > 0; i--) {
+//     for (let j = 0; j < i; j++) {
+//       if (row[j] > row[j + 1]) {
+//         let temp = row[j];
+//         row[j] = row[j + 1];
+//         row[j + 1] = temp;
+//       }
+//     }
+//   }
+//   return row;
+// }
+
+// function selectionSort(row) {
+//   for (let i = 0; i < row.length; i++) {
+//     let min = i;
+//     for (let j = i + 1; j < row.length; j++) {
+//       if (row[j] < row[min]) {
+//         min = j;
+//       }
+//       if (min !== i) {
+//         [row[i], row[min]] = [row[min], row[i]];
+//       }
+//     }
+//   }
+//   return row;
+// }
+
+// let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
+// let arr = [4, 1, 88, 2];
+// let a = [{ a: 10 }, { a: -1 }, { a: 7 }, {a: 5}];
+// console.log(arr.bubbleSort(arr));
+// console.log(a.bubbleSort(a));
+
+// console.log(arr.selectionSort(arr));
+// console.log(a.selectionSort(a));
