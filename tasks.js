@@ -894,27 +894,6 @@ function transformBitNotNumber3(num) {
 // );
 
 // ====================
-// let currentNode = this.root;
-// while (currentNode) {
-//   if (num < currentNode.number) {
-//     if (!currentNode.left) {
-//       currentNode.left = newNode;
-//       return;
-//     }
-//     currentNode = currentNode.left;
-//   } else {
-//     if (!currentNode.right) {
-//       currentNode.right = newNode;
-//       return;
-//     }
-//     currentNode = currentNode.right;
-//   }
-// }
-
-// let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
-// console.log(bubbleSort(arr));
-// let ar = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
-// console.log(selectionSort(ar))
 
 // class Node {
 //   constructor(num) {

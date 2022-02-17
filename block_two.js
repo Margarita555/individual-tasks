@@ -128,59 +128,59 @@ Array.prototype.myReduce = function (callback, acc) {
 //       }
 //     }
 //     insertRecursion(this.root);
-    // let tree = this.root;
+// let tree = this.root;
 
-    // while (true) {
-    //   if (value < tree.value) {
-    //     if (!tree.left) {
-    //       tree.left = newNode;
-    //       return this;
-    //     }
-    //     tree = tree.left;
-    //   } else {
-    //     if (!tree.right) {
-    //       tree.right = newNode;
-    //       return this;
-    //     }
-    //     tree = tree.right;
-    //   }
-    // }
-    // return this;
-  // }
+// while (true) {
+//   if (value < tree.value) {
+//     if (!tree.left) {
+//       tree.left = newNode;
+//       return this;
+//     }
+//     tree = tree.left;
+//   } else {
+//     if (!tree.right) {
+//       tree.right = newNode;
+//       return this;
+//     }
+//     tree = tree.right;
+//   }
+// }
+// return this;
+// }
 
-  // search(value) {
-  //   function searchRecursion(currentNode) {
-  //     if (!currentNode) {
-  //       return null;
-  //     }
-  //     if (currentNode.value === value) {
-  //       return currentNode;
-  //     } else if (value < currentNode.value) {
-  //       return searchRecursion(currentNode.left);
-  //     } else {
-  //       return searchRecursion(currentNode.right);
-  //     }
-  //   }
-  //   return searchRecursion(this.root);
-  // }
-  // search(value) {
-  //   if (!this.root) {
-  //     return false;
-  //   }
-  //   let tree = this.root;
+// search(value) {
+//   function searchRecursion(currentNode) {
+//     if (!currentNode) {
+//       return null;
+//     }
+//     if (currentNode.value === value) {
+//       return currentNode;
+//     } else if (value < currentNode.value) {
+//       return searchRecursion(currentNode.left);
+//     } else {
+//       return searchRecursion(currentNode.right);
+//     }
+//   }
+//   return searchRecursion(this.root);
+// }
+// search(value) {
+//   if (!this.root) {
+//     return false;
+//   }
+//   let tree = this.root;
 
-  //   while (tree) {
-  //     if (value < tree.value) {
-  //       tree = tree.left;
-  //     } else if (value > tree.value) {
-  //       tree = tree.right;
-  //     } else if (tree.value === value) {
-  //       return tree;
-  //     }
-  //   }
+//   while (tree) {
+//     if (value < tree.value) {
+//       tree = tree.left;
+//     } else if (value > tree.value) {
+//       tree = tree.right;
+//     } else if (tree.value === value) {
+//       return tree;
+//     }
+//   }
 
-  //   return false;
-  // }
+//   return false;
+// }
 
 //   remove(value) {
 //     if (!this.root) {
@@ -259,24 +259,3 @@ Array.prototype.myReduce = function (callback, acc) {
 //     }
 //   }
 // }
-
-// const tree = new BinaryTree2();
-
-// tree.insert(5);
-// tree.insert(2);
-// tree.insert(3);
-// tree.insert(1);
-// tree.insert(10);
-// tree.insert(12);
-// tree.insert(9);
-// console.log(tree.search(10));
-// tree.lookup(10);
-// tree.remove(12);
-// tree.remove(9);
-// tree.remove(2);
-// console.log(tree);
-
-// binaryTree.delete(9);
-// binaryTree.delete(2);
-// binaryTree.delete(10);
-// binaryTree.delete(5);
