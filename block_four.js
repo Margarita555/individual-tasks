@@ -1,4 +1,3 @@
-
 // class TreeNode {
 //     constructor(num) {
 //       this.value = num;
@@ -143,54 +142,54 @@
 
 const bank = [
   {
-      name: "Voyskaya Vlada Vladimirovna",
-      isActive: true,
-      registrationDate: "",
-      accounts: {
-        debit: {
-          balance: 500000,
-          activity: 5000,
-          activityDate: "",
-          cardExpiryDate: "",
-          currency: "UAH",
-        },
-        credit: {
-          balance: {
-            personalFunds: 200000,
-            creditFunds: 30000,
-          },
-          creditLimit: 100000,
-          activity: 5000,
-          activityDate: "",
-          cardExpiryDate: "",
-          currency: "UAH",
-        },
+    name: "Voyskaya Vlada Vladimirovna",
+    isActive: true,
+    registrationDate: "",
+    accounts: {
+      debit: {
+        balance: 500000,
+        activity: 5000,
+        activityDate: "",
+        cardExpiryDate: "",
+        currency: "UAH",
       },
+      credit: {
+        balance: {
+          personalFunds: 200000,
+          creditFunds: 30000,
+        },
+        creditLimit: 100000,
+        activity: 5000,
+        activityDate: "",
+        cardExpiryDate: "",
+        currency: "UAH",
+      },
+    },
   },
   {
-      name: "Voyskiy Vlad Vladimirovich",
-      isActive: false,
-      registrationDate: "",
-      accounts: {
-        debit: {
-          balance: 500000,
-          activity: 5000,
-          activityDate: "",
-          cardExpiryDate: "",
-          currency: "UAH",
-        },
-        credit: {
-          balance: {
-            personalFunds: 200000,
-            creditFunds: 30000,
-          },
-          creditLimit: 100000,
-          activity: 5000,
-          activityDate: "",
-          cardExpiryDate: "",
-          currency: "UAH",
-        },
+    name: "Voyskiy Vlad Vladimirovich",
+    isActive: false,
+    registrationDate: "",
+    accounts: {
+      debit: {
+        balance: 500000,
+        activity: 5000,
+        activityDate: "",
+        cardExpiryDate: "",
+        currency: "UAH",
       },
+      credit: {
+        balance: {
+          personalFunds: 200000,
+          creditFunds: 30000,
+        },
+        creditLimit: 100000,
+        activity: 5000,
+        activityDate: "",
+        cardExpiryDate: "",
+        currency: "UAH",
+      },
+    },
   },
 ];
 const API_KEY = "7c8bbc90-8fcc-11ec-afa3-bfe597d9e008";
@@ -257,7 +256,7 @@ async function countBankCashTotal() {
 }
 // countBankCashTotal();
 
-async function clientsCreditFundsTotal(){
+async function clientsCreditFundsTotal() {
   try {
     let creditFundsTotal = 0;
     for (let i = 0; i < bank.length; i++) {
@@ -265,7 +264,7 @@ async function clientsCreditFundsTotal(){
 
       let creditFunds = bank[i].accounts.credit.balance.creditFunds;
       const currency = bank[i].accounts.credit.currency;
-        console.log(currency, creditFunds);
+      console.log(currency, creditFunds);
 
       const clientFunds = await exchangeCurrency(creditFunds, currency);
       creditFundsTotal += clientFunds;
@@ -277,44 +276,47 @@ async function clientsCreditFundsTotal(){
   }
 }
 
-clientsCreditFundsTotal();
+// clientsCreditFundsTotal();
 
- function countInactiveClientsCreditFunds(){
+function countInactiveClientsCreditFunds() {
   try {
-    
-    const creditFundsTotal = bank.reduce(async(total, client)=> {
-      let creditFunds = client.accounts.credit.balance.creditFunds;
-      const currency = client.accounts.credit.currency;
-      const exchangedCreditFunds = await exchangeCurrency(creditFunds, currency);
-      total += exchangedCreditFunds;
-      return total;
-    }, 0).then(total => console.log(total))
-// let creditFundsTotal = 0;
-//     for (let i = 0; i < bank.length; i++) {
-//       console.log(bank[i].isActive)
+    const creditFundsTotal = bank
+      .reduce(async (total, client) => {
+        let creditFunds = client.accounts.credit.balance.creditFunds;
+        const currency = client.accounts.credit.currency;
+        const exchangedCreditFunds = await exchangeCurrency(
+          creditFunds,
+          currency
+        );
+        total += exchangedCreditFunds;
+        return total;
+      }, 0)
+      .then((total) => console.log(total));
+    // let creditFundsTotal = 0;
+    //     for (let i = 0; i < bank.length; i++) {
+    //       console.log(bank[i].isActive)
 
-//          if(bank[i].isActive){
-//       let creditFunds = bank[i].accounts.credit.balance.creditFunds;
-//       const currency = bank[i].accounts.credit.currency;
-//         // console.log(currency, creditFunds);
+    //          if(bank[i].isActive){
+    //       let creditFunds = bank[i].accounts.credit.balance.creditFunds;
+    //       const currency = bank[i].accounts.credit.currency;
+    //         // console.log(currency, creditFunds);
 
-//       const exchangedFunds = await exchangeCurrency(creditFunds, currency);
-//       creditFundsTotal += exchangedFunds;
-//     }
-//     }
-    console.log(creditFundsTotal)
+    //       const exchangedFunds = await exchangeCurrency(creditFunds, currency);
+    //       creditFundsTotal += exchangedFunds;
+    //     }
+    //     }
+    console.log(creditFundsTotal);
     return creditFundsTotal;
   } catch (e) {
     error({ text: "Error.Try again leter." });
   }
 }
-console.log(countInactiveClientsCreditFunds())
+// console.log(countInactiveClientsCreditFunds())
 
-
-
-function countInactiveDebtHolders(){
-  const inactiveClients = bank.filter(client => {
-    return client.isActive && client.accounts.credit.balance.creditFunds !== 0}).length;
-    console.log(inactiveClients)
+function countInactiveDebtHolders() {
+  const inactiveClients = bank.filter((client) => {
+    return client.isActive && client.accounts.credit.balance.creditFunds !== 0;
+  }).length;
+  console.log(inactiveClients);
 }
-countInactiveDebtHolders();
+// countInactiveDebtHolders();

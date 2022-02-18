@@ -39,34 +39,34 @@ class TreeNode {
     }
     return this.right.search(num);
   }
-  
-  delete (num, currentNode){
+
+  delete(num, currentNode) {
     let current = currentNode || this;
-    if(num < current.value){
-        current.left = this.delete(num, current.left);
-        return current;
-    } else if ( num > current.value){
-        current.right = this.delete(num, current.right);
-        return current;
-      } else {
-        if ( current.left === null && current.right === null){
-          current = null;
-          return;
-        }
-        if( current.left === null){
-          return current.right;
-        }
-        if ( current.right === null){
-        return current.left;
-       } 
-       let replacedNode = current.right;
-          while (replacedNode.left !== null) {     
-            replacedNode = replacedNode.left;
-        }
-        current.value = replacedNode.value;
-        current.right = this.delete(replacedNode.value, current.right);
-        return current;
+    if (num < current.value) {
+      current.left = this.delete(num, current.left);
+      return current;
+    } else if (num > current.value) {
+      current.right = this.delete(num, current.right);
+      return current;
+    } else {
+      if (current.left === null && current.right === null) {
+        current = null;
+        return;
       }
+      if (current.left === null) {
+        return current.right;
+      }
+      if (current.right === null) {
+        return current.left;
+      }
+      let replacedNode = current.right;
+      while (replacedNode.left !== null) {
+        replacedNode = replacedNode.left;
+      }
+      current.value = replacedNode.value;
+      current.right = this.delete(replacedNode.value, current.right);
+      return current;
+    }
   }
 }
 
@@ -75,19 +75,26 @@ class TreeNode {
  */
 Array.prototype.bubbleSort = function () {
   for (let i = 0; i < this.length - 1; i++) {
-    if (typeof this[i] === "number") {
-      for (let key of this) {
-        if (key > this[i + 1]) {
-          [this[this.indexOf(key)], this[i + 1]] = [
-            this[i + 1],
-            this[this.indexOf(key)],
-          ];
-        }
-      }
-    } else if (typeof this[i] === "object") {
+    if (typeof this[i] === "object") {
       for (let key in this[i]) {
         if (this[i][key] > this[i + 1][key]) {
           [this[i], this[i + 1]] = [this[i + 1], this[i]];
+        }
+      }
+    } else {
+      for (let i = this.length - 1; i > 0; i--) {
+        for (let j = 0; j < i; j++) {
+          let firstElement = this[j];
+          let secondElement = this[j + 1];
+          if (typeof this[i] === "string") {
+            firstElement = firstElement.charCodeAt(0);
+            secondElement = secondElement.charCodeAt(0);
+          }
+          if (firstElement > secondElement) {
+            let temp = this[j];
+            this[j] = this[j + 1];
+            this[j + 1] = temp;
+          }
         }
       }
     }
@@ -98,17 +105,23 @@ Array.prototype.bubbleSort = function () {
 Array.prototype.selectionSort = function () {
   for (let i = 0; i < this.length - 1; i++) {
     let min = i;
-    if (typeof this[i] === "number") {
-      for (let key of this) {
-        if (key > this[i + 1]) {
-          min = this.indexOf(key);
-          [this[i + 1], this[min]] = [this[min], this[i + 1]];
-        }
-      }
-    } else if (typeof this[i] === "object") {
+    if (typeof this[i] === "object") {
       for (let key in this[i]) {
         if (this[min][key] > this[i + 1][key]) {
           min = i;
+          [this[i + 1], this[min]] = [this[min], this[i + 1]];
+        }
+      }
+    } else {
+      for (let key of this) {
+        let firstElement = key;
+        let secondElement = this[i + 1];
+        if (typeof key === "string") {
+          firstElement = firstElement.charCodeAt(0);
+          secondElement = secondElement.charCodeAt(0);
+        }
+        if (firstElement > secondElement) {
+          min = this.indexOf(key);
           [this[i + 1], this[min]] = [this[min], this[i + 1]];
         }
       }
@@ -116,3 +129,23 @@ Array.prototype.selectionSort = function () {
   }
   return this;
 };
+console.log("ABC".charCodeAt(0));
+console.log("7".charCodeAt(0));
+console.log("4".charCodeAt(0));
+console.log("BC".charCodeAt(0));
+// let a = "ABC";
+// console.log(a.toSring());
+
+let a = [4, 1, 34, 7, 88, 9, 2];
+let arr = ["c", "f", "b", "e", "g", "d", "a"];
+// let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
+// let arr = [4, 1, 88, 2];
+let ab = [{ a: 10 }, { a: -1 }, { a: 7 }, { a: 5 }];
+// console.log(arr.bubbleSort());
+// console.log(a.bubbleSort());
+// console.log(ab.bubbleSort());
+// console.log(a.bubbleSort(a));
+
+console.log(a.selectionSort());
+console.log(ab.selectionSort());
+console.log(arr.selectionSort());

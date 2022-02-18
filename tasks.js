@@ -1187,7 +1187,49 @@ function transformBitNotNumber3(num) {
 //   }
 //   return row;
 // }
+// Array.prototype.bubbleSort = function () {
+//   for (let i = 0; i < this.length - 1; i++) {
+//     if (typeof this[i] === "number") {
+//       for (let key of this) {
+//         if (key > this[i + 1]) {
+//           [this[this.indexOf(key)], this[i + 1]] = [
+//             this[i + 1],
+//             this[this.indexOf(key)],
+//           ];
+//         }
+//       }
+//     } else if (typeof this[i] === "object") {
+//       for (let key in this[i]) {
+//         if (this[i][key] > this[i + 1][key]) {
+//           [this[i], this[i + 1]] = [this[i + 1], this[i]];
+//         }
+//       }
+//     }
+//   }
+//   return this;
+// };
 
+// Array.prototype.selectionSort = function () {
+//   for (let i = 0; i < this.length - 1; i++) {
+//     let min = i;
+//     if (typeof this[i] === "number") {
+//       for (let key of this) {
+//         if (key > this[i + 1]) {
+//           min = this.indexOf(key);
+//           [this[i + 1], this[min]] = [this[min], this[i + 1]];
+//         }
+//       }
+//     } else if (typeof this[i] === "object") {
+//       for (let key in this[i]) {
+//         if (this[min][key] > this[i + 1][key]) {
+//           min = i;
+//           [this[i + 1], this[min]] = [this[min], this[i + 1]];
+//         }
+//       }
+//     }
+//   }
+//   return this;
+// };
 // let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 // let arr = [4, 1, 88, 2];
 // let a = [{ a: 10 }, { a: -1 }, { a: 7 }, {a: 5}];
