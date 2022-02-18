@@ -40,20 +40,26 @@ class TreeNode {
     return this.right.search(num);
   }
 
-  delete(num) {
-    let current = this;
-    let parent = null;
-    while (current.value) {
-      if (num < current.value) {
-        parent = current;
-        current = current.left;
-      } else if (num > current.value) {
-        parent = current;
-        current = current.right;
-      } else if (current.value === num) {
-        break;
-      }
+  delete(num, current, parent) {
+    if ( num < this.value && current){
+      parent = current;
+      current = current.left;
+       this.left.delete(num, current, parent);
+    } else if (num < this.value && !current){
+      parent = null;
+      current = this;
+      this.delete(num, current, parent);
     }
+   if ( num > this.value && current){
+      parent = current;
+      current = current.right;
+      this.right.delete(num, current, parent);
+    } else if (num > this.value && !current){
+      parent = null;
+      current = this;
+      this.delete(num, current, parent);
+    }
+    else if ( num === this.value){
     if (current.right === null) {
       if (parent === null) {
         this.value = current.left;
@@ -85,7 +91,6 @@ class TreeNode {
       leftLastParent.left = leftLast.right;
       leftLast.left = current.left;
       leftLast.right = current.right;
-
       if (parent === null) {
         this.value = leftLast;
       } else {
@@ -95,6 +100,7 @@ class TreeNode {
           parent.right = leftLast;
         }
       }
+     }
     }
   }
 }

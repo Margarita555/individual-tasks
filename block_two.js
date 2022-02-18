@@ -259,3 +259,60 @@ Array.prototype.myReduce = function (callback, acc) {
 //     }
 //   }
 // }
+// delete(num) {
+  //   let current = this;
+  //   let parent = null;
+  //   while (current.value !== 0) {
+  //     if (num < current.value) {
+  //       parent = current;
+  //       current = current.left;
+  //     } else if (num > current.value) {
+  //       parent = current;
+  //       current = current.right;
+  //     } else if (current.value === num) {
+  //       break;
+  //     }
+  //   }
+  //   if (current.right === null) {
+  //     if (parent === null) {
+  //       this.value = current.left;
+  //     } else {
+  //       if (current.value < parent.value) {
+  //         parent.left = current.left;
+  //       } else if (current.value > parent.value) {
+  //         parent.right = current.left;
+  //       }
+  //     }
+  //   } else if (current.right.left === null) {
+  //     current.right.left = current.left;
+  //     if (parent === null) {
+  //       this.value = current.right;
+  //     } else {
+  //       if (current.value < parent.value) {
+  //         parent.left = current.right;
+  //       } else if (current.value > parent.value) {
+  //         parent.right = current.right;
+  //       }
+  //     }
+  //   } else {
+  //     let leftLast = current.right.left;
+  //     let leftLastParent = current.right;
+  //     while (leftLast.left) {
+  //       leftLastParent = leftLast;
+  //       leftLast = leftLast.left;
+  //     }
+  //     leftLastParent.left = leftLast.right;
+  //     leftLast.left = current.left;
+  //     leftLast.right = current.right;
+
+  //     if (parent === null) {
+  //       this.value = leftLast;
+  //     } else {
+  //       if (current.value < parent.value) {
+  //         parent.left = leftLast;
+  //       } else if (current.value > parent.value) {
+  //         parent.right = leftLast;
+  //       }
+  //     }
+  //   }
+  // }
