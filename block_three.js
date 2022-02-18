@@ -39,69 +39,34 @@ class TreeNode {
     }
     return this.right.search(num);
   }
-
-  delete(num, current, parent) {
-    if ( num < this.value && current){
-      parent = current;
-      current = current.left;
-       this.left.delete(num, current, parent);
-    } else if (num < this.value && !current){
-      parent = null;
-      current = this;
-      this.delete(num, current, parent);
-    }
-   if ( num > this.value && current){
-      parent = current;
-      current = current.right;
-      this.right.delete(num, current, parent);
-    } else if (num > this.value && !current){
-      parent = null;
-      current = this;
-      this.delete(num, current, parent);
-    }
-    else if ( num === this.value){
-    if (current.right === null) {
-      if (parent === null) {
-        this.value = current.left;
+  
+  delete (num, currentNode){
+    let current = currentNode || this;
+    if(num < current.value){
+        current.left = this.delete(num, current.left);
+        return current;
+    } else if ( num > current.value){
+        current.right = this.delete(num, current.right);
+        return current;
       } else {
-        if (current.value < parent.value) {
-          parent.left = current.left;
-        } else if (current.value > parent.value) {
-          parent.right = current.left;
+        if ( current.left === null && current.right === null){
+          current = null;
+          return;
         }
-      }
-    } else if (current.right.left === null) {
-      current.right.left = current.left;
-      if (parent === null) {
-        this.value = current.right;
-      } else {
-        if (current.value < parent.value) {
-          parent.left = current.right;
-        } else if (current.value > parent.value) {
-          parent.right = current.right;
+        if( current.left === null){
+          return current.right;
         }
-      }
-    } else {
-      let leftLast = current.right.left;
-      let leftLastParent = current.right;
-      while (leftLast.left) {
-        leftLastParent = leftLast;
-        leftLast = leftLast.left;
-      }
-      leftLastParent.left = leftLast.right;
-      leftLast.left = current.left;
-      leftLast.right = current.right;
-      if (parent === null) {
-        this.value = leftLast;
-      } else {
-        if (current.value < parent.value) {
-          parent.left = leftLast;
-        } else if (current.value > parent.value) {
-          parent.right = leftLast;
+        if ( current.right === null){
+        return current.left;
+       } 
+       let replacedNode = current.right;
+          while (replacedNode.left !== null) {     
+            replacedNode = replacedNode.left;
         }
+        current.value = replacedNode.value;
+        current.right = this.delete(replacedNode.value, current.right);
+        return current;
       }
-     }
-    }
   }
 }
 

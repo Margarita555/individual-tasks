@@ -169,7 +169,7 @@ const bank = [
   },
   {
       name: "Voyskiy Vlad Vladimirovich",
-      isActive: true,
+      isActive: false,
       registrationDate: "",
       accounts: {
         debit: {
@@ -257,54 +257,60 @@ async function countBankCashTotal() {
 }
 // countBankCashTotal();
 
-// async function clientsDebtTotal(){
-//   try {
-//     let creditFundsTotal = 0;
+async function clientsCreditFundsTotal(){
+  try {
+    let creditFundsTotal = 0;
+    for (let i = 0; i < bank.length; i++) {
+      // console.log(bank[i].client.accounts)
+
+      let creditFunds = bank[i].accounts.credit.balance.creditFunds;
+      const currency = bank[i].accounts.credit.currency;
+        console.log(currency, creditFunds);
+
+      const clientFunds = await exchangeCurrency(creditFunds, currency);
+      creditFundsTotal += clientFunds;
+    }
+    console.log(creditFundsTotal);
+    return creditFundsTotal;
+  } catch (e) {
+    error({ text: "Error.Try again leter." });
+  }
+}
+
+clientsCreditFundsTotal();
+
+ function countInactiveClientsCreditFunds(){
+  try {
+    
+    const creditFundsTotal = bank.reduce(async(total, client)=> {
+      let creditFunds = client.accounts.credit.balance.creditFunds;
+      const currency = client.accounts.credit.currency;
+      const exchangedCreditFunds = await exchangeCurrency(creditFunds, currency);
+      total += exchangedCreditFunds;
+      return total;
+    }, 0).then(total => console.log(total))
+// let creditFundsTotal = 0;
 //     for (let i = 0; i < bank.length; i++) {
-//       // console.log(bank[i].client.accounts)
+//       console.log(bank[i].isActive)
 
-//       let creditFunds = bank[i].client.accounts.credit.balance.creditFunds;
-//       const currency = bank[i].client.accounts.credit.currency;
-//         console.log(currency, creditFunds);
+//          if(bank[i].isActive){
+//       let creditFunds = bank[i].accounts.credit.balance.creditFunds;
+//       const currency = bank[i].accounts.credit.currency;
+//         // console.log(currency, creditFunds);
 
-//       const clientCreditFunds = await exchangeCurrency(creditFunds, currency);
-//       creditFundsTotal += clientCreditFunds;
+//       const exchangedFunds = await exchangeCurrency(creditFunds, currency);
+//       creditFundsTotal += exchangedFunds;
 //     }
-//     console.log(creditFundsTotal);
-//     return creditFundsTotal;
-//   } catch (e) {
-//     error({ text: "Error.Try again leter." });
-//   }
-// }
+//     }
+    console.log(creditFundsTotal)
+    return creditFundsTotal;
+  } catch (e) {
+    error({ text: "Error.Try again leter." });
+  }
+}
+console.log(countInactiveClientsCreditFunds())
 
-// clientsDebtTotal();
 
-// async function countInactiveClientsCreditFunds(){
-//   try {
-//     return creditFundsTotal = bank.reduce((total, client)=> {
-//       let creditFunds = client.accounts.credit.balance.creditFunds;
-//       const currency = client.accounts.credit.currency;
-//       const exchangedCreditFunds = await exchangeCurrency(creditFunds, currency);
-//       total += exchangedCreditFunds;
-//       return total;
-//     }, 0)
-// // let creditFundsTotal = 0;
-//     // for (let i = 0; i < bank.length; i++) {
-//     //   // console.log(bank[i].client.accounts)
-
-//     //   let creditFunds = bank[i].client.accounts.credit.balance.creditFunds;
-//     //   const currency = bank[i].client.accounts.credit.currency;
-//     //     console.log(currency, creditFunds);
-
-//     //   const clientCreditFunds = await exchangeCurrency(creditFunds, currency);
-//     //   creditFundsTotal += clientCreditFunds;
-//     // }
-  
-//   } catch (e) {
-//     error({ text: "Error.Try again leter." });
-//   }
-// }
-// console.log(countInactiveClientsCreditFunds())
 
 function countInactiveDebtHolders(){
   const inactiveClients = bank.filter(client => {
