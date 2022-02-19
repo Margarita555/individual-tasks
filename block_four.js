@@ -323,10 +323,12 @@ function countInactiveDebtHolders() {
 
 ("+cc(mmm)xxx-xx-xx");
 let tel = "+38(066)731-41-36";
-console.log(tel.match(/\d/g));
+console.log(tel.match(/[0-9]/));
 
 let email = "a_rita@ukr.net";
-console.log(email.match(/w\d/gi));
+let regexp = /^([a-z\d\.-\w]+)@([a-z\d-]+)\.([a-z]{2,8})$/;
+console.log(regexp.test(email));
+console.log(email.match(/^([a-z\d\.-\w]+)@([a-z\d-]+)\.([a-z]{2,8})$/));
 
 let site = "http://test.dev";
 console.log(site.match(/^http\:/gi));
