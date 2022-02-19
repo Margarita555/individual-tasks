@@ -320,3 +320,17 @@ function countInactiveDebtHolders() {
   console.log(inactiveClients);
 }
 // countInactiveDebtHolders();
+
+("+cc(mmm)xxx-xx-xx");
+let tel = "+38(066)731-41-36";
+console.log(tel.match(/\d/g));
+
+let email = "a_rita@ukr.net";
+console.log(email.match(/w\d/gi));
+
+let site = "http://test.dev";
+console.log(site.match(/^http\:/gi));
+
+let password = "qwerty123_5";
+console.log(password.match(/\w\d/g));
+//  ipv4

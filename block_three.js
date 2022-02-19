@@ -73,66 +73,65 @@ class TreeNode {
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */
-// Array.prototype.bubbleSort = function () {
-//   for (let i = 0; i < this.length - 1; i++) {
-//     if (typeof this[i] === "object") {
-//       for (let key in this[i]) {
-//         if (this[i][key] > this[i + 1][key]) {
-//           [this[i], this[i + 1]] = [this[i + 1], this[i]];
-//         }
-//       }
-//     } else {
-//       for (let i = this.length - 1; i > 0; i--) {
-//         for (let j = 0; j < i; j++) {
-//           let firstElement = this[j];
-//           let secondElement = this[j + 1];
-//           if (firstElement > secondElement) {
-//             let temp = this[j];
-//             this[j] = this[j + 1];
-//             this[j + 1] = temp;
-//           }
-//         }
-//       }
-//     }
-//   }
-//   return this;
-// };
+Array.prototype.bubbleSort = function (callback) {
+  if (typeof callback === "function") {
+    for (let i = this.length - 1; i > 0; i--) {
+      for (let j = 0; j < i; j++) {
+        if (callback(this[j], this[j + 1])) {
+          [this[j], this[j + 1]] = [this[j + 1], this[j]];
+        }
+      }
+    }
+  } else {
+    for (let i = this.length - 1; i > 0; i--) {
+      for (let j = 0; j < i; j++) {
+        if (this[j] > this[j + 1]) {
+          [this[j], this[j + 1]] = [this[j + 1], this[j]];
+        }
+      }
+    }
+  }
+  return this;
+};
 
-// Array.prototype.selectionSort = function () {
-//   for (let i = 0; i < this.length - 1; i++) {
-//     let min = i;
-//     if (typeof this[i] === "object") {
-//       for (let key in this[i]) {
-//         if (this[min][key] > this[i + 1][key]) {
-//           min = i;
-//           [this[i + 1], this[min]] = [this[min], this[i + 1]];
-//         }
-//       }
-//     } else {
-//       for (let key of this) {
-//         let firstElement = key;
-//         let secondElement = this[i + 1];
+Array.prototype.selectionSort = function (callback) {
+  if (typeof callback === "function") {
+    for (let i = 0; i < this.length - 1; i++) {
+      let min = i;
+      for (let j = 0; j < this.length; j++) {
+        if (callback(this[j], this[i + 1])) {
+          min = j;
+          [this[i + 1], this[min]] = [this[min], this[i + 1]];
+        }
+      }
+    }
+  } else {
+    for (let i = 0; i < this.length - 1; i++) {
+      let min = i;
+      for (let j = 0; j < this.length; j++) {
+        if (this[j] > this[i + 1]) {
+          min = j;
+          [this[i + 1], this[min]] = [this[min], this[i + 1]];
+        }
+      }
+    }
+  }
+  return this;
+};
 
-//         if (firstElement > secondElement) {
-//           min = this.indexOf(key);
-//           [this[i + 1], this[min]] = [this[min], this[i + 1]];
-//         }
-//       }
-//     }
-//   }
-//   return this;
-// };
-
+let ab = [{ a: 10 }, { a: -1 }, { a: 7 }, { a: 5 }];
 let a = [4, 1, 34, 7, 88, 9, 2];
 let arr = ["c", "f", "b", "e", "g", "d", "a"];
 // let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
-// let arr = [4, 1, 88, 2];
-let ab = [{ a: 10 }, { a: -1 }, { a: 7 }, { a: 5 }];
+
 // console.log(arr.bubbleSort());
 // console.log(a.bubbleSort());
 // console.log(ab.bubbleSort());
-// console.log(a.bubbleSort(a));
+// console.log(a.bubbleSort((a, b) => a > b));
+// console.log(arr.bubbleSort((a, b) => a > b));
+// console.log(ab.bubbleSort((a, b) => a.a > b.a));
 
-// console.log(a.selectionSort());
-// console.log(ab.selectionSort());
+// console.log(arr.selectionSort());
+// console.log(ab.selectionSort((a, b) => a.a > b.a));
+// console.log(a.selectionSort((a, b) => a > b));
 // console.log(arr.selectionSort());
