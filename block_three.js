@@ -73,21 +73,16 @@ class TreeNode {
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
  */
+
 Array.prototype.bubbleSort = function (callback) {
-  if (typeof callback === "function") {
-    for (let i = this.length - 1; i > 0; i--) {
-      for (let j = 0; j < i; j++) {
+  for (let i = this.length - 1; i > 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (arguments.length > 0) {
         if (callback(this[j], this[j + 1])) {
           [this[j], this[j + 1]] = [this[j + 1], this[j]];
         }
-      }
-    }
-  } else {
-    for (let i = this.length - 1; i > 0; i--) {
-      for (let j = 0; j < i; j++) {
-        if (this[j] > this[j + 1]) {
-          [this[j], this[j + 1]] = [this[j + 1], this[j]];
-        }
+      } else if (this[j] > this[j + 1]) {
+        [this[j], this[j + 1]] = [this[j + 1], this[j]];
       }
     }
   }
@@ -95,33 +90,27 @@ Array.prototype.bubbleSort = function (callback) {
 };
 
 Array.prototype.selectionSort = function (callback) {
-  if (typeof callback === "function") {
-    for (let i = 0; i < this.length - 1; i++) {
-      let min = i;
-      for (let j = 0; j < this.length; j++) {
+  console.log(arguments.length);
+  for (let i = 0; i < this.length - 1; i++) {
+    let min = i;
+    for (let j = 0; j < this.length; j++) {
+      if (arguments.length > 0) {
         if (callback(this[j], this[i + 1])) {
           min = j;
           [this[i + 1], this[min]] = [this[min], this[i + 1]];
         }
-      }
-    }
-  } else {
-    for (let i = 0; i < this.length - 1; i++) {
-      let min = i;
-      for (let j = 0; j < this.length; j++) {
-        if (this[j] > this[i + 1]) {
-          min = j;
-          [this[i + 1], this[min]] = [this[min], this[i + 1]];
-        }
+      } else if (this[j] > this[i + 1]) {
+        min = j;
+        [this[i + 1], this[min]] = [this[min], this[i + 1]];
       }
     }
   }
   return this;
 };
 
-let ab = [{ a: 10 }, { a: -1 }, { a: 7 }, { a: 5 }];
-let a = [4, 1, 34, 7, 88, 9, 2];
-let arr = ["c", "f", "b", "e", "g", "d", "a"];
+// let ab = [{ a: 10 }, { a: -1 }, { a: 7 }, { a: 5 }];
+// let a = [4, 1, 34, 7, 88, 9, 2];
+// let arr = ["c", "f", "b", "e", "g", "d", "a"];
 // let arr = [4, 1, 22, 34, 7, 5, 88, 6, 9, 3, 12, 2];
 
 // console.log(arr.bubbleSort());
