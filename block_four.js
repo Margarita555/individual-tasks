@@ -146,13 +146,22 @@ const bank = [
     isActive: true,
     registrationDate: "",
     accounts: {
-      debit: {
+      debit: [
+        {
         balance: 500000,
         activity: 5000,
         activityDate: "",
         cardExpiryDate: "",
         currency: "UAH",
       },
+      {
+        balance: 500000,
+        activity: 5000,
+        activityDate: "",
+        cardExpiryDate: "",
+        currency: "UAH",
+      }
+    ],
       credit: {
         balance: {
           personalFunds: 200000,
@@ -171,13 +180,15 @@ const bank = [
     isActive: false,
     registrationDate: "",
     accounts: {
-      debit: {
+      debit: [
+        {
         balance: 500000,
         activity: 5000,
         activityDate: "",
         cardExpiryDate: "",
         currency: "UAH",
       },
+    ],
       credit: {
         balance: {
           personalFunds: 200000,
@@ -220,41 +231,51 @@ async function exchangeCurrency(balance, currency) {
 // exchangeCurrency(500000, 'UHA')
 
 async function countBankCashTotal() {
-  try {
+  // try {
     let debitTotal = 0;
     for (let i = 0; i < bank.length; i++) {
-      // console.log(bank[i].client.accounts)
+       for(let i = 0; i < bank[i].accounts.debit.length; i++){
+         const balance = bank[i].accounts.debit.reduce((acc,account) => {
+        return acc+= account.balance + account.activity
+      }, 0);
+        const currency = bank[i].accounts.debit.currency;
+        console.log(currency, balance)
+       }
 
-      const balance = bank[i].client.accounts.debit.balance;
-      const currency = bank[i].client.accounts.debit.currency;
+      // console.log(bank[i].accounts.debit.find(account => account.currency));
+
+      
+      
       // console.log(currency, balance)
-      const clientDebitBalance = await exchangeCurrency(balance, currency);
-      debitTotal += clientDebitBalance;
+
+      // const clientDebitBalance = await exchangeCurrency(balance, currency);
+      // debitTotal += clientDebitBalance;
+
       //   console.log(debitTotal);
     }
 
-    let creditTotal = 0;
-    for (let i = 0; i < bank.length; i++) {
+    // let creditTotal = 0;
+    // for (let i = 0; i < bank.length; i++) {
       // console.log(bank[i].client.accounts)
 
-      const personalFunds =
-        bank[i].client.accounts.credit.balance.personalFunds;
-      let creditFunds = bank[i].client.accounts.credit.balance.creditFunds;
-      const currency = bank[i].client.accounts.credit.currency;
+      // const personalFunds =
+      //   bank[i].client.accounts.credit.balance.personalFunds;
+      // let creditFunds = bank[i].client.accounts.credit.balance.creditFunds;
+      // const currency = bank[i].client.accounts.credit.currency;
       //   console.log(currency, personalFunds, creditFunds);
-      const balance = personalFunds + creditFunds;
-      const clientCreditBalance = await exchangeCurrency(balance, currency);
-      creditTotal += clientCreditBalance;
+      // const balance = personalFunds + creditFunds;
+      // const clientCreditBalance = await exchangeCurrency(balance, currency);
+      // creditTotal += clientCreditBalance;
       //   console.log(debitTotal);
-    }
-    const total = debitTotal + creditTotal;
-    return total;
+    // }
+    // const total = debitTotal + creditTotal;
+    // return total;
     //  + client.accounts.creditAccount.creditLimit + activity
-  } catch (e) {
-    error({ text: "Error.Try again leter." });
-  }
+  // } catch (e) {
+  //   error({ text: "Error.Try again leter." });
+  // }
 }
-// countBankCashTotal();
+countBankCashTotal();
 
 async function clientsCreditFundsTotal() {
   try {
