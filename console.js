@@ -90,3 +90,36 @@
 // console.log(ab.selectionSort((a, b) => a.a > b.a));
 // console.log(a.selectionSort((a, b) => a > b));
 // console.log(arr.selectionSort());
+// ======================================================
+("+cc(mmm)xxx-xx-xx");
+let tel = "+38(066)731-41-36";
+let regexpTel = /^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$/;
+// console.log(regexpTel.test(tel));
+
+let email = "a_rita@ukr.net";
+let regexpEmail = /^([\w-]+)@([a-z]+)\.([a-z]{2,6})$/;
+// console.log(regexpEmail.test(email));
+
+let site = "http://test.dev";
+let regexpSite = /^http\:\/\/([-\w\.]+)\.\/?/;
+// console.log(regexpSite.test(site));
+// ^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$
+/https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i;
+
+let password = "qwerty123_5@";
+let regexpPassword = /^(?=.*[!@#$%^&*])(?=.*\w)[\w!@#$%^&*]{6,25}$/;
+// let regexpPassword = /^(?=.*[!@#$%^&*])(?=.*\w)[\w!@#$%^&*]{6,25}$/;
+//  (пробел) ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _` { | } ~
+// (?=.*\d)(?=.*[a-z])(?=.*[A-Z])
+// console.log(regexpPassword.test(password));
+// ?=.*\
+
+let ip = "192.0.2.235";
+let regexpIpv4 = /^([0-9]{1,3}[\.]){3}[0-9]{1,3}$/;
+// console.log(regexpIpv4.test(ip));
+//  ipv4  192.0.2.235  010.010.010.010 ^((25[0-5]|2[4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[4]\d|[01]?\d\d?)$;
+
+// /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/;
+
+//   "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+// ;
