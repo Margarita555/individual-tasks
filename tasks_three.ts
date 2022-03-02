@@ -1,87 +1,87 @@
 /* ======================= Task 1 ==========================
  Написать свою реализацию бинарного дерева поиска. (Возможности структуры данных должны быть: Добавить новый элемент, удалить элемент, найти элемент по его значению)
  */
-// interface INode {
-//   value: number;
-//   left: INode;
-//   right: INode;
-//   insert(num: number): void;
-//   search(num: number): INode;
-//   delete(num: number, currentNode: INode): void;
-// }
+interface INode {
+  value: number | INode;
+  left: INode | null;
+  right: INode | null;
+  insert(num: number): void;
+  search(num: number): null | number | ((num: number) => any);
+  delete(num: number, currentNode: INode): any;
+}
 
-// class TreeNode {
-//   value: number | TreeNode;
-//   left: TreeNode | null;
-//   right: TreeNode | null;
+class TreeNode implements INode {
+  value: number | INode;
+  left: INode | null;
+  right: INode | null;
 
-//   constructor(num: number) {
-//     this.value = num;
-//     this.left = null;
-//     this.right = null;
-//   }
+  constructor(num: number) {
+    this.value = num;
+    this.left = null;
+    this.right = null;
+  }
 
-//   insert(num: number) {
-//     if (!this.value) {
-//       this.value = num;
-//       return;
-//     }
-//     if (num < this.value && this.left) {
-//       this.left.insert(num);
-//     } else if (num < this.value && this.left === null) {
-//       this.left = new TreeNode(num);
-//       return;
-//     }
-//     if (num > this.value && this.right) {
-//       this.right.insert(num);
-//     } else if (num > this.value && this.right === null) {
-//       this.right = new TreeNode(num);
-//       return;
-//     }
-//   }
+  insert(num: number) {
+    if (!this.value) {
+      this.value = num;
+      return;
+    }
+    if (num < this.value && this.left) {
+      this.left.insert(num);
+    } else if (num < this.value && this.left === null) {
+      this.left = new TreeNode(num);
+      return;
+    }
+    if (num > this.value && this.right) {
+      this.right.insert(num);
+    } else if (num > this.value && this.right === null) {
+      this.right = new TreeNode(num);
+      return;
+    }
+  }
 
-//   search(num: number): null | number | TreeNode {
-//     if (this.value === null) {
-//       return null;
-//     }
-//     if (this.value === num) {
-//       return this.value;
-//     }
-//     if (num < this.value) {
-//       return this.left.search(num);
-//     }
-//     return this.right.search(num);
-//   }
+  search(num: number): null | number | ((num: number) => any) {
+    if (this.value === null) {
+      return null;
+    }
+    if (this.value === num) {
+      return this.value;
+    }
+    if (num < this.value) {
+      return this.left.search(num);
+    }
+    return this.right.search(num);
+  }
 
-//   delete(num: number, currentNode: TreeNode) {
-//     let current = currentNode || this;
-//     if (num < current.value) {
-//       current.left = this.delete(num, current.left);
-//       return current;
-//     } else if (num > current.value) {
-//       current.right = this.delete(num, current.right);
-//       return current;
-//     } else {
-//       if (current.left === null && current.right === null) {
-//         current = null;
-//         return;
-//       }
-//       if (current.left === null) {
-//         return current.right;
-//       }
-//       if (current.right === null) {
-//         return current.left;
-//       }
-//       let replacedNode = current.right;
-//       while (replacedNode.left !== null) {
-//         replacedNode = replacedNode.left;
-//       }
-//       current.value = replacedNode.value;
-//       current.right = this.delete(replacedNode.value, current.right);
-//       return current;
-//     }
-//   }
-// }
+  delete(num: number | INode, currentNode: INode | null): any {
+    let current: INode | null = currentNode || this;
+    if (num < current.value) {
+      current.left = this.delete(num, current.left);
+      return current;
+    } else if (num > current.value) {
+      current.right = this.delete(num, current.right);
+      return current;
+    } else {
+      if (current.left === null && current.right === null) {
+        current = null;
+        return;
+      }
+      if (current.left === null) {
+        return current.right;
+      }
+      if (current.right === null) {
+        return current.left;
+      }
+      let replacedNode: INode = current.right;
+      while (replacedNode.left !== null) {
+        replacedNode = replacedNode.left;
+      }
+      current.value = replacedNode.value;
+      current.right = this.delete(replacedNode.value, current.right);
+      return current;
+    }
+  }
+}
 
 /* ======================= Task 2 ==========================
  Написать сортировку двумя различными методами (Можно выбрать любые методы сортировки, самые простые: пузырьковая, выбором)
