@@ -48,9 +48,9 @@ class TreeNode implements INode {
       return this.value;
     }
     if (num < this.value) {
-      return this.left.search(num);
+      return this.left!.search(num);
     }
-    return this.right.search(num);
+    return this.right!.search(num);
   }
 
   delete(num: number | INode, currentNode: INode | null): any {
