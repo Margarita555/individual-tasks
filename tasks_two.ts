@@ -1,5 +1,5 @@
 interface Function {
-  myBind(param: any, ...rest: unknown[]): unknown;
+  myBind(context: any, ...rest: unknown[]): unknown;
 }
 
 Function.prototype.myBind = function (context, ...rest) {
@@ -14,7 +14,7 @@ Function.prototype.myBind = function (context, ...rest) {
 };
 
 interface Function {
-  myCall(params: any): unknown;
+  myCall(context: any): unknown;
 }
 
 Function.prototype.myCall = function (context, ...args: unknown[]) {
@@ -25,11 +25,8 @@ Function.prototype.myCall = function (context, ...args: unknown[]) {
   return result;
 };
 
-// /* ======================= Task 2 ==========================
 //  Написать свою реализацию функций для работы с массивами, которые являются аналогами следующих функций: map, filter, reduce, find, forEach.
 //  */
-
-// type MapCallback = (arrItem: any, index?: number, arr?: any[]) => any;
 
 interface Array<T> {
   myMap(callback: (arrItem: T, index?: number, arr?: T[]) => any): any[];
@@ -50,8 +47,6 @@ Array.prototype.myMap = function (callback) {
   }
   return result;
 };
-
-// type FilterCallback = (arrItem: any, i?: number, arr?: any[]) => boolean;
 
 interface Array<T> {
   myFilter(callback: (arrItem: T, i?: number, arr?: T[]) => boolean): T[];
