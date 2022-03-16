@@ -1,6 +1,6 @@
 declare global {
   interface String {
-    mySplit(seperator: any): string[];
+    mySplit(seperator?: string): string[];
   }
 }
 
@@ -42,7 +42,7 @@ Array.prototype.myJoin = function () {
 
 declare global {
   interface Array<T> {
-    myReverse(): any[];
+    myReverse(): T[];
   }
 }
 
@@ -57,7 +57,7 @@ Array.prototype.myReverse = function () {
 
 declare global {
   interface Array<T> {
-    myPush(item: any): any[];
+    myPush(item: T): T[];
   }
 }
 
@@ -70,7 +70,7 @@ Array.prototype.myPush = function (item) {
 
 declare global {
   interface Array<T> {
-    mySlice(begin: number, end: number): any[];
+    mySlice(begin: number, end: number): T[];
   }
 }
 Array.prototype.mySlice = function (begin, end) {

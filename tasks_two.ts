@@ -29,12 +29,10 @@ Function.prototype.myCall = function (context, ...args: unknown[]) {
 //  */
 
 interface Array<T> {
-  myMap(callback: (arrItem: T, index?: number, arr?: T[]) => any): any[];
+  myMap<Output>(
+    callback: (arrItem: T, index?: number, arr?: T[]) => Output
+  ): Output[];
 }
-
-// interface Array<T> {
-//   myMap<Input, Output>(callback: (arg: Input, i: number) => Output): Output[];
-// }
 
 Array.prototype.myMap = function (callback) {
   if (typeof callback !== "function") {
@@ -100,13 +98,6 @@ Array.prototype.myForEach = function (callback) {
     callback(this[i], i, this);
   }
 };
-
-// type ReduceCallback = <Type>(
-//   accumulator: Type,
-//   arrItem: any,
-//   index?: number,
-//   arr?: any[]
-// ) => Type;
 
 interface Array<T> {
   myReduce<Type>(
