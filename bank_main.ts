@@ -55,16 +55,16 @@ interface IClient {
 
 function renderBank(bank: IClient[]): void {
   bankContainer.innerHTML = "";
-  const bankMarkup = bankTemplate(bank);
+  const bankMarkup: string = bankTemplate(bank);
   bankContainer.insertAdjacentHTML("beforeend", bankMarkup);
 }
 
 function onFormSubmit(event: any) {
   event.preventDefault();
-  const formData: FormData = new FormData(event.target.closest("form"));
-  const name: FormDataEntryValue | null = formData.get("name");
-  const registrationDate: FormDataEntryValue | null = formData.get("date");
-  const isActive: boolean = formData.get("isActive") === "true";
+  const formData = new FormData(event.target.closest("form"));
+  const name = formData.get("name");
+  const registrationDate = formData.get("date");
+  const isActive = formData.get("isActive") === "true";
   const id: string = nanoid();
 
   const client = {
@@ -85,15 +85,14 @@ function onFormSubmit(event: any) {
 
 function onDebitFormSubmit(event: any) {
   event.preventDefault();
-  const formData: FormData = new FormData(event.target.closest("form"));
-  const id: FormDataEntryValue | null = formData.get("id");
-  const balance: number = Number(formData.get("balance"));
-  const activity: number = Number(formData.get("activity"));
-  const activityDate: FormDataEntryValue | null = formData.get("activityDate");
-  const cardExpiryDate: FormDataEntryValue | null =
-    formData.get("cardExpiryDate");
-  const currency: FormDataEntryValue | null = formData.get("currency");
-  const accountId: FormDataEntryValue | null = formData.get("accountId");
+  const formData = new FormData(event.target.closest("form"));
+  const id = formData.get("id");
+  const balance = Number(formData.get("balance"));
+  const activity = Number(formData.get("activity"));
+  const activityDate = formData.get("activityDate");
+  const cardExpiryDate = formData.get("cardExpiryDate");
+  const currency = formData.get("currency");
+  const accountId = formData.get("accountId");
 
   const debitAccount = {
     balance,
@@ -200,9 +199,9 @@ function onSaveDebitAccountClick(event: any) {
   event.preventDefault();
 
   const id: string = event.target.getAttribute("id");
-  const client: IClient = bank.find((client: IClient) => client.id === id);
+  const client = bank.find((client: IClient) => client.id === id);
   const accountId: string = event.target.getAttribute("data-debitsave");
-  const account: IDebit | undefined = client.accounts.debit?.find(
+  const account = client.accounts.debit.find(
     (account: IDebit) => account.accountId === accountId
   );
 
@@ -222,9 +221,9 @@ function onSaveCreditAccountClick(event: any) {
     return;
   }
   event.preventDefault();
-  const id = event.target.getAttribute("id");
+  const id: string = event.target.getAttribute("id");
   const client = bank.find((client: IClient) => client.id === id);
-  const accountId = event.target.getAttribute("data-creditsave");
+  const accountId: string = event.target.getAttribute("data-creditsave");
   const account = client.accounts.credit.find(
     (account: ICredit) => account.accountId === accountId
   );
@@ -246,7 +245,7 @@ function onDeleteDebitAccountlick(event: any) {
   if (!event.target.hasAttribute("data-debitremove")) {
     return;
   }
-  const id = event.target.getAttribute("id");
+  const id: string = event.target.getAttribute("id");
   const client = bank.find((client: IClient) => client.id === id);
   const accountId: string = event.target.getAttribute("data-debitremove");
 
@@ -263,9 +262,9 @@ function onDeleteCreditAccountClick(event: any) {
   if (!event.target.hasAttribute("data-creditremove")) {
     return;
   }
-  const id = event.target.getAttribute("id");
+  const id: string = event.target.getAttribute("id");
   const client = bank.find((client: IClient) => client.id === id);
-  const accountId = event.target.getAttribute("data-creditremove");
+  const accountId: string = event.target.getAttribute("data-creditremove");
 
   for (let i: number = 0; i < client.accounts.credit.length; i++) {
     if (client.accounts.credit[i].accountId === accountId) {
