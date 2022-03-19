@@ -6,7 +6,7 @@ import { fetchBank } from "./calculation";
 import getRefs from "./refs";
 const { form, debitForm, creditForm, bankContainer } = getRefs();
 
-let bank = fetchBank();
+let bank: IClient[] = fetchBank();
 renderBank(bank);
 
 form.addEventListener("submit", onFormSubmit);
@@ -24,28 +24,28 @@ bankContainer.addEventListener("click", onDeleteCreditAccountClick);
 interface IDebit {
   balance: number;
   activity: number;
-  activityDate: string;
-  cardExpiryDate: string;
-  currency: string;
-  id: string;
-  accountId: string;
+  activityDate: FormDataEntryValue | null;
+  cardExpiryDate: FormDataEntryValue | null;
+  currency: FormDataEntryValue | null;
+  id: FormDataEntryValue | null;
+  accountId: FormDataEntryValue | null;
 }
 
 interface ICredit {
   balance: number;
   creditLimit: number;
   activity: number;
-  activityDate: string;
-  cardExpiryDate: string;
-  currency: string;
-  id: string;
-  accountId: string;
+  activityDate: FormDataEntryValue | null;
+  cardExpiryDate: FormDataEntryValue | null;
+  currency: FormDataEntryValue | null;
+  id: FormDataEntryValue | null;
+  accountId: FormDataEntryValue | null;
 }
 
 interface IClient {
   id: string;
-  name: string;
-  registrationDate: string;
+  name: FormDataEntryValue | null;
+  registrationDate: FormDataEntryValue | null;
   isActive: boolean;
   accounts: {
     debit?: IDebit[];
@@ -53,13 +53,31 @@ interface IClient {
   };
 }
 
+// interface FormDataValue {
+
+//   name: string;
+//   registrationDate: string;
+// }
+
+// declare let FormData: {
+//   prototype: FormData;
+//   new (form?: HTMLFormElement): FormData;
+// };
+
+// interface FormData {
+//   entries(): IterableIterator<[string, string | File]>;
+//   keys(): IterableIterator<string>;
+//   values(): IterableIterator<string | File>;
+//   [Symbol.iterator](): IterableIterator<string | File>;
+// }
+
 function renderBank(bank: IClient[]): void {
   bankContainer.innerHTML = "";
   const bankMarkup: string = bankTemplate(bank);
   bankContainer.insertAdjacentHTML("beforeend", bankMarkup);
 }
 
-function onFormSubmit(event: any) {
+function onFormSubmit(event: any): void {
   event.preventDefault();
   const formData = new FormData(event.target.closest("form"));
   const name = formData.get("name");
@@ -83,18 +101,18 @@ function onFormSubmit(event: any) {
   form.reset();
 }
 
-function onDebitFormSubmit(event: any) {
+function onDebitFormSubmit(event: any): void {
   event.preventDefault();
   const formData = new FormData(event.target.closest("form"));
   const id = formData.get("id");
-  const balance = Number(formData.get("balance"));
-  const activity = Number(formData.get("activity"));
+  const balance: number = Number(formData.get("balance"));
+  const activity: number = Number(formData.get("activity"));
   const activityDate = formData.get("activityDate");
   const cardExpiryDate = formData.get("cardExpiryDate");
   const currency = formData.get("currency");
   const accountId = formData.get("accountId");
 
-  const debitAccount = {
+  const debitAccount: IDebit = {
     balance,
     activity,
     activityDate,
@@ -104,26 +122,26 @@ function onDebitFormSubmit(event: any) {
     accountId,
   };
   const client = bank.find((client: IClient) => id == client.id);
-  client.accounts.debit.push(debitAccount);
+  client?.accounts.debit?.push(debitAccount);
 
   localStorage.setItem("bank", JSON.stringify(bank));
   debitForm.reset();
 }
 
-function onCreditFormSubmit(event: any) {
+function onCreditFormSubmit(event: any): void {
   event.preventDefault();
   const formData = new FormData(event.target.closest("form"));
 
   const id = formData.get("id");
-  const balance = Number(formData.get("balance"));
-  const activity = Number(formData.get("activity"));
+  const balance: number = Number(formData.get("balance"));
+  const activity: number = Number(formData.get("activity"));
   const activityDate = formData.get("activityDate");
   const cardExpiryDate = formData.get("cardExpiryDate");
   const currency = formData.get("currency");
-  const creditLimit = Number(formData.get("creditLimit"));
+  const creditLimit: number = Number(formData.get("creditLimit"));
   const accountId = formData.get("accountId");
 
-  const creditAccount = {
+  const creditAccount: ICredit = {
     balance,
     creditLimit,
     activity,
@@ -134,25 +152,27 @@ function onCreditFormSubmit(event: any) {
     accountId,
   };
   const client = bank.find((client: IClient) => id == client.id);
-  client.accounts.credit.push(creditAccount);
+  client?.accounts.credit?.push(creditAccount);
   localStorage.setItem("bank", JSON.stringify(bank));
   creditForm.reset();
 }
 
-function onDebitAccountClick(event: any) {
+function onDebitAccountClick(event: any): void {
   if (!event.target.hasAttribute("data-debit")) {
     return;
   }
-  const id = event.target.getAttribute("data-debit");
+  const id: string = event.target.getAttribute("data-debit");
 
-  const accountsContainer = document.getElementById(`${id}`);
+  const accountsContainer: HTMLElement | null = document.getElementById(
+    `${id}`
+  );
   const client = bank.find((client: IClient) => client.id === id);
 
-  const debitMarkup = debitTemplate(client.accounts.debit);
+  const debitMarkup: string = debitTemplate(client?.accounts.debit);
   accountsContainer?.insertAdjacentHTML("beforeend", debitMarkup);
 }
 
-function onCreditAccountClick(event: any) {
+function onCreditAccountClick(event: any): void {
   if (!event.target.hasAttribute("data-credit")) {
     return;
   }
@@ -161,38 +181,40 @@ function onCreditAccountClick(event: any) {
   const accountsContainer = document.getElementById(`${id}`);
   const client = bank.find((client: IClient) => client.id === id);
 
-  const creditMarkup = creditTemplate(client.accounts.credit);
+  const creditMarkup: string = creditTemplate(client?.accounts.credit);
   accountsContainer?.insertAdjacentHTML("beforeend", creditMarkup);
 }
 
-function onSaveClientDataClick(event: any) {
+function onSaveClientDataClick(event: any): void {
   if (!event.target.hasAttribute("data-save")) {
     return;
   }
   event.preventDefault();
-  const id = event.target.getAttribute("data-save");
+  const id: string = event.target.getAttribute("data-save");
   let client = bank.find((client: IClient) => client.id === id);
 
   const formData = new FormData(event.target.closest("form"));
-  client.name = formData.get("name");
-  client.registrationDate = formData.get("date");
-  client.isActive = formData.get("isActive");
+  client!.name = formData.get("name");
+  client!.registrationDate = formData.get("date");
+  client!.isActive = formData.get("isActive") === "true";
 
   localStorage.setItem("bank", JSON.stringify(bank));
 }
 
-function onDeleteBtnClick(event: any) {
+function onDeleteBtnClick(event: any): void {
   if (!event.target.hasAttribute("data-remove")) {
     return;
   }
-  const id = event.target.getAttribute("data-remove");
-  const updatedBank = bank.filter((client: IClient) => client.id !== id);
+  const id: string = event.target.getAttribute("data-remove");
+  const updatedBank: IClient[] = bank.filter(
+    (client: IClient) => client.id !== id
+  );
   bank = updatedBank;
   localStorage.setItem("bank", JSON.stringify(updatedBank));
   renderBank(updatedBank);
 }
 
-function onSaveDebitAccountClick(event: any) {
+function onSaveDebitAccountClick(event: any): void {
   if (!event.target.hasAttribute("data-debitsave")) {
     return;
   }
@@ -201,22 +223,22 @@ function onSaveDebitAccountClick(event: any) {
   const id: string = event.target.getAttribute("id");
   const client = bank.find((client: IClient) => client.id === id);
   const accountId: string = event.target.getAttribute("data-debitsave");
-  const account = client.accounts.debit.find(
+  const account = client?.accounts.debit?.find(
     (account: IDebit) => account.accountId === accountId
   );
 
   const formData = new FormData(event.target.closest("form"));
-  account.balance = formData.get("balance");
-  account.activity = formData.get("activity");
-  account.currency = formData.get("currency");
-  account.activityDate = formData.get("activityDate");
-  account.cardExpiryDate = formData.get("cardExpiryDate");
-  account.accountId = formData.get("accountId");
+  account!.balance = Number(formData.get("balance"));
+  account!.activity = Number(formData.get("activity"));
+  account!.currency = formData.get("currency");
+  account!.activityDate = formData.get("activityDate");
+  account!.cardExpiryDate = formData.get("cardExpiryDate");
+  account!.accountId = formData.get("accountId");
 
   localStorage.setItem("bank", JSON.stringify(bank));
 }
 
-function onSaveCreditAccountClick(event: any) {
+function onSaveCreditAccountClick(event: any): void {
   if (!event.target.hasAttribute("data-creditsave")) {
     return;
   }
@@ -224,24 +246,24 @@ function onSaveCreditAccountClick(event: any) {
   const id: string = event.target.getAttribute("id");
   const client = bank.find((client: IClient) => client.id === id);
   const accountId: string = event.target.getAttribute("data-creditsave");
-  const account = client.accounts.credit.find(
+  const account = client?.accounts.credit?.find(
     (account: ICredit) => account.accountId === accountId
   );
 
   const formData = new FormData(event.target.closest("form"));
 
-  account.balance = formData.get("balance");
-  account.creditLimit = formData.get("creditLimit");
-  account.activity = formData.get("activity");
-  account.currency = formData.get("currency");
-  account.activityDate = formData.get("activityDate");
-  account.cardExpiryDate = formData.get("cardExpiryDate");
-  account.accountId = formData.get("accountId");
+  account!.balance = Number(formData.get("balance"));
+  account!.creditLimit = Number(formData.get("creditLimit"));
+  account!.activity = Number(formData.get("activity"));
+  account!.currency = formData.get("currency");
+  account!.activityDate = formData.get("activityDate");
+  account!.cardExpiryDate = formData.get("cardExpiryDate");
+  account!.accountId = formData.get("accountId");
 
   localStorage.setItem("bank", JSON.stringify(bank));
 }
 
-function onDeleteDebitAccountlick(event: any) {
+function onDeleteDebitAccountlick(event: any): void {
   if (!event.target.hasAttribute("data-debitremove")) {
     return;
   }
@@ -249,16 +271,16 @@ function onDeleteDebitAccountlick(event: any) {
   const client = bank.find((client: IClient) => client.id === id);
   const accountId: string = event.target.getAttribute("data-debitremove");
 
-  for (let i: number = 0; i < client.accounts.debit.length; i++) {
-    if (client.accounts.debit[i].accountId === accountId) {
-      client.accounts.debit.splice(i, 1);
+  for (let i: number = 0; i < client!.accounts.debit!.length; i++) {
+    if (client!.accounts.debit![i].accountId === accountId) {
+      client!.accounts.debit!.splice(i, 1);
     }
   }
   localStorage.setItem("bank", JSON.stringify(bank));
   renderBank(bank);
 }
 
-function onDeleteCreditAccountClick(event: any) {
+function onDeleteCreditAccountClick(event: any): void {
   if (!event.target.hasAttribute("data-creditremove")) {
     return;
   }
@@ -266,9 +288,9 @@ function onDeleteCreditAccountClick(event: any) {
   const client = bank.find((client: IClient) => client.id === id);
   const accountId: string = event.target.getAttribute("data-creditremove");
 
-  for (let i: number = 0; i < client.accounts.credit.length; i++) {
-    if (client.accounts.credit[i].accountId === accountId) {
-      client.accounts.credit.splice(i, 1);
+  for (let i: number = 0; i < client!.accounts.credit!.length; i++) {
+    if (client!.accounts.credit![i].accountId === accountId) {
+      client!.accounts.credit!.splice(i, 1);
     }
   }
   localStorage.setItem("bank", JSON.stringify(bank));
