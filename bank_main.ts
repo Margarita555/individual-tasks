@@ -64,7 +64,7 @@ function onFormSubmit(event: any) {
   const formData = new FormData(event.target.closest("form"));
   const name = formData.get("name");
   const registrationDate = formData.get("date");
-  const isActive = formData.get("isActive") === "true";
+  const isActive: boolean = formData.get("isActive") === "true";
   const id: string = nanoid();
 
   const client = {
