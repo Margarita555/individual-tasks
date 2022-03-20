@@ -27,9 +27,6 @@ Function.prototype.myCall = function (context) {
     delete context[callback];
     return result;
 };
-// interface Array<T> {
-//   myMap<Input, Output>(callback: (arg: Input, i: number) => Output): Output[];
-// }
 Array.prototype.myMap = function (callback) {
     if (typeof callback !== "function") {
         throw new Error("Callback is not a function");

@@ -201,19 +201,20 @@ class Rectangle {
   }
 }
 
-// const RectangleConstructor = function ( width: number, height: number) {
-//   if (width <= 0 || height <= 0) {
-//     throw new Error("Number is invalid");
-//   }
-//   this.width = width;
-//   this.height = height;
-// };
-// RectangleConstructor.prototype.perimeter = function (): number {
-//   return (this.width + this.height) * 2;
-// };
-// RectangleConstructor.prototype.square = function (): number {
-//   return this.width * this.height;
-// };
+const RectangleConstructor = function (width: number, height: number) {
+  if (width <= 0 || height <= 0) {
+    throw new Error("Number is invalid");
+  }
+
+  this.width = width;
+  this.height = height;
+};
+RectangleConstructor.prototype.perimeter = function (): number {
+  return (this.width + this.height) * 2;
+};
+RectangleConstructor.prototype.square = function (): number {
+  return this.width * this.height;
+};
 
 class Triangle {
   height: number;
@@ -236,26 +237,26 @@ class Triangle {
   }
 }
 
-// const TriangleConstructor = function (
-//   height: number,
-//   base: number,
-//   side1: number,
-//   side2: number
-// ) {
-//   if (height <= 0 || base <= 0 || side1 <= 0 || side2 <= 0) {
-//     throw new Error("Number is invalid");
-//   }
-//   this.height = height;
-//   this.base = base;
-//   this.side1 = side1;
-//   this.side2 = side2;
-// };
-// TriangleConstructor.prototype.perimeter = function (): number {
-//   return this.side1 + this.side2 + this.base;
-// };
-// TriangleConstructor.prototype.square = function (): number {
-//   return (this.height * this.base) / 2;
-// };
+const TriangleConstructor = function (
+  height: number,
+  base: number,
+  side1: number,
+  side2: number
+) {
+  if (height <= 0 || base <= 0 || side1 <= 0 || side2 <= 0) {
+    throw new Error("Number is invalid");
+  }
+  this.height = height;
+  this.base = base;
+  this.side1 = side1;
+  this.side2 = side2;
+};
+TriangleConstructor.prototype.perimeter = function (): number {
+  return this.side1 + this.side2 + this.base;
+};
+TriangleConstructor.prototype.square = function (): number {
+  return (this.height * this.base) / 2;
+};
 
 class Circle {
   radius: number;
@@ -271,19 +272,19 @@ class Circle {
   }
 }
 
-// const CircleConstructor = function (radius: number) {
-//   if (radius <= 0) {
-//     throw new Error("Radius is not valid");
-//   }
-//   this.radius = radius;
-// };
+const CircleConstructor = function (radius: number) {
+  if (radius <= 0) {
+    throw new Error("Radius is not valid");
+  }
+  this.radius = radius;
+};
 
-// CircleConstructor.prototype.perimeter = function (): number {
-//   return 2 * Math.PI * this.radius;
-// };
-// CircleConstructor.prototype.square = function (): number {
-//   return Math.PI * this.radius ** 2;
-// };
+CircleConstructor.prototype.perimeter = function (): number {
+  return 2 * Math.PI * this.radius;
+};
+CircleConstructor.prototype.square = function (): number {
+  return Math.PI * this.radius ** 2;
+};
 
 // // ============ TASK 8 ==========================
 // // Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала.
@@ -639,29 +640,38 @@ function countElementsAverageValue(
 //     followed: number;
 //   };
 // }
+interface IterateNum {
+  min: number;
+  current: number;
+  [Symbol.iterator](): {
+    previous: number;
+    current: number;
+    followed: number;
+    next(): { value: number; done: boolean };
+  };
+}
+const fibonacci: IterateNum = {
+  min: 0,
+  current: 1,
 
-// const fibonacci: IFibMemo = {
-//   min: 0,
-//   current: 1,
-
-//   [Symbol.iterator]() {
-//     return {
-//       previous: this.min,
-//       current: this.current,
-//       followed: this.current + this.min,
-//       next() {
-//         const result = {
-//           value: this.previous,
-//           done: false,
-//         };
-//         this.previous = this.current;
-//         this.current = this.followed;
-//         this.followed = this.previous + this.current;
-//         return result;
-//       },
-//     };
-//   },
-// };
+  [Symbol.iterator]() {
+    return {
+      previous: this.min,
+      current: this.current,
+      followed: this.current + this.min,
+      next() {
+        const result = {
+          value: this.previous,
+          done: false,
+        };
+        this.previous = this.current;
+        this.current = this.followed;
+        this.followed = this.previous + this.current;
+        return result;
+      },
+    };
+  },
+};
 
 // interface IFibGenMemo {
 //   previous: number;
@@ -792,139 +802,3 @@ function transformBitNotNumber3(num: number) {
 }
 
 export {};
-
-// Try changing the 'lib' compiler option to es2015 or later.
-
-interface Function {
-  myBind(params: any): any;
-}
-
-Function.prototype.myBind = function (context, ...rest: any[]) {
-  let fn = this;
-  const callback: unique symbol = Symbol();
-  return function (...args: any[]) {
-    context[callback] = fn;
-    const result = context[callback](...rest.concat(args));
-    delete context[callback];
-    return result;
-  };
-};
-
-interface Function {
-  myCall(params: any): any;
-}
-
-Function.prototype.myCall = function (context, ...args: any[]) {
-  const callback: unique symbol = Symbol();
-  context[callback] = this;
-  const result = context[callback](...args);
-  delete context[callback];
-  return result;
-};
-
-// /* ======================= Task 2 ==========================
-//  Написать свою реализацию функций для работы с массивами, которые являются аналогами следующих функций: map, filter, reduce, find, forEach.
-//  */
-
-type MapCallback = (arrItem: any, index?: number, arr?: any[]) => any;
-
-interface Array<T> {
-  myMap(callback: MapCallback): any[];
-}
-
-// interface Array<T> {
-//   myMap<Input, Output>(callback: (arg: Input, i: number) => Output): Output[];
-// }
-
-Array.prototype.myMap = function (callback) {
-  if (typeof callback !== "function") {
-    throw new Error("Callback is not a function");
-  }
-
-  let result = [];
-  for (let i: number = 0; i < this.length; i++) {
-    result[i] = callback(this[i], i, this);
-  }
-  return result;
-};
-
-type FilterCallback = (arrItem: any, i?: number, arr?: any[]) => boolean;
-
-interface Array<T> {
-  myFilter(params: FilterCallback): any[];
-}
-
-Array.prototype.myFilter = function (callback) {
-  if (typeof callback !== "function") {
-    throw new Error("Callback is not a function");
-  }
-
-  const result = [];
-  for (let i: number = 0; i < this.length; i++) {
-    if (callback(this[i], i, this)) {
-      result.push(this[i]);
-    }
-  }
-  return result;
-};
-
-type FindCallback = (arrItem: any, i?: number, arr?: any[]) => any | undefined;
-
-interface Array<T> {
-  myFind(params: FindCallback): any[] | undefined;
-}
-
-Array.prototype.myFind = function (callback) {
-  if (typeof callback !== "function") {
-    throw new Error("Callback is not a function");
-  }
-
-  for (let i: number = 0; i < this.length; i++) {
-    if (callback(this[i], i, this)) {
-      return this[i];
-    }
-  }
-  return undefined;
-};
-
-type ForEachCallback = (arrItem: any, index?: number, arr?: any[]) => any;
-interface Array<T> {
-  myForEach(callback: ForEachCallback): void;
-}
-
-Array.prototype.myForEach = function (callback) {
-  if (typeof callback !== "function") {
-    throw new Error("Callback is not a function");
-  }
-
-  for (let i: number = 0; i < this.length; i++) {
-    callback(this[i], i, this);
-  }
-};
-
-type ReduceCallback = (
-  accumulator: any,
-  arrItem: any,
-  index?: number,
-  arr?: any[]
-) => any;
-
-interface Array<T> {
-  myReduce(callback: ReduceCallback, acc?: any): any;
-}
-
-Array.prototype.myReduce = function (callback, acc) {
-  if (typeof callback !== "function") {
-    throw new Error("Callback is not a function");
-  }
-  let accumulator = acc || 0;
-
-  if (this.length === 0) {
-    return accumulator;
-  }
-
-  for (let i: number = 0; i < this.length; i++) {
-    accumulator = callback(accumulator, this[i], i, this);
-  }
-  return accumulator;
-};
