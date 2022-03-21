@@ -24,52 +24,34 @@ bankContainer.addEventListener("click", onDeleteCreditAccountClick);
 interface IDebit {
   balance: number;
   activity: number;
-  activityDate: FormDataEntryValue | null;
-  cardExpiryDate: FormDataEntryValue | null;
-  currency: FormDataEntryValue | null;
-  id: FormDataEntryValue | null;
-  accountId: FormDataEntryValue | null;
+  activityDate: string | File | null;
+  cardExpiryDate: string | File | null;
+  currency: string | File | null;
+  id: string | File | null;
+  accountId: string | File | null;
 }
 
 interface ICredit {
   balance: number;
   creditLimit: number;
   activity: number;
-  activityDate: FormDataEntryValue | null;
-  cardExpiryDate: FormDataEntryValue | null;
-  currency: FormDataEntryValue | null;
-  id: FormDataEntryValue | null;
-  accountId: FormDataEntryValue | null;
+  activityDate: string | File | null;
+  cardExpiryDate: string | File | null;
+  currency: string | File | null;
+  id: string | File | null;
+  accountId: string | File | null;
 }
 
 interface IClient {
   id: string;
-  name: FormDataEntryValue | null;
-  registrationDate: FormDataEntryValue | null;
+  name: string | File | null;
+  registrationDate: string | File | null;
   isActive: boolean;
   accounts: {
     debit?: IDebit[];
     credit?: ICredit[];
   };
 }
-
-// interface FormDataValue {
-
-//   name: string;
-//   registrationDate: string;
-// }
-
-// declare let FormData: {
-//   prototype: FormData;
-//   new (form?: HTMLFormElement): FormData;
-// };
-
-// interface FormData {
-//   entries(): IterableIterator<[string, string | File]>;
-//   keys(): IterableIterator<string>;
-//   values(): IterableIterator<string | File>;
-//   [Symbol.iterator](): IterableIterator<string | File>;
-// }
 
 function renderBank(bank: IClient[]): void {
   bankContainer.innerHTML = "";

@@ -101,3 +101,20 @@
 // function fail(msg: string): never {
 //   throw new Error(msg);
 // }
+// interface FormDataValue {
+
+//   name: string;
+//   registrationDate: string;
+// }
+
+// declare let FormData: {
+//   prototype: FormData;
+//   new (form?: HTMLFormElement): FormData;
+// };
+
+// interface FormData {
+//   entries(): IterableIterator<[string, string | File]>;
+//   keys(): IterableIterator<string>;
+//   values(): IterableIterator<string | File>;
+//   [Symbol.iterator](): IterableIterator<string | File>;
+// }

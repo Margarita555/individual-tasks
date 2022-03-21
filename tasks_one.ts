@@ -5,7 +5,7 @@ declare global {
 }
 
 String.prototype.mySplit = function (seperator) {
-  let str = this;
+  let str: string = this;
   let i: number = 0;
   let splitArray: string[] = [];
 
@@ -32,7 +32,7 @@ declare global {
 }
 
 Array.prototype.myJoin = function () {
-  let str = this;
+  let str: string = this;
   let newString: string = "";
   for (let i: number = 0; i < str.length; i++) {
     newString += str[i];
@@ -93,7 +93,7 @@ function checkIsAnogram(firstStr: string, secondStr: string): boolean {
   let firstWord: string = firstStr.toLowerCase();
   let secondWord: string = secondStr.toLowerCase();
 
-  for (let i = 0; i < firstWord.length; i++) {
+  for (let i: number = 0; i < firstWord.length; i++) {
     if (firstWord.indexOf(secondWord[i]) !== -1) {
       let currentLetter: string = firstWord[i];
       let length1: number = 0;
@@ -205,7 +205,6 @@ const RectangleConstructor = function (width: number, height: number) {
   if (width <= 0 || height <= 0) {
     throw new Error("Number is invalid");
   }
-
   this.width = width;
   this.height = height;
 };
@@ -631,16 +630,8 @@ function countElementsAverageValue(
 
 // // ============ TASK 18==========================
 // // Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии.
-// interface IFibMemo {
-//   min: number;
-//   current: number;
-//   [Symbol.iterator](): {
-//     previous: number;
-//     current: number;
-//     followed: number;
-//   };
-// }
-interface IterateNum {
+
+interface IterateFibNum {
   min: number;
   current: number;
   [Symbol.iterator](): {
@@ -650,7 +641,7 @@ interface IterateNum {
     next(): { value: number; done: boolean };
   };
 }
-const fibonacci: IterateNum = {
+const fibonacci: IterateFibNum = {
   min: 0,
   current: 1,
 
@@ -673,25 +664,26 @@ const fibonacci: IterateNum = {
   },
 };
 
-// interface IFibGenMemo {
-//   previous: number;
-//   current: number;
-//   [Symbol.iterator](): void;
-// }
-// const fibonacciGenerator = {
-//   previous: 0,
-//   current: 1,
+interface IFibGenerator {
+  previous: number;
+  current: number;
+  [Symbol.iterator](): Generator<number, void, number>;
+}
 
-//   [Symbol.iterator]: function* () {
-//     while (true) {
-//       let temporaryCurrent = this.current;
-//       let temporaryPrevious = this.previous;
-//       this.current = this.current + this.previous;
-//       this.previous = temporaryCurrent;
-//       yield temporaryPrevious;
-//     }
-//   },
-// };
+const fibonacciGenerator: IFibGenerator = {
+  previous: 0,
+  current: 1,
+
+  [Symbol.iterator]: function* () {
+    while (true) {
+      let temporaryCurrent: number = this.current;
+      let temporaryPrevious: number = this.previous;
+      this.current = this.current + this.previous;
+      this.previous = temporaryCurrent;
+      yield temporaryPrevious;
+    }
+  },
+};
 
 function fibonacciRecursion(num: number): number {
   if (num <= 1) {
@@ -723,39 +715,53 @@ const fibonacciMemo = (function () {
 
 // // ============ TASK 19 ==========================
 // // Реализовать с помощью итератора и генератора светофор. При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора.
-// const trafficLights = {
-//   lights: ["red", "yellow", "green", "yellow"],
-//   [Symbol.iterator]() {
-//     let index = 0;
-//     return {
-//       lights: this.lights,
-//       next() {
-//         index++;
-//         const isLastLight = index >= this.lights.length;
-//         if (isLastLight) {
-//           index = 0;
-//         }
-//         return {
-//           value: this.lights[index],
-//           done: false,
-//         };
-//       },
-//     };
-//   },
-// };
+interface ITrafficLights {
+  lights: string[];
+  [Symbol.iterator](): {
+    next(): { value: string; done: boolean };
+  };
+}
 
-// const trafficLightsGenerator = {
-//   lights: ["red", "yellow", "green", "yellow"],
-//   max: 10,
-//   index: 0,
-//   [Symbol.iterator]: function* () {
-//     for (let i = 0; i < this.max; i++) {
-//       let result = this.lights[this.index];
-//       this.index = this.index >= this.lights.length - 1 ? 0 : ++this.index;
-//       yield result;
-//     }
-//   },
-// };
+const trafficLights: ITrafficLights = {
+  lights: ["red", "yellow", "green", "yellow"],
+  [Symbol.iterator]() {
+    let index: number = 0;
+    return {
+      lights: this.lights,
+      next() {
+        index++;
+        const isLastLight: boolean = index >= this.lights.length;
+        if (isLastLight) {
+          index = 0;
+        }
+        return {
+          value: this.lights[index],
+          done: false,
+        };
+      },
+    };
+  },
+};
+
+interface ILightsGenerator {
+  lights: string[];
+  max: number;
+  index: number;
+  [Symbol.iterator](): Generator<string, void, string>;
+}
+
+const trafficLightsGenerator: ILightsGenerator = {
+  lights: ["red", "yellow", "green", "yellow"],
+  max: 10,
+  index: 0,
+  [Symbol.iterator]: function* () {
+    for (let i: number = 0; i < this.max; i++) {
+      let result: string = this.lights[this.index];
+      this.index = this.index >= this.lights.length - 1 ? 0 : ++this.index;
+      yield result;
+    }
+  },
+};
 
 // // ============ TASK 20 ==========================
 // // Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово).
